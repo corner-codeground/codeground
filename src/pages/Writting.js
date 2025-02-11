@@ -1,5 +1,5 @@
 //게시글 작성 및 수정
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useState, useRef, useEffect} from 'react'; 
 import { useNavigate } from 'react-router-dom';
 import './Writting.css';
 import DateDisplay from '../component/DateDisplay';
