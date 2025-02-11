@@ -1,0 +1,17 @@
+.hashtag-input input, .hashtag-list{
+    border-radius: 20px;
+    border: none;
+    background: #F5EDED;
+    color: #6E6E6E;
+    padding: 5px 10px;
+    font-size: 13px;
+    width: 100%;
+    box-sizing: border-box; 
+    margin: 5px 5px;
+    display: block;
+
+}
+
+.hashtag {
+    display: block;
+}

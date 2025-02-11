@@ -6,6 +6,7 @@ import DateDisplay from '../component/DateDisplay';
 import EditorToolbar from '../component/EditorToolbar';
 import Editor from '../component/Editor';
 import Button from '../component/Button';
+import HashtagInput from '../component/HashtagInput';
 
 const Writting = () => {
     const [title, setTitle] = useState('');
@@ -63,8 +64,12 @@ const Writting = () => {
             
             <div className="cancel-save-btn">
                 <Button text="취소" type="negative" onClick={handleCancel} />
+                <div className="right">
+                <HashtagInput />
                 <Button text="저장" type="default" onClick={() => alert('저장버튼 클릭!')} />
+                </div>
             </div>
+            
         </div>
     );
 };

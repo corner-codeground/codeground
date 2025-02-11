@@ -10,6 +10,7 @@ import Sign_up from "./pages/Sign_up";
 import Mypage from "./pages/Mypage";
 import Writting from "./pages/Writting";
 
+//완성되기 전 임시로 링크 설정해둠
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 상태 관리리
   return( 
