@@ -1,12 +1,13 @@
 .Button{
     cursor: pointer;
     border-width: 1px;
-    border-radius: 12px;
+    border-radius: 7px;
     font-size: 15px;
     font-family: "Inter";
     display: flex;             
     justify-content: center;   
-    align-items: center;      
+    align-items: center;
+    width: 50px;      
 }
 .Button_default{
     background-color:white;
@@ -45,7 +46,14 @@
     margin-top: 20px;
 }
 
-
 .login-btn:hover, .signup-btn:hover {
     background-color: #506a94;
+}
+
+.cancel-save-btn {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 70%;
+    margin-top: 10px;
 }

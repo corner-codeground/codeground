@@ -1,0 +1,50 @@
+.hashtag-input {
+    width: 110px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
+.hashtag-input input {
+    border-radius: 20px;
+    border: none;
+    background: #F5EDED;
+    color: #6E6E6E;
+    padding: 5px 10px;
+    font-size: 13px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 5px;
+}
+
+.hashtag {
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    border-radius: 20px;
+    border: none;
+    background: #F5EDED;
+    color: #6E6E6E;
+    padding: 5px 10px;
+    font-size: 13px;
+    width: auto;
+    box-sizing: border-box;
+    margin: 5px;
+}
+
+.remove-hashtag {
+    text-shadow: none;
+    cursor: pointer;
+    color: inherit;
+    margin-left: 5px;
+}
+
+.hashtag-list {
+    display: flex;
+    flex-wrap: wrap;  
+    gap: 5px;
+    align-items: flex-start;
+    justify-content: center; 
+    width: 70%;
+}
