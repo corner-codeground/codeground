@@ -1,10 +1,9 @@
 //해시태그 추출하기(게시물 작성 및 수정)
 import React, {useState} from 'react';
-import './HashtagInput.css';
+import './Hashtag.css';
 
-const HashtagInput = () => {
+const HashtagInput = ({ onAddHashtags }) => {
     const [inputValue, setInputValue] = useState('');
-    const [hashtags, setHashtags] = useState([]);
 
     const handleInputChange = (e) => {
         const value = e.target.value;
@@ -21,13 +20,16 @@ const HashtagInput = () => {
     const handleKeyDown = (e) => {
         if (e.key === 'Enter' && inputValue.trim() !== '') {
             e.preventDefault(); // 폼 제출 방지 (새로고침 방지)
+            
             const newHashtags = extractHashtags(inputValue);
-            setHashtags((prevHashtags) => [...prevHashtags, ...newHashtags]); // 기존 해시태그와 새로 추가된 해시태그 합치기
+            onAddHashtags(newHashtags);  // 부모 컴포넌트로 해시태그 전달
+            
             setInputValue(''); // 입력란 초기화
         }
     };
 
     return (
+        
         <div className="hashtag-input">
             <input
                 type="text"
@@ -36,16 +38,8 @@ const HashtagInput = () => {
                 onKeyDown={handleKeyDown}
                 placeholder="#해시태그 작성"
             />
-            {hashtags.length > 0 && (  //해시태그 작성 내용이 있는 경우 목록 보여줌
-                <div className="hashtag-list">
-                    {hashtags.map((hashtag, index) => (
-                        <div key={index} className="hashtag">
-                            {hashtag}
-                        </div>
-                    ))}
-                </div>
-            )}
         </div>
+
     );
 };
 

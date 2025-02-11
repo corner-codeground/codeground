@@ -24,11 +24,11 @@ function App() {
       <Route path="/writting" element={<Writting />} />
     </Routes>
     <div>
-      <Link to={"/"}>Home</Link>
-      <Link to={"/login"}>Login</Link>
-      <Link to={"/sign_up"}>Sign_up</Link>
-      <Link to={"/mypage"}>Mypage</Link>
-      <Link to={"/writting"}>Writting</Link>
+      <Link to={"/"}>Home  </Link>
+      <Link to={"/login"}>Login  </Link>
+      <Link to={"/sign_up"}>Sign_up  </Link>
+      <Link to={"/mypage"}>Mypage  </Link>
+      <Link to={"/writting"}>Writting  </Link>
     </div> 
   </div>
   );

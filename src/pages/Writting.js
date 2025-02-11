@@ -7,12 +7,17 @@ import EditorToolbar from '../component/EditorToolbar';
 import Editor from '../component/Editor';
 import Button from '../component/Button';
 import HashtagInput from '../component/HashtagInput';
+import HashtagList from '../component/HashtagList';
 
 const Writting = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const editorRef = useRef(null);
 
+    const [hashtags, setHashtags] = useState([]);  // 해시태그 상태 관리
+    const handleRemoveHashtag = (index) => {    //해시태그 삭제 함수
+        setHashtags(hashtags.filter((_, i) => i !== index));
+    };
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("제목: ", title);
@@ -24,6 +29,11 @@ const Writting = () => {
         if(editorRef.current) {
             document.execCommand(styleType, false, null);
         }
+    };
+
+    // 해시태그 추가 함수
+    const handleAddHashtag = (newHashtags) => {
+        setHashtags((prevHashtags) => [...prevHashtags, ...newHashtags]);
     };
 
     const navigate = useNavigate(); //취소 or 저장 버튼 누르면 페이지 이동동
@@ -65,11 +75,13 @@ const Writting = () => {
             <div className="cancel-save-btn">
                 <Button text="취소" type="negative" onClick={handleCancel} />
                 <div className="right">
-                <HashtagInput />
+                <HashtagInput onAddHashtags={handleAddHashtag} /> {/* 해시태그 추가 함수 전달 */}
                 <Button text="저장" type="default" onClick={() => alert('저장버튼 클릭!')} />
                 </div>
             </div>
-            
+            <div className="hashtag-list">
+                <HashtagList hashtags={hashtags} onRemoveHashtag={handleRemoveHashtag}/>  {/* 해시태그 목록 전달 */}
+            </div>
         </div>
     );
 };
