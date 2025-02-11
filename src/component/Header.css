@@ -1,0 +1,25 @@
+.header-container{
+    background-color: #6482AD;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+.logo a{
+    font: bold 20px Inter;
+    color: white;
+    text-decoration: none;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.right > div a{
+    display: flex;
+    color: white;
+    text-decoration: none;
+}

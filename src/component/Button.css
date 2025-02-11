@@ -1,0 +1,51 @@
+.Button{
+    cursor: pointer;
+    border-width: 1px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-family: "Inter";
+    display: flex;             
+    justify-content: center;   
+    align-items: center;      
+}
+.Button_default{
+    background-color:white;
+    border-color: #707070;
+    color: #707070;
+}
+.Button_positive{
+    background-color: #7FA1C3;
+    border-color: #707070;
+    color: white;
+}
+.Button_negative{
+    background-color: white;
+    border-color: #707070;
+    color: #707070;
+}
+.Button_login-btn, .Button_signup-btn, .Button_move-signup-btn {
+    width: 335px;
+    height: 45px;
+    font-size: 16px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+.Button_login-btn{
+    background-color: #7FA1C3;
+    color: white;
+    margin-top: 20px;
+}
+.Button_signup-btn{
+    background-color: #7FA1C3;
+    color: white;
+    margin-top: 20px;
+}
+
+
+.login-btn:hover, .signup-btn:hover {
+    background-color: #506a94;
+}
