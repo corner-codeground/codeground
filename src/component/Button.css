@@ -45,7 +45,14 @@
     margin-top: 20px;
 }
 
-
 .login-btn:hover, .signup-btn:hover {
     background-color: #506a94;
+}
+
+.cancel-save-btn {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    width: 70%;
+    margin-top: 10px;
 }
