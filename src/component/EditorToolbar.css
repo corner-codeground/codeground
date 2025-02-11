@@ -1,0 +1,19 @@
+.editor-toolbar {
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+}
+.editor-toolbar button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    color: black;
+    transition: color 0.3s ease;
+    padding: 5px;
+}
+.editor-toolbar button:focus {
+    outline: none; /* 버튼 포커스 시 외곽선 제거 */
+}
+

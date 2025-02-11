@@ -18,12 +18,12 @@ const Editor = ({ content, setContent }) => {
     }, [content]);
 
     return (
-        <div className="content-input">
+        <div className="content-input">      
             <div
                 ref={editorRef}
+                className="editable-content" 
                 contentEditable={true}
                 onInput={(e) => setContent(e.target.innerHTML)}
-                className="editable-content"
             />
         </div>
     );

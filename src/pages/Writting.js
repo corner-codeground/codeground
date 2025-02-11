@@ -26,10 +26,40 @@ const Writting = () => {
 
     //글에 스타일 적용하는 함수
     const applyStyle = (styleType) => {
-        if(editorRef.current) {
-            document.execCommand(styleType, false, null);
-        }
-    };
+        const editor = editorRef.current;
+        if (editor) {
+            const selection = window.getSelection();    //선택된 텍스트 가져오기기
+            const range = selection.getRangeAt(0);      //선택된 영역
+    
+            if (editor && range) {
+                const span = document.createElement('span');    //새 span 요소 생성성
+        
+                switch (styleType) {
+                    case 'bold':
+                        span.style.fontWeight = 'bold';
+                        break;
+                    case 'italic':
+                        span.style.fontStyle = 'italic';
+                        break;
+                    case 'underline':
+                        span.style.textDecoration = 'underline';
+                        break;
+                    case 'strikethrough':
+                        span.style.textDecoration = 'line-through';
+                        break;
+                    case 'highlighter':
+                        span.style.backgroundColor = 'yellow';
+                        break;
+                    case 'code':
+                        span.style.fontFamily = 'monospace';
+                        break;
+                    default:
+                        break;
+                }
+                range.surroundContents(span);  // 선택된 텍스트에 스타일 적용
+            }
+        };
+    }
 
     // 해시태그 추가 함수
     const handleAddHashtag = (newHashtags) => {
@@ -69,7 +99,7 @@ const Writting = () => {
                 </div>
             </div>
             <hr />
-            <EditorToolbar />
+            <EditorToolbar applyStyle={applyStyle}/>
             <Editor content={content} setContent={setContent} />
             
             <div className="cancel-save-btn">
