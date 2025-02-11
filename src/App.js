@@ -12,7 +12,7 @@ import Writting from "./pages/Writting";
 
 //완성되기 전 임시로 링크 설정해둠
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 상태 관리리
+  const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 상태 관리
   return( 
   <div className="App">
     <Header isLoggedIn={isLoggedIn} />
