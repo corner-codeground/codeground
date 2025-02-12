@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import BoardTabs from "../../component/BoardTabs";
 import PostPreview from './PostPreview';
 import Button from '../../component/Button';
 import {posts as allPosts} from './Posts';
@@ -36,6 +35,8 @@ const Board_Mypages = ({ boardId }) => {
     if (!boardData) {
         return <div>게시판 데이터를 불러오는 중입니다...</div>;
     }
+
+    
     //글쓰기 페이지로 이동
     const handleWriteClick = () => {
         navigate('/writting'); 
