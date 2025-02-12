@@ -22,9 +22,13 @@
     text-decoration: none;
     padding: 5px 7px;
 }
-.boardTab-bar ul li a:focus {
+.boardTab-bar ul li a:hover {
     color: #6482AD;
     font-weight: bold;
+}
+.boardTab-bar ul li a.active-link {
+    color: #6482AD;  
+    font-weight: bold;  
 }
 
 hr {

@@ -1,0 +1,39 @@
+.post-preview-container {  
+    display: grid;  
+    grid-template-columns: repeat(3, 1fr); /* 3개씩 정렬 */
+    gap: 20px; 
+    justify-content: center;  
+    margin-bottom: 70px;
+}
+
+/*TOP 3 게시물*/
+.top-posts {
+    grid-column: span 3; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 전체 게시물 */
+.all-posts {
+    grid-column: span 3; 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+/* 개별 게시물 크기 조정 */
+.post-preview {
+    width: 300px;
+    height: 250px;
+} 
+
+.separator {
+    grid-column: span 3; /* 전체 행 차지 */
+    width: 100%;
+    margin: 20px auto; 
+}

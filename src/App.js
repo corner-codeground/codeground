@@ -29,10 +29,10 @@ function App() {
       <Route path="/board_pages/:boardId" element={<BoardPages />} /> {/* 게시판 ID에 따라 다르게 */}
     </Routes>
     <div>
-      <Link to={"/"}>Home  </Link>
+      
       <Link to={"/login"}>Login  </Link>
       <Link to={"/sign_up"}>Sign_up  </Link>
-      <Link to={"/mypage"}>Mypage  </Link>
+      
     </div> 
   </div>
   );
