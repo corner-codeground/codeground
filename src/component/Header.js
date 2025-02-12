@@ -25,7 +25,7 @@ const Header = ({isLoggedIn}) => {
                 </div> 
                 <div className="nav-links">
                     <div>
-                        <Link to="/mypage">
+                        <Link to="/mypage/10">
                             <FaUser size={20} /></Link>
                     </div>
                 </div>

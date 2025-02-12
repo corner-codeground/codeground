@@ -1,0 +1,53 @@
+.mypage-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin: 0 auto;
+    width: 70%;
+    margin-bottom: 50px;
+}
+
+.page-title {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    font: bold 25px Inter;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+    text-align: left;  
+    display: flex;
+    justify-content: space-between; /* 양쪽 끝에 배치 */
+    align-items: center;
+}
+
+.mypage-separator {
+    width: 100%;
+    margin: 0px 0;
+}
+
+.goto-logout {
+    padding: 10px;
+    font-size: 15px;
+    cursor: pointer; 
+    text-align: right;
+    margin-bottom: 0px;
+    font-weight: normal;
+}
+
+.profile-img {
+    border-radius: 50%;
+    width: 85px;
+    height: 85px;
+    margin: 10px 10px;
+
+}
+.profile-container {
+    display: flex;
+    justify-content: flex-start; /* 이미지를 왼쪽 정렬 */
+    align-items: center; /* 세로로 가운데 정렬 */
+}
+
+.my-posts {
+    text-align: left;
+}
