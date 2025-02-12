@@ -10,6 +10,9 @@ import Sign_up from "./pages/Sign_up";
 import Mypage from "./pages/Mypage";
 import Writting from "./pages/Writting";
 
+// Board 컴포넌트 (게시판 이동 동적 처리)
+import BoardPages from './pages/board_pages/BoardPages';
+
 //완성되기 전 임시로 링크 설정해둠
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 상태 관리
@@ -22,13 +25,14 @@ function App() {
       <Route path="/sign_up" element={<Sign_up />} />
       <Route path="/mypage" element={<Mypage />} />
       <Route path="/writting" element={<Writting />} />
+      {/* 게시판 별 페이지 */}
+      <Route path="/board_pages/:boardId" element={<BoardPages />} /> {/* 게시판 ID에 따라 다르게 */}
     </Routes>
     <div>
       <Link to={"/"}>Home  </Link>
       <Link to={"/login"}>Login  </Link>
       <Link to={"/sign_up"}>Sign_up  </Link>
       <Link to={"/mypage"}>Mypage  </Link>
-      <Link to={"/writting"}>Writting  </Link>
     </div> 
   </div>
   );
