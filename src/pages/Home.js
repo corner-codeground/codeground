@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import BoardTabs from '../component/BoardTabs';
 import PostPreview from '../component/PostPreview';
 import './Home.css';
+import Button from '../component/Button';
 
 const Home= () => {
     const navigate = useNavigate();
@@ -20,11 +21,11 @@ const Home= () => {
         },
         {
             id: 2,
-            title: "React로 블로그 만들기",
-           // description: "React를 이용한 블로그 제작 방법",
-            author: "감귤귤",
-            date: "2025-02-14",
-            thumbnail: "image2.jpg" 
+            title: "리액트 로드맵",
+            //description: ,
+            author: "프론트엔드 천재",
+            date: "2025-02-16",
+            thumbnail: "image1.jpg"
         },
         {   
             id: 3,
@@ -45,11 +46,11 @@ const Home= () => {
         },
         {
             id: 5,
-            title: "React로 블로그 만들기",
-           // description: "React를 이용한 블로그 제작 방법",
-            author: "감귤귤",
-            date: "2025-02-14",
-            thumbnail: "image2.jpg" 
+            title: "리액트 로드맵",
+            //description: ,
+            author: "프론트엔드 천재",
+            date: "2025-02-16",
+            thumbnail: "image1.jpg"
         },
         {   
             id: 6,
@@ -60,6 +61,10 @@ const Home= () => {
             thumbnail: "image1.jpg"
         }
     ];
+    //글쓰기 페이지로 이동
+    const handleWriteClick = () => {
+        navigate('/writting'); 
+    };
     
     return (
         <div>
@@ -72,6 +77,12 @@ const Home= () => {
                     ))}
                 </div>
             </div>
+            {/* 글쓰기 버튼 */}
+            <Button 
+                text="+"
+                type="floating-btn"
+                onClick={handleWriteClick}
+            />
         </div>
     );
 };
