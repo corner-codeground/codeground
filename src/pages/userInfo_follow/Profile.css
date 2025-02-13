@@ -1,0 +1,61 @@
+.profile-container {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    text-align: left;
+    width: 100%;     
+}
+.profile-header {
+    display: flex;
+    width: 100%;
+}
+.profile-img {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    background-color: gray;
+    object-fit: cover; 
+    flex-shrink: 0;
+    margin-right: 20px;
+}
+.user-name {
+    font: bold 17px black;
+}
+.introduce-myself {
+    font: normal 13px black;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.profile-header {
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    width: 100%;
+    padding: 0 10px;
+}
+
+/* 왼쪽 프로필 정보 */
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+/* 사용자 이름 & 계정 관리 버튼 */
+.user-details, .setting-account {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.follow-info {
+    display: flex;
+    gap: 15px; 
+    align-items: center;
+}
+.follwing-num, .follwer-num{
+    width: auto;  
+    white-space: nowrap;
+    margin-top: 0; 
+}
+

@@ -37,3 +37,28 @@
     font-size: 12px;
     font-weight: normal;
 }
+.check-mark {
+    position: absolute; /* 부모 요소의 위치를 기준으로 설정 */
+    top: 10px; /* 원하는 위치로 조정 */
+    right: 10px;
+    font-size: 20px;
+    color: green; /* 체크 표시 색상 */
+    font-weight: bold;
+    display: none; /* 기본적으로 숨김 */
+}
+.post-preview.selected .check-mark {
+    display: block; /* 선택된 게시글에서만 체크 표시 보이기 */
+}
+.post-preview.selected {
+    border: 2px solid #007bff; /* 선택된 게시글에 파란색 테두리 */
+    background-color: #f0f8ff; /* 선택된 게시글 배경색 */
+}
+.select-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0); /* 클릭 영역 설정 */
+    cursor: pointer;
+}

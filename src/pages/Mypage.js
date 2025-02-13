@@ -1,13 +1,13 @@
 import "./Mypage.css";
-import profileImage from '../profile.jpg'; // 이미지 경로(임시)
+import Profile from './userInfo_follow/Profile'; // 이미지 경로(임시)
 import Mypage_BoardTab from '../component/Mypage_BoardTab';
 import Board_Mypages from './board_pages/Board_Mypages';
 import { useParams, useNavigate  } from 'react-router-dom';
 
 
 const Mypage= () => {
-    const { boardId } = useParams();  // 🔹 URL에서 boardId 가져오기
-    const currentBoardId = boardId || "10";  // 🔹 URL에 값이 없으면 기본값 10
+    const { boardId } = useParams();  // URL에서 boardId 가져오기
+    const currentBoardId = boardId || "10";  // URL에 값이 없으면 기본값 10
     const navigate = useNavigate();
 
     // 로그아웃 함수
@@ -26,8 +26,7 @@ const Mypage= () => {
             </div>
             <hr className="mypage-separator"/>
             <div className="profile-container">
-                <img src={profileImage} alt="프로필 사진" className="profile-img" /> 
-                <div className="personal-info"> 개인정보(이름, 이메일 등) </div>
+                <Profile />
             </div>
             <div className="my-posts">
                 <Mypage_BoardTab />

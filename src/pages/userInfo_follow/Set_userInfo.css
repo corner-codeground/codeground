@@ -1,0 +1,97 @@
+.mypage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+
+}
+
+.mypage-container.dark-mode {
+    background-color: #201F1F;
+    color: #fff;
+}
+
+.mypage-container.light-mode {
+    background-color: #fff;
+    color: black;
+}
+
+.change-img {
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    background-color: gray;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.user-info-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+.user-info-form input {
+    width: 250px;
+    margin-left: 30px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    width: 100%;
+    margin-bottom: 15px;
+}
+.form-group label {
+    width: 120px; /* 고정된 너비 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.form-group input {
+    flex: 1; /* 남은 공간을 채우도록 설정 */
+    width: 100%; /* 기본적으로 너비 100% */
+    max-width: 300px; /* 입력 필드 최대 너비 제한 */
+    padding: 5px;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    /* justify-content: center; 전체 중앙 정렬 */
+    /* gap: 10px; 라디오 버튼 그룹 간 간격 */
+}
+.radio-container label {
+    margin-left: 10px; /* 라벨과 버튼 사이 간격 줄이기 */
+}
+
+.radio-container input {
+    margin-left: 15px; /* 라디오 버튼끼리의 간격 */
+}
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 3px; /* 레이블과 버튼 사이 간격 줄이기 */
+}
+/* 버튼 중앙 정렬 */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    margin-top: 20px;
+}
+.set-mode {
+    width: 120px; /* 고정된 너비 설정 */
+    text-align: left;
+    font-weight: normal;
+    color: black;
+    font-size: 16px;
+    margin-right: 25px;
+    text-shadow: none;
+}

@@ -76,3 +76,37 @@
     right: 17%; 
     z-index: 1000; /* 다른 요소 위로 표시 */
 }
+.Button_edit-delete {
+    background-color:white;
+    border-color: #707070;
+    color: #707070;
+    top: 50%;
+    margin-left: 93%;
+    margin-top: 10px;
+}
+
+.Button_edit-account {
+    background-color:white;
+    border-color: #707070;
+    color: #707070;
+}
+
+.Button_back {
+    background-color:white;
+    border-color: #707070;
+    color: #707070;
+    height: 25px;
+}
+.Button_save-btn {
+    color:white;
+    border: none;
+    background-color: #7FA1C3;
+    height: 25px;
+    width: 100px;
+}
+
+.Button_set-account-btn {
+    border: none;
+    background-color: white;
+    width: 300px;
+}

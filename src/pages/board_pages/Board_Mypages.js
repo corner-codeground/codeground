@@ -3,6 +3,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import PostPreview from './PostPreview';
 import Button from '../../component/Button';
 import {posts as allPosts} from './Posts';
+import Follow_manager from '../userInfo_follow/Follow_manager';
 import './BoardPages.css';
 
 const Board_Mypages = ({ boardId }) => {
@@ -10,6 +11,9 @@ const Board_Mypages = ({ boardId }) => {
 
     const [boardData, setBoardData] = useState(null); //게시판 데이터 상태 관리
     const [posts, setPosts] = useState([]); // 게시글 상태 관리
+
+    const [selectedPosts, setSelectedPosts] = useState([]); // 선택된 게시글 관리
+    const [isEditing, setIsEditing] = useState(false); // 편집 모드 상태
 
     useEffect(() => { //게시판 데이터 불러오기
         const fetchBoardData = async () => {
@@ -42,11 +46,55 @@ const Board_Mypages = ({ boardId }) => {
         navigate('/writting'); 
     };
 
+    // 편집 모드 전환 함수
+    const handleEditClick = () => {
+        setIsEditing(prev => !prev);  // 편집 모드 토글
+    };
+    // 게시글 선택 함수
+    const handlePostSelect = (postId) => {
+        setSelectedPosts((prev) => {
+            if (prev.includes(postId)) {
+                // 이미 선택된 게시글은 선택 해제
+                return prev.filter((id) => id !== postId);
+            } else {
+                // 선택되지 않은 게시글은 선택
+                return [...prev, postId];
+            }
+        });
+    };
+    // 선택된 게시글 삭제 함수
+    const handleDeleteClick = () => {
+        const updatedPosts = posts.filter((post) => !selectedPosts.includes(post.id));
+        setPosts(updatedPosts);
+        setSelectedPosts([]); // 삭제 후 선택된 게시글 초기화
+    };
+
+    // boardId === "13"일 때 팔로우 관리 화면으로
+    if (boardId === "13") {
+        return (
+            <Follow_manager />
+        );
+    }
+
     return (
         <div>
+            {boardId === "12" && (
+                <div className="button-container">
+                <Button
+                    text={isEditing ? "삭제" : "편집"}  // 편집 모드일 때 삭제로 바뀜
+                    type="edit-delete"
+                    onClick={isEditing ? handleDeleteClick : handleEditClick}  // 클릭 시 동작 변경
+                />
+            </div>
+            )}
             <div className="all-posts"> 
                 {posts.map((post) => (
-                    <PostPreview key={post.id} post={post} />
+                    <PostPreview key={post.id} post={post}
+                        isEditing={isEditing}
+                        onSelect={() => handlePostSelect(post.id)} // 게시글 선택 처리
+                        isSelected={selectedPosts.includes(post.id)} // 선택된 게시글인지 확인
+                        boardId={boardId}
+                    />
                 ))}
             </div>
             {/* 글쓰기 버튼 */}
