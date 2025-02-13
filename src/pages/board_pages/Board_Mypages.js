@@ -72,7 +72,9 @@ const Board_Mypages = ({ boardId }) => {
     // boardId === "13"일 때 팔로우 관리 화면으로
     if (boardId === "13") {
         return (
-            <Follow_manager />
+            <div className="follow-manager-wrapper">
+                <Follow_manager />
+            </div>
         );
     }
 

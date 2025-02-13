@@ -1,0 +1,91 @@
+.whole-page {
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    margin: 0 auto;
+    width: 70%;
+    margin-bottom: 50px;
+}
+
+.content-separator {
+    display: inline-block; 
+    width: 100%;
+    margin-top: -20px; 
+}
+.this-post-title {
+    font: bold 25px Inter;
+    background: transparent;
+    text-align: left;  
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.this-post-author {
+    font: normal 15px Inter;
+    background: transparent;
+    text-align: left;  
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+    color: #6E6E6E;
+}
+
+.post-date_hashtag {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.post-date {
+    font-size: 13px;
+    color: #6E6E6E;
+    text-shadow: none;
+}
+
+.post-hashtag {
+    display: flex;
+    align-items: center;
+    text-shadow: none;
+    font-weight: normal;
+}
+
+.post-hashtag .hashtag-list {
+    display: flex;
+    flex-wrap: nowrap; /* 한 줄에 가로로 길게 배열되도록 설정 */
+    overflow-x: auto; /* 넘칠 경우 가로 스크롤 가능 */
+    white-space: nowrap; /* 줄바꿈 방지 */
+    width: 100%; /* 가득 차도록 설정 */
+}
+.post-hashtag .remove-hashtag {
+    display: none;
+}
+.post-content-box {
+    border: none; 
+    padding: 10px; /* 내부 여백 */
+    background-color: white; 
+    width: 100%; 
+}
+
+.code-block {
+    margin: 20px 0;
+    background-color: #3E3E3E;
+    padding: 15px;
+    font-family: 'Courier New', monospace;
+    color: white;
+    white-space: pre-wrap; /* 줄바꿈을 유지 */
+    word-wrap: break-word; /* 긴 코드도 잘라서 보이도록 */
+    overflow-x: auto; /* 긴 코드가 화면을 넘으면 가로로 스크롤 */
+    display: block; /* 블록 요소로 처리 */
+    max-width: 100%; /* 부모 요소에 맞춰 최대 너비를 조절 */
+}
+/* 코드 실행 결과를 보여줄 블록 스타일 */
+.code-block-run {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #878787; /* 코드와 다른 색으로 구분 */
+    font-family: 'Courier New', monospace;
+    white-space: pre-wrap; /* 줄바꿈을 유지 */
+    word-wrap: break-word; /* 긴 코드도 잘라서 보이도록 */
+    color: black; /* 좀 더 밝은 색으로 */
+}

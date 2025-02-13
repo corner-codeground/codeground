@@ -11,7 +11,7 @@ const Profile = () => {
     return (
         <div className="profile-container">
             <div className="profile-header">
-                <div className="user-info">
+                <div className="profile-user-info">
                     <img src="/default-profile.png" alt="이미지" className="profile-img" />
                     <div className="user-details">
                         <div className="user-name">김코너</div>

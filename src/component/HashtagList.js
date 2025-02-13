@@ -1,7 +1,7 @@
 import React from 'react';
 import './Hashtag.css';
 
-const HashtagList = ({ hashtags, onRemoveHashtag }) => {
+const HashtagList = ({ hashtags=[], onRemoveHashtag }) => {
     return (
         <div className="hashtag-list">
             {hashtags.map((hashtag, index) => (

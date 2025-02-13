@@ -1,3 +1,4 @@
+//게시글 입력 칸
 import React, { useEffect, useRef } from 'react';
 
 const Editor = ({ content, setContent }) => {

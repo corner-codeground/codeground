@@ -16,7 +16,6 @@ const PostPreview = ({ post, isEditing, onSelect, isSelected, boardId }) => {
     };
 
     const handleSelectClick = (e) => {
-        e.stopPropagation(); // 클릭 시 이동 방지
         if (isEditing) { 
             onSelect(post.id); 
         }
