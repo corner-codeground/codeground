@@ -7,12 +7,26 @@ import {useNavigate} from "react-router-dom";
 const Set_userInfo = () => {
 
     const [mode, setMode] = useState('light'); // 기본모드 상태
+    const [username, setUsername] = useState('김코너'); // 상태로 닉네임 관리
+    const [userId, setUserId] = useState('corner23'); // 상태로 아이디 관리
+    const [bio, setBio] = useState('안녕하세요! 김코너의 개발 블로그입니다~'); // 상태로 자기소개 관리
 
     const handleModeChange = (e) => {
         setMode(e.target.value); // 라디오 버튼 값에 따라 모드 변경
     };
-
     const navigate = useNavigate();
+
+    const handleSave = () => {
+        // 수정된 값을 state로 전달하여 account 페이지로 이동
+        navigate('/account', {
+            state: {
+                username,
+                userId,
+                bio,
+                mode,
+            },
+        });
+    };
     
     return (
         <div className={`mypage-container ${mode === 'dark' ? 'dark-mode' : ''} ${mode === 'light' ? 'light-mode' : ''}`}>
@@ -24,15 +38,30 @@ const Set_userInfo = () => {
             <form className="user-info-form">
                 <div className="form-group">
                     <label htmlFor="username">닉네임</label>
-                    <input type="text" id="username" name="username" placeholder="김코너" />
+                    <input type="text"
+                        id="username" 
+                        name="username" 
+                        value={username} // 상태값을 입력 필드에 바인딩
+                            onChange={(e) => setUsername(e.target.value)} // 입력값 변경 시 상태 업데이트
+                        />
                 </div>
                 <div className="form-group">
                     <label htmlFor="userId">아이디</label>
-                    <input type="text" id="userId" name="userId" placeholder="corner23" />
+                    <input type="text" 
+                        id="userId" 
+                        name="userId" 
+                        value={userId} // 상태값을 입력 필드에 바인딩
+                        onChange={(e) => setUserId(e.target.value)} // 입력값 변경 시 상태 업데이트
+                    />
                 </div>
                 <div className="form-group">
                     <label htmlFor="password">자기소개</label>
-                    <input type="password" id="password" name="password" placeholder="안녕하세요! 김코너의 개발 블로그입니다~" />
+                    <input type="text" 
+                        id="bio" 
+                        name="bio" 
+                        value={bio} // 상태값을 입력 필드에 바인딩
+                        onChange={(e) => setBio(e.target.value)} // 입력값 변경 시 상태 업데이트
+                    />
                 </div>
                 {/* 라디오 버튼으로 다크 모드 및 기본 모드 설정 */}
                 <div className="radio-container">
@@ -61,8 +90,8 @@ const Set_userInfo = () => {
                     </div> 
                 </div>
                 <div className="form-buttons">
-                    <Button type="back" text="취소" onClick={() => navigate("/account")} />
-                    <Button type="save-btn" text="수정 완료" />
+                <Button onClick={() => navigate("/account",{ state: { username, userId, bio, mode }})}  type="back" text="취소" />
+                <Button type="save-btn" text="수정 완료" onClick={handleSave}/>
                 </div>
             </form>
         </div>

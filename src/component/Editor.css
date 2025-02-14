@@ -1,0 +1,25 @@
+.editable-content pre {
+    background-color: #3E3E3E;
+    padding: 10px;
+    font-family: monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 10px 0;
+    min-height: 40px;
+    height: auto;  /* 높이를 자동으로 조정 */
+    overflow: auto;  /* 내용이 넘칠 경우 스크롤바 표시 */
+}
+
+.editable-content code {
+    font-family: monospace;
+    color: white;
+}
+
+.editor-style {
+    font-weight: normal;
+    background-color: none;
+    font-family: 'monospace';
+    font-size: 14px;
+    text-shadow: none;
+    color: black;
+}

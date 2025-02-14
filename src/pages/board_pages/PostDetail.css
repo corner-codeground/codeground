@@ -12,6 +12,11 @@
     width: 100%;
     margin-top: -20px; 
 }
+.title-container {
+    display: flex;
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: space-between; /* 필요하면 간격 조절 가능 */
+}
 .this-post-title {
     font: bold 25px Inter;
     background: transparent;
@@ -65,6 +70,7 @@
     padding: 10px; /* 내부 여백 */
     background-color: white; 
     width: 100%; 
+    
 }
 
 .code-block {
@@ -88,4 +94,17 @@
     white-space: pre-wrap; /* 줄바꿈을 유지 */
     word-wrap: break-word; /* 긴 코드도 잘라서 보이도록 */
     color: black; /* 좀 더 밝은 색으로 */
+    
+}
+.scrap-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    margin-top: 15px;
+}
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    margin-top: 10px; /* 필요하면 위쪽 여백 조절 */
 }

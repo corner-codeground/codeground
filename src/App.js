@@ -15,10 +15,13 @@ import Writting from "./pages/Writting";
 import BoardPages from './pages/board_pages/BoardPages';
 import Board_Mypages from './pages/board_pages/Board_Mypages';
 import PostDetail from './pages/board_pages/PostDetail'; // 상세 페이지 컴포넌트
+import PostEditPage from './pages/board_pages/PostEditPage';     // PostEdit 컴포넌트
 
 // 계정 관리 페이지 
 import Set_userInfo from './pages/userInfo_follow/Set_userInfo'; // 경로 추가
 import Account from './pages/userInfo_follow/Account';
+
+import ProfilePage from './pages/ProfilePage';  // 프로필 페이지 임포트
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 상태 관리
@@ -35,11 +38,15 @@ function App() {
       {/* 게시판 별 페이지 */}
       <Route path="/board_pages/:boardId" element={<BoardPages />} /> {/* 게시판 ID에 따라 다르게 */}
       <Route path="/post/:postId" element={<PostDetail />} /> {/* 포스트 상세 페이지 */}
+      <Route path="/post-edit/:postId" element={<PostEditPage />} />
       <Route path="/mypages/:boardId" element={<Board_Mypages />} />
 
       {/* 계정 관리 페이지 추가 */}
       <Route path="/profile-edit" element={<Set_userInfo />} /> 
       <Route path="/account" element={<Account />} /> 
+      
+      {/* 친구 프로필 페이지 추가 */}
+      <Route path="/profile/:userId" element={<ProfilePage />} /> {/* 동적 프로필 페이지 */}
     </Routes>
     <div>
       

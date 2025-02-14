@@ -1,11 +1,16 @@
-// Follow_manager.js
+// 팔로우 관리 탭
 import React from 'react';
 import './Follow_manager.css';
+import Following from './Following_Follower/Following';
+import Follower from './Following_Follower/Follower';
 
 const Follow_manager = () => {
     return ( // return 구문 추가
         <div className="follow-management">
-            <div>팔로우한 유저 목록 (여기에 추가적인 UI 넣기)</div>
+            <div className="following-set">
+                <Following /></div>
+            <div className="follower-set">
+                <Follower /></div>
         </div>
     );
 };

@@ -1,14 +1,14 @@
+/* Follow_manager.css */
 .follow-management {
-    width: 100%;
-    padding: 20px;  /* 여백 추가 */
-    box-sizing: border-box;
-    background-color: #f5f5f5;  /* 배경 색상 */
-    border-radius: 8px;  /* 모서리 둥글게 */
-    display: block;  /* 그리드에서 벗어나도록 설정 */
-    max-width: 1200px; /* 최대 너비 설정 */
-    margin: 0 auto;  /* 가운데 정렬 */
+    display: flex;
+    justify-content: center;  /* 화면 가운데 정렬 */
+    align-items: flex-start;  /* 위쪽 정렬 */
+    gap: 30px;  /* 목록 간 간격 */
+    padding: 20px;
 }
-.follow-management-wrapper {
-    width: 100%;
-    margin-bottom: 20px; /* 아래쪽 여백 */
+
+.following-set, .follower-set {
+    display: flex;
+    flex-direction: column;
+    width: 300px;  /* 각 목록의 너비 설정 */
 }

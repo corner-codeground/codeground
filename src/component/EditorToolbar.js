@@ -2,7 +2,8 @@ import React from 'react';
 import { FaBold, FaItalic, FaUnderline, FaStrikethrough, FaHighlighter, FaCode } from 'react-icons/fa'; // FontAwesome 아이콘 임포트 (npm install react-icons)
 import './EditorToolbar.css';
 
-const EditorToolbar = ({applyStyle}) => {
+const EditorToolbar = ({applyStyle, insertCodeBlock}) => {
+
     return (
         <div className="editor-toolbar">
             <button onClick={() => applyStyle('bold')} title="Bold">
@@ -20,7 +21,7 @@ const EditorToolbar = ({applyStyle}) => {
             <button onClick={() => applyStyle('highlighter')} title="Highlighter">
                 <FaHighlighter />
             </button>
-            <button onClick={() => applyStyle('code')} title="Code">
+            <button onClick={insertCodeBlock} title="Code">
                 <FaCode />
             </button>
         </div>

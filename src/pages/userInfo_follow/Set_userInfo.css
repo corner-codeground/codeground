@@ -64,20 +64,24 @@
 .radio-container {
     display: flex;
     align-items: center;
-    /* justify-content: center; 전체 중앙 정렬 */
-    /* gap: 10px; 라디오 버튼 그룹 간 간격 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    width: 100%;
+    margin-bottom: 15px;
 }
-.radio-container label {
-    margin-left: 10px; /* 라벨과 버튼 사이 간격 줄이기 */
+.radio-option label {
+    white-space: nowrap;
+    text-align: left;
+}
+.radio-option input {
+    margin: 0; /* 불필요한 여백 제거 */
+    vertical-align: middle;
+    padding: 0;
 }
 
-.radio-container input {
-    margin-left: 15px; /* 라디오 버튼끼리의 간격 */
-}
 .radio-option {
     display: flex;
     align-items: center;
-    gap: 3px; /* 레이블과 버튼 사이 간격 줄이기 */
+    gap: 8px;
 }
 /* 버튼 중앙 정렬 */
 .form-buttons {
@@ -87,11 +91,11 @@
     margin-top: 20px;
 }
 .set-mode {
-    width: 120px; /* 고정된 너비 설정 */
-    text-align: left;
     font-weight: normal;
-    color: black;
     font-size: 16px;
-    margin-right: 25px;
-    text-shadow: none;
+    color: black;
+    margin-bottom: 5px; /* 라디오 버튼 그룹과의 간격 */
+    text-align: left;
+    width: 100%;
+    text-shadow:none;
 }

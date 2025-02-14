@@ -24,3 +24,56 @@
     color: white;
     text-decoration: none;
 }
+
+/* 검색 입력 필드가 헤더 안에만 나타나도록 스타일 */
+.search-input-container {
+    /* display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.9); 
+    border-radius: 5px;
+    padding: 5px 15px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 999; 
+    display: none; */
+    display: none; /* 기본적으로 숨김 */
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+} 
+
+.search-input-container input {
+    /* width: 300px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px; */
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-input-container .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6482AD;
+    margin-left: 10px;
+}
+
+/* 검색 아이콘 클릭 시 검색창이 보이도록 설정 */
+.search-input-container.show {
+    /* display: flex; */
+    display: block;
+}
+/* 페이지 내용이 밀리도록 하는 스타일 */
+.search-open {
+    margin-top: 60px; /* 검색창의 높이만큼 밀리도록 */
+}
