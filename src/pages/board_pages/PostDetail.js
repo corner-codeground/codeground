@@ -14,6 +14,9 @@ const PostDetail = () => {
     const [codeResult, setCodeResult] = useState(null); // 코드 실행 결과 상태
     const [showResult, setShowResult] = useState(false); // 실행 결과 표시 여부 상태
     const [scrapped, setScrapped] = useState(false);  // 스크랩 상태
+    const [comments, setComments] = useState(0);  // 댓글 수
+    const [likes, setLikes] = useState(0);  // 좋아요 수
+    const [liked, setLiked] = useState(false); // 좋아요 상태
 
     // 사용자 정보 (닉네임, 사진)
     const user = {
@@ -28,6 +31,8 @@ const PostDetail = () => {
         const foundPost = posts.find((post) => post.id === parseInt(postId)); // postId는 문자열일 수 있으므로 parseInt
         if (foundPost) {
             setPost(foundPost);
+            setLikes(foundPost.likes);  // 초기 좋아요 값 설정
+            setComments(foundPost.comments);  // 초기 댓글 값 설정
         }
     }, [postId]);
 
@@ -94,6 +99,11 @@ const PostDetail = () => {
         console.log("삭제 버튼 클릭");
     };
 
+    const handleLikeClick = () => {
+        setLikes(likes + 1);  // 좋아요 클릭 시 좋아요 수 증가
+        setLiked(!liked); // 클릭할 때마다 상태를 반전시킴
+    };
+
     return (
         <div className="whole-page">
             <div className="title-container">
@@ -131,7 +141,21 @@ const PostDetail = () => {
                 )}
             </div>
 
-            <div className="comment">
+        <div className="comment">
+            <div className="post-stats-detail">
+                {/* 댓글 아이콘 추가 */}
+                <span className="comments-count">
+                    <i className="fas fa-comment"></i> {comments}
+                </span>
+                {/* 좋아요 아이콘 추가 */}
+                <span className="likes-count">
+                    <i className="fas fa-heart"></i> {likes}
+                </span>
+                <span className={`plus-likes-count ${liked ? 'liked' : ''}`}  onClick={handleLikeClick}>
+                    <i className="fas fa-heart"></i> 
+                </span>
+            </div>
+            
                 <hr className="content-separator" />
                 {/* 댓글 컴포넌트에 사용자 정보 전달 */}
                 <CommentSection user={user} />

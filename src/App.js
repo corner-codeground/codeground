@@ -22,6 +22,7 @@ import Set_userInfo from './pages/userInfo_follow/Set_userInfo'; // 경로 추�
 import Account from './pages/userInfo_follow/Account';
 
 import ProfilePage from './pages/ProfilePage';  // 프로필 페이지 임포트
+//import BoardPages_category from './pages/board_pages/BoardPages_category';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 상태 관리
@@ -47,6 +48,7 @@ function App() {
       
       {/* 친구 프로필 페이지 추가 */}
       <Route path="/profile/:userId" element={<ProfilePage />} /> {/* 동적 프로필 페이지 */}
+      {/* <Route path="/profile/:userId/category" element={<BoardPages_category />} /> 동적 프로필 페이지 */}
     </Routes>
     <div>
       

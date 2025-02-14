@@ -22,6 +22,7 @@ const Board_Mypages = ({ boardId }) => {
                 11: { title: '스크랩', description: '스크랩한 글들.' },
                 12: { title: '글 관리', description: '글 관리.' },
                 13: { title: '팔로우 관리', description: '팔로우 관리.' },
+                20: { title: '카테고리', description: '다른 사람 계정에서 카테고리별 게시판'}
             };
 
             setBoardData(data[boardId]);    //boardId에 맞는 데이터 설정
@@ -39,7 +40,6 @@ const Board_Mypages = ({ boardId }) => {
     if (!boardData) {
         return <div>게시판 데이터를 불러오는 중입니다...</div>;
     }
-
     
     //글쓰기 페이지로 이동
     const handleWriteClick = () => {
@@ -69,11 +69,55 @@ const Board_Mypages = ({ boardId }) => {
         setSelectedPosts([]); // 삭제 후 선택된 게시글 초기화
     };
 
+    // 카테고리별 게시글로 분류
+    const categorizePosts = () => {
+        const categorized = {};
+    
+        posts.forEach(post => {
+            // 카테고리 값이 없으면 '기타'로 분류하고, 공백이나 대소문자를 처리
+            const category = (post.category && post.category.trim().toLowerCase()) || '기타';
+            if (!categorized[category]) {
+                categorized[category] = [];
+            }
+            categorized[category].push(post);
+        });
+    
+        return categorized;
+    };
+
     // boardId === "13"일 때 팔로우 관리 화면으로
     if (boardId === "13") {
         return (
             <div className="follow-manager-wrapper">
                 <Follow_manager />
+            </div>
+        );
+    }
+
+    // boardId === "20"일 때 카테고리별로 게시글을 보여주는 UI
+    if (boardId === "20") {
+        const categorizedPosts = categorizePosts();
+        console.log(categorizedPosts); // 카테고리별로 분류된 게시글 확인
+    
+        return (
+            <div>
+                {Object.keys(categorizedPosts).map((category) => (
+                    <div key={category}>
+                        <h2>{category}</h2> {/* 카테고리 제목 */}
+                        <div className="all-posts">
+                            {categorizedPosts[category].map((post) => (
+                                <PostPreview
+                                    key={post.id}
+                                    post={post}
+                                    isEditing={isEditing}
+                                    onSelect={() => handlePostSelect(post.id)} // 게시글 선택 처리
+                                    isSelected={selectedPosts.includes(post.id)} // 선택된 게시글인지 확인
+                                    boardId={boardId}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                ))}
             </div>
         );
     }

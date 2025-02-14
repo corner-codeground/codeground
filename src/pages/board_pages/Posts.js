@@ -24,6 +24,9 @@ export const posts = [
 
         console.log(add(2, 3)); // 5
         console.log(multiply(2, 3)); // 6`,
+        comments: 12, // 댓글 수
+        likes: 34, // 좋아요 수
+        category: '프론트엔드'
     },
     {
         id: 2,
@@ -50,6 +53,9 @@ export const posts = [
 
         console.log(add(2, 3)); // 5
         console.log(multiply(2, 3)); // 6`,
+        comments: 12, // 댓글 수
+        likes: 34, // 좋아요 수
+        category: '프론트엔드'
     },
     {   
         id: 3,
@@ -76,6 +82,9 @@ export const posts = [
 
                 console.log(add(2, 3)); // 5
                 console.log(multiply(2, 3)); // 6`,
+        comments: 12, // 댓글 수
+        likes: 34, // 좋아요 수
+        category: '백엔드'
     },
     {   
         id: 4,
@@ -102,6 +111,9 @@ export const posts = [
 
         console.log(add(2, 3)); // 5
         console.log(multiply(2, 3)); // 6`,
+        comments: 12, // 댓글 수
+        likes: 34, // 좋아요 수
+        category: '백엔드'
     },
     {
         id: 5,
@@ -128,6 +140,9 @@ export const posts = [
 
         console.log(add(2, 3)); // 5
         console.log(multiply(2, 3)); // 6`,
+        comments: 12, // 댓글 수
+        likes: 34, // 좋아요 수
+        category: '보안'
     },
     {   
         id: 6,
@@ -154,5 +169,8 @@ export const posts = [
 
         console.log(add(2, 3)); // 5
         console.log(multiply(2, 3)); // 6`,
+        comments: 12, // 댓글 수
+        likes: 34, // 좋아요 수
+        category: '프론트엔드'
     }
 ];

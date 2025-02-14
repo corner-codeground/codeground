@@ -15,16 +15,17 @@
     border-bottom: 1px solid #ddd;
     padding: 15px 0;
     display: flex;
-    flex-direction: column; /* 세로로 배치 */
+    flex-direction: column; 
     align-items: flex-start; /* 상단 정렬 */
     gap: 10px;  /* 여백 조정 */
+    position: relative;
 }
 
 /* 사진과 댓글 내용 */
 .comment-author {
     display: flex;
     gap: 10px;
-    align-items: flex-start; /* 상단 정렬 */
+    align-items: flex-start; 
 }
 
 /* 프로필 사진 */
@@ -39,9 +40,10 @@
 .comment-details {
     display: flex;
     flex-direction: column; /* 세로로 배치 */
-    align-items: flex-start; /* 상단 정렬 */
+    align-items: flex-start; 
     gap: 5px; /* 간격 추가 */
     flex: 1;
+    position: relative; 
 }
 
 /* 닉네임 */
@@ -65,10 +67,11 @@
 
 /* 댓글 수정, 삭제 버튼 */
 .comment-actions {
+    position: absolute;
+    top: 20px; /* 위쪽에 배치 */
+    right: 10px; /* 오른쪽에 배치 */
     display: flex;
     gap: 10px;
-    margin-left: auto;
-    margin-top: 5px;
 }
 
 /* 버튼 스타일 */
@@ -78,7 +81,8 @@
     border: 1px solid #ccc;
     border-radius: 7px;
     cursor: pointer;
-    width: 50px;  /* 너비 조정 */
+    width: 55px;  /* 너비 조정 */
+    height: 28px;
 }
 
 /* 버튼 호버 스타일 */
@@ -89,19 +93,28 @@
 /* 답글 버튼 */
 .reply-button {
     padding: 5px 10px;
-    background-color: #f2f2f2;
+    background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
     margin-top: 10px;
-    width: auto;  /* 너비 줄임 */
+    width: 55px;  /* 너비 조정 */
+    height: 28px;
     align-self: flex-end;  /* 오른쪽 끝으로 배치 */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 45px; /* 위쪽에 배치 */
+    right: 10px; /* 오른쪽에 배치 */
+    display: flex;
+    gap: 10px;
 }
 
 /* 답글 입력창 */
 .reply-input {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
+    justify-content: center;
     gap: 10px;
     margin-top: 10px;
     width: 100%;
@@ -135,11 +148,11 @@
 /* 답글 목록 */
 .comment-replies {
     width: 90%;  /* 댓글 목록보다 좁게 설정 */
-    margin-top: 10px;
-    margin-left: 0;  /* 왼쪽 여백 제거 */
+    /* margin: 10px auto 0; */
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding-left: 50px;
 }
 
 /* 답글 텍스트 스타일 */
@@ -147,6 +160,10 @@
     font-size: 14px;
     line-height: 1.4;
     color: #555;
+
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
 }
 
 /* 댓글 작성 입력창 */
@@ -186,12 +203,14 @@
     align-items: flex-start;
     flex: 1;
     flex-direction: column; /* 세로로 배치 */
+    background-color: #FDFBFB;
 }
 
 /* 답글 사진과 내용 */
 .comment-replies .comment-author {
     display: flex;
     gap: 10px;
+    align-items: flex-start;
 }
 
 /* 답글 프로필 사진 */
@@ -207,6 +226,7 @@
     gap: 5px;
     flex: 1;
     align-items: flex-start; /* 상단 정렬 */
+    background-color: #FDFBFB;
 }
 
 /* 답글 닉네임 */
@@ -230,4 +250,5 @@
 .comment-replies .comment-time {
     font-size: 11px;
     color: #888;
+    align-items: flex-start;
 }

@@ -141,10 +141,12 @@
     background-color: #7FA1C3;  /* 파란색 */
     color: white;
     border: none;
+    width: 100px;
 }
 /* 팔로잉 버튼 스타일 (흰색 배경) */
 .Button_following-btn {
     background-color: white;  /* 흰색 배경 */
     color: black;  
     border: 1px solid black;  
+    width: 100px;
 }

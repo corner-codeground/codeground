@@ -40,22 +40,7 @@ const Profile = ({ name, bio, isOwnProfile = true }) => {
                                 text="⚙️계정 관리" 
                             />
                         ) : (
-                            // 팔로우/팔로잉 버튼: 팔로잉 여부에 따라 다르게 표시
-                            isFollowing ? (
-                                <Button 
-                                    className="following-btn" 
-                                    onClick={handleUnfollowClick} 
-                                    type="following-btn" 
-                                    text="팔로잉"
-                                />
-                            ) : (
-                                <Button 
-                                    className="follow-btn" 
-                                    onClick={handleFollowClick} 
-                                    type="follow-btn" 
-                                    text="팔로우"
-                                />
-                            )
+                            null
                         )}
                     </div>
                 </div>
@@ -65,6 +50,27 @@ const Profile = ({ name, bio, isOwnProfile = true }) => {
                     <div className="following-num">팔로잉 5</div>
                     <div className="follower-num">팔로워 3</div>
                 </div>
+
+                {/* 팔로우 버튼을 오른쪽 끝에 배치 */}
+                {!isOwnProfile && (
+                    <div className="follow-btn-container">
+                        {isFollowing ? (
+                            <Button 
+                                className="following-btn" 
+                                onClick={handleUnfollowClick} 
+                                type="following-btn" 
+                                text="팔로잉"
+                            />
+                        ) : (
+                            <Button 
+                                className="follow-btn" 
+                                onClick={handleFollowClick} 
+                                type="follow-btn" 
+                                text="팔로우"
+                            />
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* 자기소개(bio) 부분 */}

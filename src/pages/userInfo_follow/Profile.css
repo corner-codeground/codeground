@@ -7,7 +7,8 @@
 }
 .profile-header {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
+    /* flex-direction: row; */
     align-items: center;
     width: 100%;
     padding: 0 10px;
@@ -17,33 +18,39 @@
     width: 85px;
     height: 85px;
     border-radius: 50%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: gray;
     object-fit: cover; 
     flex-shrink: 0;
-    margin-right: 10px;
+    margin-right: 0px;
 }
 .user-name {
     font: bold 17px black;
     margin-right: 5px;
+    white-space: nowrap;  /* 텍스트가 한 줄로 유지되도록 설정 */
+    text-align: left;
+    margin-top: 10px;
     
 }
 .introduce-myself {
     font: normal 13px black;
     margin-top: 10px;
     margin-left: 10px;
+    align-self: flex-start; 
 }
 
 /* 왼쪽 프로필 정보 */
 .profile-user-info {
     display: flex;
-    align-items: center;
+    align-items: column;
+    flex-direction: row; 
 }
 
 /* 사용자 이름 & 계정 관리 버튼 */
 .user-details {
     display: flex;
     align-items: center;
+    justify-content: center;
     margin-right: 10px;
 }
 
@@ -52,12 +59,20 @@
     gap: 15px; 
     align-items: center;
     font: normal 16px black;
+    flex-direction: row;
     margin-left: auto;
+    justify-content: flex-end;
 }
 .follwing-num, .follwer-num{
     width: auto;  
     white-space: nowrap;
     margin-top: 0; 
 }
-
+.follow-btn-container {
+    display: flex;
+    justify-content: flex-end;  /* 오른쪽 끝 정렬 */
+    width: 100%;  /* 팔로잉/팔로워 숫자가 차지하는 공간을 제외한 나머지 공간에서 버튼을 정렬 */
+    margin-top: 10px;
+    flex-direction: row;
+}
 

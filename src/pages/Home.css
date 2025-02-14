@@ -2,8 +2,8 @@
     color: #6482AD;
     font: bold 20px Inter;
     margin: 15px;
-    position: absolute; /* 위치 고정 */
-    top: 170px; /* hr 아래 위치하도록 설정 */
+    position: relative; /* 위치 고정 */
+    top: 30px; /* hr 아래 위치하도록 설정 */
     left: 15%; 
     margin: 0;
     text-align: left; 

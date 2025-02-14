@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Profile from './userInfo_follow/Profile';  // Profile 컴포넌트
-import Otherpage_BoardTab from '../component/Otherpage_BoardTab';  // Mypage_BoardTab 임포트
-import Board_Mypages from './board_pages/Board_Mypages';  // Board_Mypages 임포트
-import PostPreview from './board_pages/PostPreview';
+import Profile from './userInfo_follow/Profile';
+import Otherpage_BoardTab from '../component/Otherpage_BoardTab';
+import Board_Mypages from './board_pages/Board_Mypages';
 
 const ProfilePage = () => {
-    const { userId } = useParams();  // URL에서 userId를 받아옵니다.
+    const { userId } = useParams();  
     const [profile, setProfile] = useState(null);
+    const [selectedBoardId, setSelectedBoardId] = useState(userId ? 10 : 20);   // 선택된 게시판 ID 상태 추가
 
     useEffect(() => {
         const profileData = {
@@ -20,20 +20,19 @@ const ProfilePage = () => {
 
         setProfile(profileData[userId]);  
     }, [userId]);
+    
 
     if (!profile) return <div>친구 정보를 불러오는 중...</div>;
-
-    const currentBoardId = 10;
 
     return (
         <div className="mypage-container">
             <div className="profile-container">
-                {/* 자신의 프로필이 아니라면 isOwnProfile을 false로 전달 */}
                 <Profile name={profile.name} bio={profile.bio} isOwnProfile={false} />
             </div>
             <div className="my-posts">
-                <Otherpage_BoardTab />
-                <Board_Mypages boardId={currentBoardId} />
+                {/* Board ID를 변경하는 함수 전달 */}
+                <Otherpage_BoardTab userId={userId} onBoardChange={setSelectedBoardId} selectedBoardId={selectedBoardId} />
+                <Board_Mypages boardId={selectedBoardId} />
             </div>
         </div>
     );

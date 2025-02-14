@@ -162,7 +162,7 @@ const CommentSection = () => {
                                     onClick={() => handleAddReply(comment.id)}
                                     className="reply-button"
                                 >
-                                    작성
+                                    등록
                                 </button>
                             </div>
                         )}
@@ -179,13 +179,19 @@ const CommentSection = () => {
                             <div className="comment-replies">
                                 {comment.replies.map((reply) => (
                                     <div key={reply.id} className="comment-item">
-                                        <div className="comment-author">
                                             <img
                                                 src={reply.author.profilePic}
                                                 alt={reply.author.name}
                                                 className="profile-pic"
                                             />
+                                        <div className="comment-author">
+                                            {/* <img
+                                                src={reply.author.profilePic}
+                                                alt={reply.author.name}
+                                                className="profile-pic"
+                                            /> */}
                                             <div className="comment-name">{reply.author.name}</div>
+                                            
                                         </div>
                                         <div className="comment-text">{reply.text}</div>
                                         <div className="comment-time">
@@ -209,7 +215,7 @@ const CommentSection = () => {
                     className="comment-input"
                 />
                 <button onClick={handleAddComment} className="comment-button">
-                    작성
+                    등록
                 </button>
             </div>
         </div>

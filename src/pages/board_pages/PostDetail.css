@@ -10,8 +10,9 @@
 .content-separator {
     display: inline-block; 
     width: 100%;
-    margin-top: -20px; 
+    margin-top: -30px; 
 }
+
 .title-container {
     display: flex;
     align-items: center; /* 수직 가운데 정렬 */
@@ -107,4 +108,41 @@
     display: flex;
     justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
     margin-top: 10px; /* 필요하면 위쪽 여백 조절 */
+}
+.post-stats-detail {
+    display: flex;
+    justify-content: space-between; /* 오른쪽으로 정렬 */
+    gap: 5px; /* 요소들 간의 간격을 0으로 설정하여 붙여서 표시 */
+    font-size: 11px; /* 글자 크기 줄임 */
+    color: #666;
+    align-items: center;   
+    margin-top: 10px;
+}
+
+.post-stats-detail span {
+    margin-right: 10px; /* 각 항목 사이에 여백을 줄 수 있도록 설정 */
+    text-shadow: none;
+}
+.post-stats-detail .plus-likes-count {
+    display: flex;
+    justify-content: flex-end; /* 오른쪽으로 정렬 */
+    gap: 5px; /* 요소들 간의 간격을 0으로 설정하여 붙여서 표시 */
+    font-size: 11px; /* 글자 크기 줄임 */
+    color: #666;
+    margin-left: auto;
+}
+/* PostPreview 내에서만 적용되는 span 스타일 */
+.comment .post-stats-detail span {
+    font-size: 14px;  /* 글자 크기 조정 */
+    color: #666;  /* 텍스트 색상 */
+    cursor: pointer;  /* 커서 모양을 포인터로 변경 */
+    font-weight: normal;
+}
+.post-stats-detail .liked {
+    color: red; /* 좋아요 클릭 시 빨간색 */
+}
+
+/* 댓글 아이콘, 좋아요 아이콘에 대해서도 색상 변화 */
+.post-stats-detail .liked .fas.fa-heart {
+    color: red; /* 좋아요 아이콘도 빨간색으로 변경 */
 }

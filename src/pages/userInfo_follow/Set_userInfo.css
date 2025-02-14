@@ -40,6 +40,9 @@
 .user-info-form input {
     width: 250px;
     margin-left: 30px;
+    border-radius: 7px;
+    border: 1px solid black;
+    outline: none;
 }
 
 .form-group {
