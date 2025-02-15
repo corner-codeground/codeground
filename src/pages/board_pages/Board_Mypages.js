@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import PostPreview from './PostPreview';
 import Button from '../../component/Button';
-import {posts as allPosts} from './Posts';
+import {posts as allPosts} from './Posts';  //일단 allPosts 이용
 import Follow_manager from '../userInfo_follow/Follow_manager';
+import BoardCategoryView from "./BoardCategoryView";
 import './BoardPages.css';
 
 const Board_Mypages = ({ boardId }) => {
@@ -69,22 +70,6 @@ const Board_Mypages = ({ boardId }) => {
         setSelectedPosts([]); // 삭제 후 선택된 게시글 초기화
     };
 
-    // 카테고리별 게시글로 분류
-    const categorizePosts = () => {
-        const categorized = {};
-    
-        posts.forEach(post => {
-            // 카테고리 값이 없으면 '기타'로 분류하고, 공백이나 대소문자를 처리
-            const category = (post.category && post.category.trim().toLowerCase()) || '기타';
-            if (!categorized[category]) {
-                categorized[category] = [];
-            }
-            categorized[category].push(post);
-        });
-    
-        return categorized;
-    };
-
     // boardId === "13"일 때 팔로우 관리 화면으로
     if (boardId === "13") {
         return (
@@ -95,35 +80,19 @@ const Board_Mypages = ({ boardId }) => {
     }
 
     // boardId === "20"일 때 카테고리별로 게시글을 보여주는 UI
-    if (boardId === "20") {
-        const categorizedPosts = categorizePosts();
-        console.log(categorizedPosts); // 카테고리별로 분류된 게시글 확인
-    
+    if (boardId === "20") {   
         return (
-            <div>
-                {Object.keys(categorizedPosts).map((category) => (
-                    <div key={category}>
-                        <h2>{category}</h2> {/* 카테고리 제목 */}
-                        <div className="all-posts">
-                            {categorizedPosts[category].map((post) => (
-                                <PostPreview
-                                    key={post.id}
-                                    post={post}
-                                    isEditing={isEditing}
-                                    onSelect={() => handlePostSelect(post.id)} // 게시글 선택 처리
-                                    isSelected={selectedPosts.includes(post.id)} // 선택된 게시글인지 확인
-                                    boardId={boardId}
-                                />
-                            ))}
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <BoardCategoryView
+                posts={posts}
+                isEditing={isEditing}
+                handlePostSelect={handlePostSelect}
+                selectedPosts={selectedPosts}
+            />
         );
     }
 
     return (
-        <div>
+        <div>   {/*마이페이지에서 글 관리*/}
             {boardId === "12" && (
                 <div className="button-container">
                 <Button

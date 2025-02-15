@@ -11,7 +11,8 @@ const BoardPages = () => {
     const navigate = useNavigate();
 
     const [boardData, setBoardData] = useState(null); //게시판 데이터 상태 관리
-    const [posts, setPosts] = useState([]); // 게시글 상태 관리
+    const [posts, setPosts] = useState(); // 게시글 상태 관리
+    const [topPosts, setTopPosts] = useState([]); // 인기글 상태 관리
 
     useEffect(() => { //게시판 데이터 불러오기
         const fetchBoardData = async () => {
@@ -30,10 +31,11 @@ const BoardPages = () => {
             setBoardData(data[boardId]);    //boardId에 맞는 데이터 설정
             console.log(data[boardId]);  // boardData 확인
 
-            // // boardId에 맞는 게시글 데이터를 필터링
-            // const filteredPosts = allPosts.filter(post => post.boardId === parseInt(boardId));
+            // // boardId에 맞는 게시글 데이터를 필터링 (우선 allPosts 이용)
+            const filteredPosts = allPosts.filter(post => post.boardId === parseInt(boardId));
+            //setPosts(filteredPosts);
             setPosts(allPosts);
-            // console.log(filteredPosts);  // 필터링된 게시글 확인
+            //setPosts(filteredPosts); // 게시글 필터링 후 상태 관리
         };
         fetchBoardData();
     }, [boardId]); //boardId 변경될 때마다 데이터 재로딩
@@ -54,7 +56,7 @@ const BoardPages = () => {
                 게시판 TOP 3 <br />
                 <div className="post-preview-container">
                     <div className="top-posts">
-                    {posts.slice(0, 3).map((post) => (   // 임시로 첫 3개 포스트만 표시
+                    {posts.slice(0, 3).map((post) => (   // 임시로 첫 3개 포스트만 표시(좋아요 순으로 정렬 가정)
                         <PostPreview key={post.id} post={post} />
                     ))}
                     </div>

@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import HashtagList from '../../component/HashtagList';
 import Button from '../../component/Button';
-import DateDisplay from '../../component/DateDisplay';
 import { posts } from './Posts';
 import './PostDetail.css';
 import { Bookmark } from "lucide-react";
 import CommentSection from './CommentSection';
+import PopularPosts from './PopularPosts';
+
 
 const PostDetail = () => {
     const { postId } = useParams();
@@ -100,8 +101,14 @@ const PostDetail = () => {
     };
 
     const handleLikeClick = () => {
-        setLikes(likes + 1);  // 좋아요 클릭 시 좋아요 수 증가
-        setLiked(!liked); // 클릭할 때마다 상태를 반전시킴
+        if (liked) {
+            // 좋아요가 이미 눌려 있으면 좋아요 수를 1 감소시키고 상태를 취소
+            setLikes(likes - 1);
+        } else {
+            // 좋아요가 눌려 있지 않으면 좋아요 수를 1 증가시키고 상태를 반전
+            setLikes(likes + 1);
+        }
+        setLiked(!liked); // 좋아요 상태 반전()
     };
 
     return (
@@ -126,42 +133,50 @@ const PostDetail = () => {
                 <span className="post-hashtag"><HashtagList hashtags={exampleHashtags} /></span>
             </div>
             <hr className="content-separator" />
-            <div className="post-content-box">
-                {contentWithCodeBlocks}
-                <div className="button-container">
-                    <Button type="code-run" text="실행" onClick={handleCodeRun} />
-                </div>
-                {/* 실행 결과 출력 */}
-                {showResult && (
-                    <div className="code-block-run">
-                        <pre>
-                            <code>{codeResult !== null ? codeResult : '결과를 실행해주세요.'}</code>
-                        </pre>
+                <div className="postDetail-container">
+                    <div className="post-content-box">
+                        {contentWithCodeBlocks}
+                        <div className="button-container">
+                            <Button type="code-run" text="실행" onClick={handleCodeRun} />
+                        </div>
+                        {/* 실행 결과 출력 */}
+                        {showResult && (
+                        <div className="code-block-run">
+                            <pre>
+                                <code>{codeResult !== null ? codeResult : '결과를 실행해주세요.'}</code>
+                            </pre>
+                        </div>
+                        )}
                     </div>
-                )}
-            </div>
+                    <div className="popular-post-container">
+                        <PopularPosts />
+                    </div>
+                </div>
 
-        <div className="comment">
-            <div className="post-stats-detail">
-                {/* 댓글 아이콘 추가 */}
-                <span className="comments-count">
-                    <i className="fas fa-comment"></i> {comments}
-                </span>
-                {/* 좋아요 아이콘 추가 */}
-                <span className="likes-count">
-                    <i className="fas fa-heart"></i> {likes}
-                </span>
-                <span className={`plus-likes-count ${liked ? 'liked' : ''}`}  onClick={handleLikeClick}>
-                    <i className="fas fa-heart"></i> 
-                </span>
-            </div>
+                <div className="comment">
+                    <div className="post-stats-detail">
+                        {/* 댓글 아이콘 추가 */}
+                        <span className="comments-count">
+                            <i className="fas fa-comment"></i> {comments}
+                        </span>
+                        {/* 좋아요 아이콘 추가 */}
+                        <span className="likes-count">
+                            <i className="fas fa-heart"></i> {likes}
+                        </span>
+                        <span className={`plus-likes-count ${liked ? 'liked' : ''}`}  onClick={handleLikeClick}>
+                            <i className="fas fa-heart"></i> 
+                        </span>
+                        <span className="share-button" >
+                            <i className="fas fa-share"></i> 
+                        </span>
+                    </div>
             
-                <hr className="content-separator" />
-                {/* 댓글 컴포넌트에 사용자 정보 전달 */}
-                <CommentSection user={user} />
+                    <hr className="content-separator" />
+                    {/* 댓글 컴포넌트에 사용자 정보 전달 */}
+                        <CommentSection user={user} />
+                </div>
             </div>
-        </div>
-    );
-};
+        );
+    };
 
 export default PostDetail;

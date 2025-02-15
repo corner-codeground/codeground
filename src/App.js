@@ -48,7 +48,6 @@ function App() {
       
       {/* 친구 프로필 페이지 추가 */}
       <Route path="/profile/:userId" element={<ProfilePage />} /> {/* 동적 프로필 페이지 */}
-      {/* <Route path="/profile/:userId/category" element={<BoardPages_category />} /> 동적 프로필 페이지 */}
     </Routes>
     <div>
       

@@ -66,14 +66,21 @@
 .post-hashtag .remove-hashtag {
     display: none;
 }
+.postDetail-container {
+    display: flex;
+    flex-direction: row;
+}
 .post-content-box {
     border: none; 
     padding: 10px; /* 내부 여백 */
     background-color: white; 
-    width: 100%; 
+    width: 80%; 
     
 }
-
+.popular-post-container {
+    flex: 1;
+    margin-left: 20px;
+}
 .code-block {
     margin: 20px 0;
     background-color: #3E3E3E;
@@ -111,19 +118,19 @@
 }
 .post-stats-detail {
     display: flex;
-    justify-content: space-between; /* 오른쪽으로 정렬 */
-    gap: 5px; /* 요소들 간의 간격을 0으로 설정하여 붙여서 표시 */
-    font-size: 11px; /* 글자 크기 줄임 */
+    justify-content: space-between; 
+    gap: 5px; 
+    font-size: 11px;
     color: #666;
     align-items: center;   
     margin-top: 10px;
 }
 
 .post-stats-detail span {
-    margin-right: 10px; /* 각 항목 사이에 여백을 줄 수 있도록 설정 */
+    margin-right: 10px; 
     text-shadow: none;
 }
-.post-stats-detail .plus-likes-count {
+.post-stats-detail .plus-likes-count, .post-stats-detail.share-button{
     display: flex;
     justify-content: flex-end; /* 오른쪽으로 정렬 */
     gap: 5px; /* 요소들 간의 간격을 0으로 설정하여 붙여서 표시 */

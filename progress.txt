@@ -57,6 +57,7 @@
 
 구현하지 못한 것: 인기글 리스트, 게시글 공유, 다크 모드
 테스트 아직 못함: 게시글 수정 UI, 다른 사람 계정->카테고리 분류
+*게시판 벌 필터링이 잘 안되는 것 같아서 데이터 연동 후에 다시 점검해봐야 할 것 같습니다.
 
 ---
 
@@ -75,8 +76,11 @@
 
 - **게시판별 화면**: `pages/board_pages/BoardPages.js`
 - **마이페이지(다른 사람 계정) -> 게시판 화면**: `pages/board_pages/Board_Mypages.js`
+- **다른 사람 계정 게시판 -> 카테고리별 화면* : `pages/board_pages/CategoryBoard.js`
 - **게시글 댓글 컴포넌트**: `pages/board_pages/CommentSection.js`
 - **게시글 상세 페이지**: `pages/board_pages/PostDetail.js`
+- **상세 페이지 - 인기 게시글 컴포넌트**: `pages/board_pages/PopularPosts.js`;
+
 - **게시글 박스 컴포넌트**: `pages/board_pages/PostPreview.js`
 - **게시글 수정 페이지**: `pages/board_pages/PostEditPage.js`
 - **게시글 입력 부분**: `component/Editor.js`
