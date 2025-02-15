@@ -1,3 +1,4 @@
+//팔로워 목록 컴포넌트
 import React from 'react';
 import Profile_Others from './Profile_Others';
 import './Follower.css';

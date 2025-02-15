@@ -3,13 +3,15 @@ import { useNavigate } from "react-router-dom";
 import "./Profile.css"; 
 import Button from '../../component/Button';
 
-const Profile = ({ name, bio, isOwnProfile = true }) => {
+const Profile = ({ name, bio, isOwnProfile = true , following, follower}) => {
     const navigate = useNavigate();  // 페이지 이동 (계정 관리)
 
     // 사용자 사진과 닉네임 상태 관리
     const [user, setUser] = useState({
         name: name || "김코너",  // props로 전달된 name이 있으면 사용
         profilePic: "/default-profile.png",  // 기본 프로필 이미지 경로
+        following: following || 5,  // 팔로잉 수 추가 (김코너의 경우 임시로 값 넣어 둠)
+        follower: follower || 3,    // 팔로워 수 추가
     });
 
     // 팔로우 상태 관리 (true = 팔로잉, false = 팔로우 안 함)
@@ -44,30 +46,25 @@ const Profile = ({ name, bio, isOwnProfile = true }) => {
                         )}
                     </div>
                 </div>
-
+            </div>
+            <div className="followInfo-btn-container">
                 <div className="follow-info">
-                    {/* 팔로잉/팔로워 숫자 (하드코딩된 예시 값) */}
-                    <div className="following-num">팔로잉 5</div>
-                    <div className="follower-num">팔로워 3</div>
+                    {/* 팔로잉/팔로워 숫자 */}
+                    <div className="following-num">팔로잉 {user.following}</div>
+                    <div className="follower-num">팔로워 {user.follower}</div>
                 </div>
-
-                {/* 팔로우 버튼을 오른쪽 끝에 배치 */}
                 {!isOwnProfile && (
                     <div className="follow-btn-container">
                         {isFollowing ? (
-                            <Button 
+                            <button 
                                 className="following-btn" 
-                                onClick={handleUnfollowClick} 
-                                type="following-btn" 
-                                text="팔로잉"
-                            />
+                                onClick={handleUnfollowClick}
+                            >팔로잉</button>
                         ) : (
-                            <Button 
+                            <button 
                                 className="follow-btn" 
-                                onClick={handleFollowClick} 
-                                type="follow-btn" 
-                                text="팔로우"
-                            />
+                                onClick={handleFollowClick}
+                            >팔로우하기</button>
                         )}
                     </div>
                 )}

@@ -1,14 +1,13 @@
 .profile-container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     align-items: center;
-    text-align: left;
-    width: 100%;     
+    width: 100%;
+    margin: 0 auto;
 }
 .profile-header {
     display: flex;
     justify-content: space-between;
-    /* flex-direction: row; */
     align-items: center;
     width: 100%;
     padding: 0 10px;
@@ -42,37 +41,70 @@
 /* 왼쪽 프로필 정보 */
 .profile-user-info {
     display: flex;
-    align-items: column;
-    flex-direction: row; 
+    flex-direction: row;
+    align-items: center;
 }
 
 /* 사용자 이름 & 계정 관리 버튼 */
 .user-details {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
+    flex-direction: row;
+    align-items: flex-start;
 }
 
 .follow-info {
     display: flex;
     gap: 15px; 
-    align-items: center;
     font: normal 16px black;
-    flex-direction: row;
-    margin-left: auto;
-    justify-content: flex-end;
+    margin-bottom: 10px;
 }
-.follwing-num, .follwer-num{
-    width: auto;  
+.follwing-num, .follwer-num{ 
     white-space: nowrap;
+    display: flex;
+    justify-content: flex-end; 
     margin-top: 0; 
 }
-.follow-btn-container {
+.followInfo-btn-container {
+    margin-left: auto; /* 오른쪽으로 밀기 */
     display: flex;
-    justify-content: flex-end;  /* 오른쪽 끝 정렬 */
-    width: 100%;  /* 팔로잉/팔로워 숫자가 차지하는 공간을 제외한 나머지 공간에서 버튼을 정렬 */
-    margin-top: 10px;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.followInfo-btn-container, .profile-user-info {
+    display: flex;
+    justify-content: space-between;
 }
 
+.follow-info div {
+    white-space: nowrap;
+}
+
+/* 팔로우/팔로잉 버튼 스타일 */
+.follow-btn,
+.following-btn {
+    padding: 8px 16px;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 1.3;
+}
+
+/* 팔로우 버튼 기본 스타일 (파란색) */
+.follow-btn {
+    background-color: #7FA1C3;  /* 파란색 */
+    color: white;
+    border: none;
+    width: 120px;
+}
+/* 팔로잉 버튼 스타일 (흰색 배경) */
+.following-btn {
+    background-color: white;  /* 흰색 배경 */
+    color: black;  
+    border: 1px solid black;  
+    width: 100px;
+    outline: none;
+}

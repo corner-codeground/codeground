@@ -11,11 +11,11 @@ const ProfilePage = () => {
 
     useEffect(() => {
         const profileData = {
-            1: { name: '홍길동', bio: '홍길동의 소개' },
-            2: { name: '이순신', bio: '이순신의 소개' },
-            3: { name: '김유신', bio: '김유신의 소개' },
-            4: { name: '박지성', bio: '박지성의 소개' },
-            5: { name: '차은우', bio: '차은우의 소개' },
+            1: { name: '홍길동', bio: '홍길동의 소개', following: 13, follower: 10 },
+            2: { name: '이순신', bio: '이순신의 소개', following: 13, follower: 10 },
+            3: { name: '김유신', bio: '김유신의 소개', following: 13, follower: 10  },
+            4: { name: '박지성', bio: '박지성의 소개', following: 13, follower: 10  },
+            5: { name: '차은우', bio: '차은우의 소개', following: 13, follower: 10  },
         };
 
         setProfile(profileData[userId]);  
@@ -27,7 +27,7 @@ const ProfilePage = () => {
     return (
         <div className="mypage-container">
             <div className="profile-container">
-                <Profile name={profile.name} bio={profile.bio} isOwnProfile={false} />
+                <Profile name={profile.name} bio={profile.bio} isOwnProfile={false} following={profile.following} follower={profile.follower} />
             </div>
             <div className="my-posts">
                 {/* Board ID를 변경하는 함수 전달 */}

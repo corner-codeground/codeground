@@ -1,5 +1,5 @@
+//팔로잉 목록 컴포넌트
 import React from 'react';
-import Button from '../../../component/Button';
 import Profile_Others from './Profile_Others';
 import './Following.css';
 

@@ -9,7 +9,7 @@
     display: flex;
     align-items: center;  /* 세로 중앙 정렬 */
     margin: 10px;
-    width: 200px;  /* 버튼을 넣을 공간을 추가 */
+    width: 240px;  /* 버튼을 넣을 공간을 추가 */
     text-align: left;  /* 텍스트 왼쪽 정렬 */
 }
 
@@ -29,14 +29,14 @@
 }
 
 .other-name {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: normal;
     margin-bottom: 5px;
     text-decoration: none;
     color: black;
 }
 
-.follow-btn {
+.setting-follow-btn {
     background-color: #7FA1C3;
     color: white;
     border: none;
