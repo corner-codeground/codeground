@@ -4,6 +4,7 @@ import BoardTabs from "../../component/BoardTabs";
 import PostPreview from './PostPreview';
 import Button from '../../component/Button';
 import {posts as allPosts} from './Posts';
+import {FaSearch} from "react-icons/fa";
 import './BoardPages.css';
 
 const BoardPages = () => {
@@ -13,6 +14,9 @@ const BoardPages = () => {
     const [boardData, setBoardData] = useState(null); //게시판 데이터 상태 관리
     const [posts, setPosts] = useState(); // 게시글 상태 관리
     const [topPosts, setTopPosts] = useState([]); // 인기글 상태 관리
+
+    const [searchQuery, setSearchQuery] = useState(''); // 검색어 상태(게시판내 검색)
+    
 
     useEffect(() => { //게시판 데이터 불러오기
         const fetchBoardData = async () => {
@@ -49,11 +53,31 @@ const BoardPages = () => {
         navigate('/writting'); 
     };
 
+    const handleSearch = () => {
+        if (searchQuery.trim()) {
+            alert(`검색어: ${searchQuery}`); // 실제 검색 로직을 여기에 추가
+        }
+    };
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value); //검색어 상태 변경
+    };
+
     return (
         <div>
             <BoardTabs />
             <div className="explain-board">
-                게시판 TOP 3 <br />
+                게시판 TOP 3 
+                    <input
+                        type="text"
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        placeholder="게시판 내에서 검색하기"
+                    />
+                    <button onClick={handleSearch} className="inBoard-searching-btn">
+                        <FaSearch color={"#7FA1C3"} />
+                    </button>
+                <br /> 
+
                 <div className="post-preview-container">
                     <div className="top-posts">
                     {posts.slice(0, 3).map((post) => (   // 임시로 첫 3개 포스트만 표시(좋아요 순으로 정렬 가정)

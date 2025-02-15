@@ -58,3 +58,33 @@
     max-width: none; /* 최대 너비 설정 */
     margin: 0 auto;  /* 가운데 정렬 */
 }
+
+
+.explain-board {
+    position: relative;
+}
+.inBoard-searching-btn, .explain-board input {
+    position: absolute;  
+    right: 0; 
+    top: 0;    
+    margin: 5px; 
+    color: #7FA1C3;
+}
+
+.inBoard-searching-btn {
+    margin-left: 10px;
+    border: none;
+    margin-top: 12px;
+    margin-right: 30px;
+    background-color: white;
+    cursor: pointer;
+}
+.explain-board input {
+    height: 30px;
+    width: 200px;
+    margin-right: 20px;
+    border-radius: 7px;
+    border: 1px solid #7FA1C3;
+    color: #7FA1C3;
+    outline: none;
+}

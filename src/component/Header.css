@@ -32,7 +32,6 @@
     padding: 10px 20px;
     background-color: #fff;
     margin: 0 auto; /* 가운데 정렬 */
-
 } 
 
 .search-input-container input {
@@ -41,6 +40,7 @@
     font-size: 14px;
     border: 1px solid #7FA1C3;
     border-radius: 5px;
+    outline: none;
 }
 
 .search-input-container .searching-btn {

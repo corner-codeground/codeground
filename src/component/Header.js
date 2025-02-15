@@ -73,7 +73,8 @@ const Header = ({isLoggedIn}) => {
                     placeholder="해시태그 or 키워드 검색"
                 />
                 {/* 검색 버튼 클릭 시 검색 */}
-                <button className="searching-btn" onClick={handleSearch}>검색</button>
+                <button onClick={handleSearch} className="searching-btn">
+                        <FaSearch color={"#7FA1C3"} /></button>
             
                 {/* 최근 검색어 목록 */}
                 {isSearchOpen && recentSearches.length > 0 && (
