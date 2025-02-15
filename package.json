@@ -1,39 +1,13 @@
 {
-  "name": "teamproject",
-  "version": "0.1.0",
+  "name": "codeground",
+  "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "cra-template": "1.2.0",
-    "highlight.js": "^11.11.1",
-    "lucide-react": "^0.475.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-icons": "^5.4.0",
-    "react-router-dom": "^7.1.5",
-    "react-scripts": "5.0.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "client": "cd client && npm start",
+    "server": "cd server && npm start",
+    "dev": "concurrently \"npm run client\" \"npm run server\""
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "concurrently": "^8.2.2"
   }
 }
