@@ -14,7 +14,7 @@ const likeRouter = require("./routes/route_like");
 const scrapRouter = require("./routes/route_scrap");
 const followRouter = require("./routes/route_follow");
 const postRouter = require("./routes/postRoutes");
-const runCodeRouter = require('./routes/route_runCode')
+const runCodeRouter = require("./routes/route_runCode");
 
 dotenv.config();
 const app = express();
@@ -30,7 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 // CORS 설정 추가
 app.use(
   cors({
-    origin: "http://127.0.0.1:5500", // 프론트엔드 실행 주소 (Live Server)
+    origin: "http://localhost:3000/", // 프론트엔드 실행 주소 (Live Server)
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
