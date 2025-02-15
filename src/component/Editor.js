@@ -40,7 +40,7 @@ const Editor = ({ content, setContent }) => {
         }
     };
 
-    // 스타일을 적용하는 함수
+    // 스타일을 적용하는 함수 (스타일을 적용/제거)
     const handleApplyStyle = (styleType) => {
         const editor = editorRef.current;
         const selection = window.getSelection();
@@ -48,6 +48,19 @@ const Editor = ({ content, setContent }) => {
 
         if (!range) return;  // 선택된 텍스트가 없으면 종료
 
+        // 선택된 텍스트 내에서 스타일이 적용되어 있는지 확인
+        const selectedText = range.startContainer;
+
+        // 이미 스타일이 적용되어 있으면 스타일 제거
+        if (selectedText && selectedText.nodeName === 'SPAN' && selectedText.classList.contains('editor-style')) {
+            // 선택된 텍스트에서 스타일 제거
+            const span = selectedText;
+            span.outerHTML = span.innerHTML;  // span을 제거하고 그 안의 텍스트만 남기기
+            setContent(editor.innerHTML);  // 에디터 내용 업데이트
+            return;
+        }
+
+        // 스타일을 적용하는 부분
         const span = document.createElement('span');
         span.classList.add('editor-style');  // 고유 클래스 추가
 

@@ -142,7 +142,7 @@ export const posts = [
         console.log(multiply(2, 3)); // 6`,
         comments: 12, // 댓글 수
         likes: 34, // 좋아요 수
-        category: '보안'
+        category: '프론트엔드'
     },
     {   
         id: 6,

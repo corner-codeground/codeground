@@ -80,7 +80,7 @@ const Board_Mypages = ({ boardId }) => {
     }
 
     // boardId === "20"일 때 카테고리별로 게시글을 보여주는 UI
-    if (boardId === "20") {   
+    if (boardId.toString() === "20") {   
         return (
             <BoardCategoryView
                 posts={posts}

@@ -160,7 +160,6 @@
     font-size: 14px;
     line-height: 1.4;
     color: #555;
-
     display: flex;
     gap: 10px;
     align-items: flex-start;
@@ -206,11 +205,11 @@
     background-color: #FDFBFB;
 }
 
-/* 답글 사진과 내용 */
 .comment-replies .comment-author {
     display: flex;
     gap: 10px;
     align-items: flex-start;
+
 }
 
 /* 답글 프로필 사진 */

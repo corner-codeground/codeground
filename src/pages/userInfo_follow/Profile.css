@@ -4,6 +4,7 @@
     align-items: center;
     width: 100%;
     margin: 0 auto;
+    position: relative;
 }
 .profile-header {
     display: flex;
@@ -11,7 +12,7 @@
     align-items: center;
     width: 100%;
     padding: 0 10px;
-
+    position: relative;
 }
 .profile-img {
     width: 85px;
@@ -61,14 +62,17 @@
 .follwing-num, .follwer-num{ 
     white-space: nowrap;
     display: flex;
-    justify-content: flex-end; 
     margin-top: 0; 
+    position: absolute;
 }
 .followInfo-btn-container {
-    margin-left: auto; /* 오른쪽으로 밀기 */
+    position: absolute;
+    top: 50px; /* 위쪽으로 살짝 이동 */
+    right: 10px; /* 오른쪽 끝 정렬 */
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px; /* 숫자와 버튼 간격 */
     
 }
 .followInfo-btn-container, .profile-user-info {

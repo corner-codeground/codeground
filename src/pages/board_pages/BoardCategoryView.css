@@ -1,0 +1,30 @@
+.board-category-container {
+    display: flex;
+    flex-wrap: wrap;  /* 여러 개의 포스트가 가로로 나열되도록 */
+    gap: 40px;        /* 포스트 간의 간격 */
+    margin-bottom: 30px;
+}
+.post-category-title {
+    font: 18px bold Inter;
+    color: #6482AD;
+    font-weight: bold;
+    margin-top: 10px;
+    position: relative;
+}
+.load-more-btn {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: white;
+    color: #707070;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top:310px;
+    right: 230px;
+}
+.post-category-title, .load-more-btn {
+    display: flex;
+    justify-content: space-between;  /* 제목과 버튼을 양쪽 끝으로 배치 */
+    align-items: center; /* 제목과 버튼이 수평 중앙에 위치하도록 정렬 */
+    margin-bottom: 10px;
+}
