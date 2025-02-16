@@ -9,13 +9,12 @@ import HashtagList from "../component/HashtagList";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
 
-const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
-  const { postId } = useParams();
+const Writting = ({ initialTitle = "", initialContent = "" }) => {
+  const { boardId } = useParams();  // ✅ boardId 가져오기
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
-  const [category, setCategory] = useState("");
   const [hashtags, setHashtags] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);  // ✅ 추가
+  const [isLoading, setIsLoading] = useState(false);
   const editorRef = useRef(null);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -30,53 +29,41 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true);  // ✅ 로딩 상태 시작
+    setIsLoading(true);
 
     const postData = {
       title,
       content,
       hashtags,
-      board_id: parseInt(category, 10),
+      board_id: parseInt(boardId, 10),  // ✅ boardId 사용
       is_public: true,
     };
 
     try {
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      };
+      const response = await fetch(`${BASE_URL}/posts`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(postData),
+      });
 
-      let response;
-      if (postId) {
-        response = await fetch(`${BASE_URL}/posts/${postId}`, {
-          method: "PUT",
-          headers,
-          body: JSON.stringify(postData),
-        });
-      } else {
-        response = await fetch(`${BASE_URL}/posts`, {
-          method: "POST",
-          headers,
-          body: JSON.stringify(postData),
-        });
+      if (!response.ok) {
+        throw new Error("❌ 게시글 저장 실패");
       }
-      const responseText = await response.text(); // 추가
 
-      if (response.ok) {
-        // const data = await response.json();
-        const data = JSON.parse(responseText); // JSON으로 변환
+      const data = await response.json();
+      console.log("📌 게시글 저장 완료:", data);
 
-        console.log("게시글 저장 완료:", data);
-        const postId = data.id || data.post?.id;  // ✅ data.id가 없으면 data.post.id를 사용
-        console.log("이동할 경로:", `/posts/${data.post.id}`);  // ✅ 로그 추가
-        setIsLoading(false);  // ✅ 저장 완료 후 로딩 해제
-        navigate(`/post/${data.post.id}`);
-      } else {
-        console.error("게시글 저장 실패", responseText/*await response.json()*/);
-      }
+      const newPostId = data.post?.id || data.id;  // ✅ post ID 가져오기
+      setIsLoading(false);
+
+      alert("✅ 글 작성이 완료되었습니다.");
+      navigate(`/boards/${boardId}/${newPostId}`);  // ✅ 게시글 상세 페이지로 이동
     } catch (error) {
-      console.error("게시글 저장 중 오류 발생:", error);
-      setIsLoading(false);  // ✅ 오류 발생 시에도 로딩 해제
+      console.error("❌ 게시글 저장 중 오류 발생:", error);
+      setIsLoading(false);
     }
   };
 
@@ -85,10 +72,19 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
   return (
     <div className="container">
       <div className="title-input">
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="제목을 입력하세요" />
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="제목을 입력하세요"
+        />
       </div>
       <div className="category">
-        <select name="category_select" value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select
+          name="category_select"
+          value={boardId || ""}
+          onChange={(e) => navigate(`/writting/${e.target.value}`)}
+        >
           <option value="" disabled>게시판 선택</option>
           <option value="1">프론트엔드</option>
           <option value="2">백엔드</option>
@@ -110,7 +106,12 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
         <Button text="취소" type="negative" onClick={handleCancel} />
         <div className="right">
           <HashtagInput onAddHashtags={handleAddHashtag} />
-          <Button text={isLoading ? "저장 중..." : "저장"} type="default" onClick={handleSubmit} disabled={isLoading} />
+          <Button
+            text={isLoading ? "저장 중..." : "저장"}
+            type="default"
+            onClick={handleSubmit}
+            disabled={isLoading}
+          />
         </div>
       </div>
       <div className="hashtag-list">
