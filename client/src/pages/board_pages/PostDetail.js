@@ -22,18 +22,7 @@ const PostDetail = () => {
 
     const fetchUser = async () => {
       try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          console.error("🚨 로그인 토큰이 없습니다. 로그인 페이지로 이동합니다.");
-          navigate("/login");
-          return;
-        }
-        const response = await axios.get(`${BASE_URL}/auth/account`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(`${BASE_URL}/users`); // 사용자 정보 불러오기
         setUser(response.data);
       } catch (error) {
         console.error("🚨 사용자 정보를 불러오는 중 오류 발생:", error);

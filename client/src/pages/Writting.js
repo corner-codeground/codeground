@@ -15,6 +15,7 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
   const [content, setContent] = useState(initialContent);
   const [category, setCategory] = useState("");
   const [hashtags, setHashtags] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);  // ✅ 추가
   const editorRef = useRef(null);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -29,6 +30,7 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);  // ✅ 로딩 상태 시작
 
     const boardId = parseInt(category, 10);
 
@@ -66,10 +68,7 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
       } else {
         response = await fetch(`${BASE_URL}/posts`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+          headers,
           body: JSON.stringify(postData),
         });
       }
@@ -77,12 +76,15 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
       if (response.ok) {
         const data = await response.json();
         console.log("게시글 저장 완료:", data);
+        setIsLoading(false);  // ✅ 저장 완료 후 로딩 해제
         navigate(`/post/${data.post.id}`);
       } else {
         console.error("게시글 저장 실패", await response.json());
+        setIsLoading(false);  // ✅ 실패 시에도 로딩 해제
       }
     } catch (error) {
       console.error("게시글 저장 중 오류 발생:", error);
+      setIsLoading(false);  // ✅ 오류 발생 시에도 로딩 해제
     }
   };
 
@@ -95,9 +97,7 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
       </div>
       <div className="category">
         <select name="category_select" value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="" disabled>
-            게시판 선택
-          </option>
+          <option value="" disabled>게시판 선택</option>
           <option value="1">프론트엔드</option>
           <option value="2">백엔드</option>
           <option value="3">보안</option>
@@ -118,7 +118,7 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
         <Button text="취소" type="negative" onClick={handleCancel} />
         <div className="right">
           <HashtagInput onAddHashtags={handleAddHashtag} />
-          <Button text="저장" type="default" onClick={handleSubmit} />
+          <Button text={isLoading ? "저장 중..." : "저장"} type="default" onClick={handleSubmit} disabled={isLoading} />
         </div>
       </div>
       <div className="hashtag-list">
