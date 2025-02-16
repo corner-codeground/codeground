@@ -30,14 +30,26 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const boardId = parseInt(category, 10);
+
+    if (isNaN(boardId)) {
+      console.error("🚨 게시판 ID가 올바르지 않습니다!");
+      return;
+    }  
+    
+
+    if (!token) {
+      console.error("🚨 로그인 토큰이 없습니다. 요청을 보낼 수 없습니다.");
+      return;}
+
     const postData = {
       title,
       content,
       hashtags,
-      board_id: parseInt(category, 10),
+      board_id: boardId,
       is_public: true,
     };
-
+    console.log("✅ 요청 데이터:", postData);
     try {
       const headers = {
         "Content-Type": "application/json",
@@ -46,13 +58,13 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
 
       let response;
       if (postId) {
-        response = await fetch(`${BASE_URL}/api/posts/${postId}`, {
+        response = await fetch(`${BASE_URL}/posts/${postId}`, {
           method: "PUT",
           headers,
           body: JSON.stringify(postData),
         });
       } else {
-        response = await fetch(`${BASE_URL}/api/posts`, {
+        response = await fetch(`${BASE_URL}/posts`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

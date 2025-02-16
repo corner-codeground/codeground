@@ -8,6 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import "./BoardPages.css";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
+const token = localStorage.getItem("token"); // 🔥 저장된 토큰 가져오기
 
 const BoardPages = () => {
   const { boardId } = useParams();
@@ -20,8 +21,8 @@ const BoardPages = () => {
 
   useEffect(() => {
     const fetchBoardData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/boards/${boardId}/posts`, {
+      try {//api 연결 필요
+        const res = await axios.get(`${BASE_URL}/boards/:${boardId}/posts`, {
           headers: { Authorization: `Bearer your_jwt_token` },
         });
         if (res.data.success) {
@@ -37,9 +38,10 @@ const BoardPages = () => {
 
   useEffect(() => {
     const fetchTopPosts = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/posts/popular`, {
-          headers: { Authorization: `Bearer your_jwt_token` },
+      try {//api 확인 필요
+        
+        const res = await axios.get(`${BASE_URL}/popular`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.success) {
           setTopPosts(res.data.data.slice(0, 3)); // 상위 3개 인기글

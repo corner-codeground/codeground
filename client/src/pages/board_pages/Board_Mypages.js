@@ -18,7 +18,7 @@ const Board_Mypages = ({ boardId }) => {
 
   useEffect(() => {
     const fetchBoardData = async () => {
-      const data = {
+      const data = { //내가쓴 글, 글 관리 카테고리 
         10: { title: "내가 쓴 글", api: `${BASE_URL}/auth/profile` },
         11: { title: "스크랩", api: `${BASE_URL}/scraps/mypage` },
         12: { title: "글 관리", api: `${BASE_URL}/auth/profile` },
@@ -61,7 +61,7 @@ const Board_Mypages = ({ boardId }) => {
     try {
       await Promise.all(
         selectedPosts.map((postId) =>
-          axios.delete(`/posts/${postId}`, {
+          axios.delete(`/posts/:${postId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           })
         )

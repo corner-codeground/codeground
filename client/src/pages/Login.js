@@ -19,16 +19,32 @@ const Login = () => {
     }
 
     try {
-      const response = await axios.post(`${BASE_URL}/auth/login`, {
+      console.log("🔗 API 요청 URL:", `${BASE_URL}/auth/login`);
+      console.log("📩 로그인 요청 데이터:", { email, password });
+     
+      if (!BASE_URL) {
+        console.error("🚨 BASE_URL이 정의되지 않았습니다! .env 파일을 확인하세요.");
+        return;
+      }
+     
+      const response = await axios.post(`${BASE_URL}auth/login`, {
         email,
         password,
       });
+      
+      console.log("✅ 로그인 응답 데이터:", response.data);
 
       const { token, user } = response.data;
+      if (!token) {
+        throw new Error("🚨 토큰이 응답에 포함되지 않았습니다!");
+      }
       localStorage.setItem("token", token);
+      console.log("🔑 저장된 토큰:", localStorage.getItem("token"));
+
       console.log("로그인 성공:", user);
       navigate("/"); // 로그인 성공 시 홈으로 이동
     } catch (error) {
+      console.error("🚨 로그인 오류:", error);
       if (error.response) {
         // 서버가 응답했지만 400~500 오류 코드일 때
         setErrorMessage(error.response.data.message || "로그인에 실패했습니다.");
