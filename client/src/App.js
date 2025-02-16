@@ -11,11 +11,10 @@ import Sign_up from "./pages/Sign_up";
 import Mypage from "./pages/Mypage";
 import Writting from "./pages/Writting";
 
-// Board 컴포넌트 (게시판 이동 동적 처리)
-import BoardPages from './pages/board_pages/BoardPages';
-import Board_Mypages from './pages/board_pages/Board_Mypages';
-import PostDetail from './pages/board_pages/PostDetail'; // 상세 페이지 컴포넌트
-import PostEditPage from './pages/board_pages/PostEditPage';     // PostEdit 컴포넌트
+import BoardPages from './pages/board_pages/BoardPages';   // boards 폴더로 변경
+import Board_Mypages from './pages/board_pages/Board_Mypages';  
+import PostDetail from './pages/board_pages/PostDetail';
+import PostEditPage from './pages/board_pages/PostEditPage';
 
 // 계정 관리 페이지 
 import Set_userInfo from './pages/userInfo_follow/Set_userInfo'; // 경로 추가
@@ -37,8 +36,8 @@ function App() {
       <Route path="/mypage/:boardId?" element={<Mypage />} />
       <Route path="/writting" element={<Writting />} />
       {/* 게시판 별 페이지 */}
-      <Route path="/board_pages/:boardId" element={<BoardPages />} /> {/* 게시판 ID에 따라 다르게 */}
-      <Route path="/post/:postId" element={<PostDetail />} /> {/* 포스트 상세 페이지 */}
+      <Route path="/boards/:boardId" element={<BoardPages />} /> {/* 게시판 ID에 따라 다르게 */}
+      <Route path="/boards/:boardId/:postId" element={<PostDetail />} /> {/* 포스트 상세 페이지 */}
       <Route path="/post-edit/:postId" element={<PostEditPage />} />
       <Route path="/mypages/:boardId" element={<Board_Mypages />} />
 
