@@ -27,7 +27,7 @@ const Login = () => {
       const { token, user } = response.data;
       localStorage.setItem("token", token);
       console.log("로그인 성공:", user);
-      navigate("/home"); // 로그인 성공 시 홈으로 이동
+      navigate("/"); // 로그인 성공 시 홈으로 이동
     } catch (error) {
       if (error.response) {
         // 서버가 응답했지만 400~500 오류 코드일 때

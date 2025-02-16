@@ -30,7 +30,7 @@ app.set("views", path.join(__dirname, "views"));
 // CORS 설정 추가
 app.use(
   cors({
-    origin: "http://localhost:3000/", // 프론트엔드 실행 주소 (Live Server)
+    origin: ["http://localhost:3000", "http://localhost:3000/"], // 프론트엔드 실행 주소 (Live Server)
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -100,7 +100,7 @@ sequelize
   });
 
 // 서버 실행
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`서버가 ${PORT}번 포트에서 실행 중입니다.`);
 });

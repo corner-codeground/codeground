@@ -5,7 +5,7 @@ const Community = require("./models/community"); // 테스트 데이터 삽입�
 
 dotenv.config(); // 환경 변수 로드
 
-let PORT = process.env.PORT || 5000;
+let PORT = process.env.PORT || 3001;
 
 // 서버 실행 함수 (포트 충돌 시 자동 변경)
 const startServer = (port) => {
