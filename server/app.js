@@ -6,7 +6,7 @@ const path = require("path");
 const dotenv = require("dotenv");
 const cors = require("cors"); // 중복 선언 제거
 const jwt = require("jsonwebtoken");
-const { sequelize } = require("./models");
+const { sequelize, Board } = require("./models");
 
 // dotenv 설정은 가능한 최상단에서 실행
 require("dotenv").config();
@@ -19,6 +19,8 @@ const scrapRouter = require("./routes/route_scrap");
 const followRouter = require("./routes/route_follow");
 const postRouter = require("./routes/postRoutes");
 const runCodeRouter = require("./routes/route_runCode");
+const boardRouter = require("./routes/route_board");
+const communityRouter = require("./routes/communityRoutes");
 
 const app = express(); // app 생성은 dotenv 이후에 진행
 
@@ -41,6 +43,20 @@ app.use("/uploads", express.static("uploads"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+<<<<<<< HEAD
+=======
+// CORS 설정
+app.use(
+  cors({
+    origin: ["http://localhost:3000", "http://localhost:3000/"], // 모든 도메인 허용 (테스트 시 사용, 배포 시 변경 필요)
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+app.options("*", cors());
+
+>>>>>>> 5b037b3830de23b321ed03f3d6b8d104d6c99727
 // 미들웨어 설정
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -62,13 +78,9 @@ app.use(passport.session());
 // JWT 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
-
-  console.log("[DEBUG] Received token:", token);
-
   if (!token) {
     return res.status(401).json({ message: "인증이 필요합니다." });
   }
-
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ message: "토큰이 유효하지 않습니다." });
@@ -86,6 +98,8 @@ app.use("/scraps", scrapRouter);
 app.use("/follow", followRouter);
 app.use("/posts", postRouter);
 app.use("/runCodes", runCodeRouter);
+app.use("/boards", boardRouter);
+app.use("/community", communityRouter);
 
 // 홈 화면
 app.get("/", (req, res) => {
@@ -95,11 +109,17 @@ app.get("/", (req, res) => {
 // MySQL 연결 후 서버 실행
 sequelize
   .sync()
-  .then(() => {
-    console.log("데이터베이스 연결 성공");
+  .then(async () => {
+    console.log(" 데이터베이스 연결 성공");
+    if (Board) {
+      await Board.seedDefaultBoards();
+      console.log("기본 게시판 데이터 추가 완료");
+    } else {
+      console.error("Board 모델이 로드되지 않았습니다.");
+    }
   })
   .catch((err) => {
-    console.error("데이터베이스 연결 오류", err);
+    console.error("데이터베이스 연결 오류:", err);
   });
 
 // 서버 실행

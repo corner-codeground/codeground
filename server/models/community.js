@@ -38,12 +38,20 @@ class Community extends Sequelize.Model {
           type: DataTypes.STRING,
           allowNull: false,
         },
+        boardId: {
+          type: DataTypes.INTEGER,
+          allowNull: false,
+          references: {
+            model: "boards",
+            key: "id",
+          },
+        },
       },
       {
         sequelize,
         tableName: "communities",
         timestamps: true,
-        modelName: "Community", // 👈 추가
+        modelName: "Community",
       }
     );
   }
