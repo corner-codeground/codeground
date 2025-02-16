@@ -46,13 +46,13 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
 
       let response;
       if (postId) {
-        response = await fetch(`${BASE_URL}/api/posts/${postId}`, {
+        response = await fetch(`${BASE_URL}/posts/${postId}`, {
           method: "PUT",
           headers,
           body: JSON.stringify(postData),
         });
       } else {
-        response = await fetch(`${BASE_URL}/api/posts`, {
+        response = await fetch(`${BASE_URL}/posts`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -61,13 +61,16 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
           body: JSON.stringify(postData),
         });
       }
+      const responseText = await response.text(); // 추가
 
       if (response.ok) {
-        const data = await response.json();
+        // const data = await response.json();
+        const data = JSON.parse(responseText); // JSON으로 변환
+
         console.log("게시글 저장 완료:", data);
         navigate(`/post/${data.post.id}`);
       } else {
-        console.error("게시글 저장 실패", await response.json());
+        console.error("게시글 저장 실패", responseText/*await response.json()*/);
       }
     } catch (error) {
       console.error("게시글 저장 중 오류 발생:", error);
