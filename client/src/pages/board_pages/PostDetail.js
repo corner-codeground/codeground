@@ -25,7 +25,7 @@ const PostDetail = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/posts/${postId}`);
+        const response = await axios.get(`${BASE_URL}/posts/${postId}`);
         setPost(response.data);
         setLikes(response.data.likes);
         setComments(response.data.comments);
@@ -36,7 +36,7 @@ const PostDetail = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/user`); // 사용자 정보 불러오기
+        const response = await axios.get(`${BASE_URL}/users`); // 사용자 정보 불러오기
         setUser(response.data);
       } catch (error) {
         console.error("사용자 정보를 불러오는 중 오류 발생:", error);
