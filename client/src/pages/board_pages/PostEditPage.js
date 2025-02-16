@@ -1,41 +1,48 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import Writting from '../Writting'; // Writting 컴포넌트 임포트
-import { posts } from './Posts'; // 게시글 데이터를 임포트
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Writting from "../Writting"; // Writting 컴포넌트 임포트
+
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const PostEditPage = () => {
-    const { postId } = useParams(); // URL에서 postId 추출
-    const [post, setPost] = useState(null); // 게시글 상태
+  const { postId } = useParams(); // URL에서 postId 추출
+  const navigate = useNavigate();
+  const [post, setPost] = useState(null); // 게시글 상태
 
-    useEffect(() => {
-        // 게시글 데이터에서 postId에 맞는 게시글 찾기
-        const foundPost = posts.find((post) => post.id === parseInt(postId));
-        if (foundPost) {
-            setPost(foundPost);
-        }
-    }, [postId]);
-
-    // 게시글이 로딩되지 않았으면 로딩 중 표시
-    if (!post) {
-        return <div>게시글을 불러오는 중...</div>;
-    }
-
-    const handleSave = (updatedPost) => {
-        // 수정된 게시글을 저장하는 로직 (API 호출 등)
-        console.log("게시글 수정 완료:", updatedPost);
+  useEffect(() => {
+    const fetchPost = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/api/posts/${postId}`); // API에서 게시글 가져오기
+        setPost(response.data);
+      } catch (error) {
+        console.error("게시글을 불러오는 중 오류 발생:", error);
+      }
     };
 
-    return (
-        <div>
-            <h1>게시글 수정</h1>
-            {/* Writting 컴포넌트에 초기 제목과 내용 전달 */}
-            <Writting 
-                initialTitle={post.title} 
-                initialContent={post.content} 
-                onSave={handleSave} 
-            />
-        </div>
-    );
+    fetchPost();
+  }, [postId]);
+
+  if (!post) {
+    return <div>게시글을 불러오는 중...</div>;
+  }
+
+  const handleSave = async (updatedPost) => {
+    try {
+      await axios.put(`/api/posts/${postId}`, updatedPost); // 게시글 수정 API 호출
+      console.log("게시글 수정 완료:", updatedPost);
+      navigate(`/post/${postId}`); // 수정 완료 후 해당 게시글 페이지로 이동
+    } catch (error) {
+      console.error("게시글 수정 중 오류 발생:", error);
+    }
+  };
+
+  return (
+    <div>
+      <h1>게시글 수정</h1>
+      <Writting initialTitle={post.title} initialContent={post.content} onSave={handleSave} />
+    </div>
+  );
 };
 
 export default PostEditPage;
