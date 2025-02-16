@@ -27,7 +27,7 @@ const Profile = ({ isOwnProfile = true }) => {
         const fetchProfileData = async () => {
             try {
                 const token = localStorage.getItem('token');  // 로컬 스토리지에서 토큰 가져오기
-                const response = await axios.get(`${BASE_URL}/auth/profile/auth/profile`, {
+                const response = await axios.get(`${BASE_URL}/auth/profile/:id`, {
                     headers: {
                         'Authorization': `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
                     },

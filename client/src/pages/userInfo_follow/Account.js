@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Account.css";
 import Button from "../../component/Button";
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const Account = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ const Account = () => {
         const fetchUserInfo = async () => {
             try {
                 const token = localStorage.getItem('token'); // 로컬 스토리지에서 토큰 가져오기
-                const response = await axios.get('/auth/profile', {
+                const response = await axios.get(`${BASE_URL}/auth/account`, {
                     headers: {
                         'Authorization': `Bearer ${token}`, // 토큰을 Authorization 헤더에 추가
                     },

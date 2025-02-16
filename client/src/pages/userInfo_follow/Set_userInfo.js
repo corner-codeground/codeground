@@ -39,13 +39,20 @@ const Account = () => {
 
     const { username, userId, bio, mode, profileImage } = userInfo || {};  // userInfo가 없을 경우 대비
 
-    const handleAccountDelete = () => {
-        // 계정 탈퇴 로직 구현
-        // 예시로 확인창을 띄운 후 탈퇴 진행
+    const handleAccountDelete = async () => {
+        // 탈퇴 전 확인창
         const confirmDelete = window.confirm("정말로 계정을 탈퇴하시겠습니까?");
         if (confirmDelete) {
-            // 계정 탈퇴 API 호출 등
-            console.log("계정 탈퇴 진행...");
+            try {
+                // DELETE 요청을 통해 계정 탈퇴 진행
+                await axios.delete(`${BASE_URL}/auth/account/delete`);
+                alert("계정이 탈퇴되었습니다.");
+                // 탈퇴 후 로그인 페이지나 홈으로 이동
+                navigate("/login");
+            } catch (err) {
+                console.error("계정 탈퇴 실패:", err);
+                alert("계정 탈퇴에 실패하였습니다. 다시 시도해주세요.");
+            }
         }
     };
 
