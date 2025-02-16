@@ -10,18 +10,32 @@ const BASE_URL = process.env.REACT_APP_API_URL;
 
 const Home = () => {
   const navigate = useNavigate();
-  const [posts, setPosts] = useState([]);
+  const [boards, setBoards] = useState([]); // ✅ 게시판 목록 상태 추가
+  const [posts, setPosts] = useState([]); // ✅ 인기 게시글 상태
 
-  // API 요청을 통한 인기 게시글 가져오기
   useEffect(() => {
+    // ✅ 1. 게시판 목록 조회 (GET /boards)
+    const fetchBoards = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/boards`);
+        if (response.data.success) {
+          setBoards(response.data.data); // ✅ 게시판 목록 업데이트
+        } else {
+          console.error("게시판 목록 불러오기 실패:", response.data);
+        }
+      } catch (error) {
+        console.error("게시판 목록 불러오는 중 오류 발생:", error);
+      }
+    };
+
+    // ✅ 2. 인기 게시글 조회 (GET /posts/popular)
     const fetchPopularPosts = async () => {
       try {
-        const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
-        const token = localStorage.getItem("token"); // 🔥 저장된 토큰 가져오기
+        const token = localStorage.getItem("token"); // ✅ 로그인한 사용자의 토큰 불러오기
 
-        const response = await axios.get(`${BASE_URL}/popular`, { // posts/popular에서 변경
+        const response = await axios.get(`${BASE_URL}/posts/popular`, {
           headers: {
-            Authorization: `Bearer ${token}`, // 실제 JWT 토큰으로 변경
+            Authorization: `Bearer ${token}`, // ✅ 실제 JWT 토큰 적용
           },
         });
 
@@ -37,7 +51,8 @@ const Home = () => {
       }
     };
 
-    fetchPopularPosts();
+    fetchBoards(); // ✅ 게시판 목록 불러오기
+    fetchPopularPosts(); // ✅ 인기 게시글 불러오기
   }, []);
 
   // 글쓰기 페이지로 이동
@@ -47,15 +62,20 @@ const Home = () => {
 
   return (
     <div>
-      <BoardTabs />
+      {/* ✅ 게시판 목록을 props로 전달 */}
+      <BoardTabs boards={boards} />
+
       <div className="explain-board">
         전체 인기글 <br />
         <div className="post-preview-container">
-          {posts.map((post) => (
-            <PostPreview key={post.id} post={post} />
-          ))}
+          {posts.length > 0 ? (
+            posts.map((post) => <PostPreview key={post.id} post={post} />)
+          ) : (
+            <p>인기 게시글이 없습니다.</p>
+          )}
         </div>
       </div>
+
       {/* 글쓰기 버튼 */}
       <Button text="+" type="floating-btn" onClick={handleWriteClick} />
     </div>

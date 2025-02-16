@@ -50,7 +50,7 @@ const PostPreview = ({ post, isEditing, onSelect, isSelected, boardId, updateLik
             e.stopPropagation(); // 편집모드일 때는 이동 방지
             return;
         }
-        navigate(`/post/:${post.id}`, { state: { comments } });
+        navigate(`/boards/${post.boardId}/${post.id}`, { state: { comments } });
     };
 
     const handleSelectClick = (e) => {
