@@ -1,0 +1,104 @@
+.mypage-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+
+}
+
+.mypage-container.dark-mode {
+    background-color: #201F1F;
+    color: #fff;
+}
+
+.mypage-container.light-mode {
+    background-color: #fff;
+    color: black;
+}
+
+.change-img {
+    width: 120px;
+    height: 120px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    background-color: gray;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+}
+
+.user-info-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+.user-info-form input {
+    width: 250px;
+    margin-left: 30px;
+    border-radius: 7px;
+    border: 1px solid black;
+    outline: none;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    width: 100%;
+    margin-bottom: 15px;
+}
+.form-group label {
+    width: 120px; /* 고정된 너비 설정 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+.form-group input {
+    flex: 1; /* 남은 공간을 채우도록 설정 */
+    width: 100%; /* 기본적으로 너비 100% */
+    max-width: 300px; /* 입력 필드 최대 너비 제한 */
+    padding: 5px;
+}
+
+.radio-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    width: 100%;
+    margin-bottom: 15px;
+}
+.radio-option label {
+    white-space: nowrap;
+    text-align: left;
+}
+.radio-option input {
+    margin: 0; /* 불필요한 여백 제거 */
+    vertical-align: middle;
+    padding: 0;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+/* 버튼 중앙 정렬 */
+.form-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px; 
+    margin-top: 20px;
+}
+.set-mode {
+    font-weight: normal;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 5px; /* 라디오 버튼 그룹과의 간격 */
+    text-align: left;
+    width: 100%;
+    text-shadow:none;
+}

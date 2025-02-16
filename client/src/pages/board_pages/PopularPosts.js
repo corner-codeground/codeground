@@ -19,8 +19,8 @@ const PopularPosts = () => {
         if (!token) {
           throw new Error("로그인 필요: JWT 토큰이 없습니다.");
         }
-
-        const res = await axios.get(`${BASE_URL}/posts/popular`, {
+//api 확인 필요요
+        const res = await axios.get(`${BASE_URL}/popular`, {
           headers: { Authorization: `Bearer ${token}` }, // 동적 토큰 추가
         });
 

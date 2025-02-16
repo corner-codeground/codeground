@@ -8,6 +8,7 @@ import { FaSearch } from "react-icons/fa";
 import "./BoardPages.css";
 
 const BASE_URL = process.env.REACT_APP_API_URL;
+const token = localStorage.getItem("token"); // 🔥 저장된 토큰 가져오기
 
 const BoardPages = () => {
   const { boardId } = useParams();
@@ -22,15 +23,9 @@ const BoardPages = () => {
 
   useEffect(() => {
     const fetchBoardData = async () => {
-      if (!token) {
-        console.error("토큰이 없습니다. 로그인 페이지로 리다이렉션합니다.");
-        navigate("/login");  // 토큰이 없으면 로그인 페이지로 이동
-        return;
-      }
-
-      try {
-        const res = await axios.get(`${BASE_URL}/posts`, {
-          headers: { Authorization: `Bearer ${token}` },
+      try {//api 연결 필요
+        const res = await axios.get(`${BASE_URL}/boards/:${boardId}/posts`, {
+          headers: { Authorization: `Bearer your_jwt_token` },
         });
         if (res.data.success) {
           setPosts(res.data.data);
@@ -46,8 +41,9 @@ const BoardPages = () => {
 
   useEffect(() => {
     const fetchTopPosts = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/boards/${boardId}/posts/popular`, {
+      try {//api 확인 필요
+        
+        const res = await axios.get(`${BASE_URL}/popular`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.success) {

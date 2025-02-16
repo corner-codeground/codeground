@@ -1,0 +1,12 @@
+/* Following.css */
+.following-users {
+    padding: 20px;
+    font-size: 18px;
+}
+
+.following-users-set {
+    display: flex;
+    flex-direction: column; /* 세로로 배치 */
+    align-items: flex-start; /* 왼쪽 정렬 */
+    gap: 20px; /* 프로필 간 간격 */
+}

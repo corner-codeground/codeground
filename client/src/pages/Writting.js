@@ -37,19 +37,26 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
     e.preventDefault();
     setIsLoading(true);  // ✅ 로딩 상태 시작
 
+    const boardId = parseInt(category, 10);
+
+    if (isNaN(boardId)) {
+      console.error("🚨 게시판 ID가 올바르지 않습니다!");
+      return;
+    }  
+    
+
+    if (!token) {
+      console.error("🚨 로그인 토큰이 없습니다. 요청을 보낼 수 없습니다.");
+      return;}
+
     const postData = {
       title,
       content,
       hashtags,
-      board_id: parseInt(category, 10),
+      board_id: boardId,
       is_public: true,
     };
-    if (!token) {
-      console.error("토큰이 없습니다!");
-      setIsLoading(false);
-      return;
-    }
-
+    console.log("✅ 요청 데이터:", postData);
     try {
       const headers = {
         "Content-Type": "application/json",

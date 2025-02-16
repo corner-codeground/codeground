@@ -31,7 +31,7 @@ const PostEditPage = () => {
     try {
       await axios.put(`/posts/${postId}`, updatedPost); // 게시글 수정 API 호출
       console.log("게시글 수정 완료:", updatedPost);
-      navigate(`/post/${postId}`); // 수정 완료 후 해당 게시글 페이지로 이동
+      navigate(`/post/:${postId}`); // 수정 완료 후 해당 게시글 페이지로 이동
     } catch (error) {
       console.error("게시글 수정 중 오류 발생:", error.response || error);
     }

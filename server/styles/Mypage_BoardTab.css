@@ -1,0 +1,40 @@
+.myboardTab-bar {
+    color: #7FA1C3;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    margin-top: 30px;
+    flex-direction: column;
+} 
+.myboardTab-bar ul {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+}
+.myboardTab-bar ul li{
+    list-style-type: none;
+    font-size: 15px;
+    margin-right: 20px;
+}
+.myboardTab-bar ul li a {
+    color: #7FA1C3;
+    text-decoration: none;
+    padding: 5px 7px;
+}
+.myboardTab-bar ul li a:hover {
+    color: #6482AD;
+    font-weight: bold;
+}
+.myboardTab-bar ul li a.active-link {
+    color: #6482AD;  
+    font-weight: bold;  
+}
+
+.mypage-tab-separator {
+    margin-top: 10px;
+    border: 0;
+    border-top: 1px solid black;
+    width: 100%;
+}

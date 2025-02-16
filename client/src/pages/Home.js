@@ -16,13 +16,16 @@ const Home = () => {
   useEffect(() => {
     const fetchPopularPosts = async () => {
       try {
-        const BASE_URL = process.env.REACT_APP_API_URL;
+        const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
+        const token = localStorage.getItem("token"); // 🔥 저장된 토큰 가져오기
 
         const response = await axios.get(`${BASE_URL}/popular`, { // posts/popular에서 변경
           headers: {
-            Authorization: `Bearer your_jwt_token`, // 실제 JWT 토큰으로 변경
+            Authorization: `Bearer ${token}`, // 실제 JWT 토큰으로 변경
           },
         });
+
+        console.log("✅ 인기 게시글 응답 데이터:", response.data);
 
         if (response.data.success) {
           setPosts(response.data.data);

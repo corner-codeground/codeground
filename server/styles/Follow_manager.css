@@ -1,0 +1,14 @@
+/* Follow_manager.css */
+.follow-management {
+    display: flex;
+    justify-content: center;  /* 화면 가운데 정렬 */
+    align-items: flex-start;  /* 위쪽 정렬 */
+    gap: 30px;  /* 목록 간 간격 */
+    padding: 20px;
+}
+
+.following-set, .follower-set {
+    display: flex;
+    flex-direction: column;
+    width: 300px;  /* 각 목록의 너비 설정 */
+}

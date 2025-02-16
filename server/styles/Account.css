@@ -1,0 +1,87 @@
+.account-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 30px;
+    margin: 0 auto;
+    width: 70%;
+    margin-bottom: 50px;
+}
+.page-title {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    font: bold 25px Inter;
+    border: none;
+    background: transparent;
+    box-sizing: border-box;
+    text-align: left;  
+    display: flex;
+    align-items: center;
+}
+.account-header {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 400px;
+}
+.account-profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    background-color: gray;
+}
+.user-info {
+    width: 100%;
+    text-align: left;
+}
+
+.user-name, .user-id, .introduce-myself-set, .mode-select {
+    display: flex;
+    justify-content: flex-start;  
+    margin-bottom: 10px;
+    align-items: center;  
+    width: 100%;
+    margin-left: 20%;
+}
+
+.name-label, .id-label, .bio-label, .mode-label {
+    font-weight: normal;
+    color: black;
+    font-size: 16px;
+    min-width: 100px; 
+    display: inline-block;
+    text-align: left;
+    margin-right: 20px;
+}
+
+.name-value, .id-value, .bio-value, .mode-value {
+    font-size: 16px;
+    color: black;
+    margin-left: 10px; 
+    flex-grow: 1; 
+    text-align: left;  
+    white-space: nowrap;
+    font-weight: bold;
+}
+
+.introduce-myself-set {
+    display: flex; /* 다시 flexbox로 변경 */
+    flex-direction: row; /* 세로 정렬 대신 가로로 정렬 */
+    align-items: center;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+
+
+.bio-value {
+    margin-left: 10px;
+    width: 100%;  /* bio-value가 충분한 공간을 차지하도록 */
+    white-space: nowrap;
+}
