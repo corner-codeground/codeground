@@ -4,9 +4,13 @@ const session = require("express-session");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const dotenv = require("dotenv");
-const cors = require("cors");
+const cors = require("cors"); // 중복 선언 제거
 const jwt = require("jsonwebtoken");
 const { sequelize } = require("./models");
+
+// dotenv 설정은 가능한 최상단에서 실행
+require("dotenv").config();
+
 
 const authRouter = require("./routes/auth");
 const commentRouter = require("./routes/route_comment");
@@ -16,8 +20,18 @@ const followRouter = require("./routes/route_follow");
 const postRouter = require("./routes/postRoutes");
 const runCodeRouter = require("./routes/route_runCode");
 
-dotenv.config();
-const app = express();
+const app = express(); // app 생성은 dotenv 이후에 진행
+
+// CORS 설정 (두 번 선언되어 있던 cors 관련 코드를 하나로 통합)
+app.use(
+  cors({
+    origin: "http://localhost:3000", // 끝에 슬래시 제거 (정확한 매칭을 위해)
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+app.options("*", cors()); // Preflight Request 처리
 
 // 정적 파일 제공 설정
 app.use(express.static(path.join(__dirname, "public")));
@@ -26,17 +40,6 @@ app.use("/uploads", express.static("uploads"));
 // 템플릿 엔진 설정 (EJS)
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-// CORS 설정 추가
-app.use(
-  cors({
-    origin: "http://localhost:3000/", // 프론트엔드 실행 주소 (Live Server)
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-app.options("*", cors()); // Preflight Request 처리 (OPTIONS 요청 허용)
 
 // 미들웨어 설정
 app.use(express.json());
@@ -100,7 +103,7 @@ sequelize
   });
 
 // 서버 실행
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`서버가 ${PORT}번 포트에서 실행 중입니다.`);
 });

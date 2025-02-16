@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import HashtagList from '../../component/HashtagList';
 import Button from '../../component/Button';
-import { posts } from './Posts';
+//import { posts } from './Posts';
 import './PostDetail.css';
 import { Bookmark } from "lucide-react";
 import CommentSection from './CommentSection';
@@ -28,13 +28,22 @@ const PostDetail = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // posts 배열에서 postId에 맞는 데이터 찾기
-        const foundPost = posts.find((post) => post.id === parseInt(postId)); // postId는 문자열일 수 있으므로 parseInt
-        if (foundPost) {
-            setPost(foundPost);
-            setLikes(foundPost.likes);  // 초기 좋아요 값 설정
-            setComments(foundPost.comments);  // 초기 댓글 값 설정
-        }
+        // API 호출로 포스트 데이터를 가져오기
+        const fetchPostDetails = async () => {
+            try {
+                const response = await fetch(`/api/posts/${postId}`);
+                const postData = await response.json();
+                if (postData) {
+                    setPost(postData);
+                    setLikes(postData.likes);  // 초기 좋아요 값 설정
+                    setComments(postData.comments);  // 초기 댓글 값 설정
+                }
+            } catch (error) {
+                console.error("포스트 데이터를 가져오는 중 오류 발생:", error);
+            }
+        };
+
+        fetchPostDetails();
     }, [postId]);
 
     if (!post) {
@@ -95,9 +104,21 @@ const PostDetail = () => {
         navigate(`/post-edit/${post.id}`);
     };
 
-    const handleDelete = () => {
-        // 삭제 로직 (예: API 호출로 게시글 삭제)
-        console.log("삭제 버튼 클릭");
+    const handleDelete = async () => {
+        try {
+            // 게시글 삭제 요청
+            const response = await fetch(`/api/posts/${post.id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                // 삭제 성공 시, 메인 페이지로 리다이렉트
+                navigate('/posts');
+            } else {
+                console.error("삭제 실패");
+            }
+        } catch (error) {
+            console.error("삭제 중 오류 발생:", error);
+        }
     };
 
     const handleLikeClick = () => {

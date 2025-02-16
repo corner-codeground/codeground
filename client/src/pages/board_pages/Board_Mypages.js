@@ -2,13 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import PostPreview from './PostPreview';
 import Button from '../../component/Button';
-import {posts as allPosts} from './Posts';  //일단 allPosts 이용
+//import {posts as allPosts} from './Posts';  //일단 allPosts 이용
 import Follow_manager from '../userInfo_follow/Follow_manager';
 import BoardCategoryView from "./BoardCategoryView";
 import './BoardPages.css';
+import axios from 'axios';
 
 const Board_Mypages = ({ boardId }) => {
     const navigate = useNavigate();
+    const [userId, setUserId] = useState(null);
 
     const [boardData, setBoardData] = useState(null); //게시판 데이터 상태 관리
     const [posts, setPosts] = useState([]); // 게시글 상태 관리
@@ -16,26 +18,48 @@ const Board_Mypages = ({ boardId }) => {
     const [selectedPosts, setSelectedPosts] = useState([]); // 선택된 게시글 관리
     const [isEditing, setIsEditing] = useState(false); // 편집 모드 상태
 
-    useEffect(() => { //게시판 데이터 불러오기
+    useEffect(() => {
         const fetchBoardData = async () => {
-            const data = {
-                10: { title: '내가 쓴 글', description: '내 게시물.' },
-                11: { title: '스크랩', description: '스크랩한 글들.' },
-                12: { title: '글 관리', description: '글 관리.' },
-                13: { title: '팔로우 관리', description: '팔로우 관리.' },
-                20: { title: '카테고리', description: '다른 사람 계정에서 카테고리별 게시판'}
-            };
-
-            setBoardData(data[boardId]);    //boardId에 맞는 데이터 설정
-            console.log(data[boardId]);  // boardData 확인
-
-            // // boardId에 맞는 게시글 데이터를 필터링
-            // const filteredPosts = allPosts.filter(post => post.boardId === parseInt(boardId));
-            setPosts(allPosts); //일단 allposts
-            // console.log(filteredPosts);  // 필터링된 게시글 확인
+            try {
+                const response = await axios.get(`/api/board/${boardId}`);
+                setBoardData(response.data);
+                // 게시글 데이터를 가져오는 API 요청
+                const postsResponse = await axios.get(`/api/posts?boardId=${boardId}`);
+                setPosts(postsResponse.data);
+            } catch (error) {
+                console.error("게시판 데이터를 불러오는 중 오류 발생:", error);
+            }
         };
         fetchBoardData();
-    }, [boardId]); //boardId 변경될 때마다 데이터 재로딩
+    }, [boardId]);
+
+    useEffect(() => {
+        const fetchFollowData = async () => {
+            try {
+                const response = await axios.get(`/api/follow/${userId}`);
+                // 팔로우 데이터를 받아와서 상태에 저장
+            } catch (error) {
+                console.error("팔로우 데이터를 불러오는 중 오류 발생:", error);
+            }
+        };
+        fetchFollowData();
+    }, [userId]);
+
+    useEffect(() => {
+        const fetchCategoryPosts = async () => {
+            try {
+                const response = await axios.get(`/api/category/${boardId}/posts`);
+                setPosts(response.data);  // 받아온 게시글로 상태 업데이트
+            } catch (error) {
+                console.error("카테고리 게시글 불러오는 중 오류 발생:", error);
+            }
+        };
+        if (boardId === "20") {
+            fetchCategoryPosts();
+        }
+    }, [boardId]);
+    
+    
 
     // boardData가 null일 때 로딩 상태 또는 오류 처리
     if (!boardData) {
@@ -63,12 +87,19 @@ const Board_Mypages = ({ boardId }) => {
             }
         });
     };
-    // 선택된 게시글 삭제 함수
-    const handleDeleteClick = () => {
-        const updatedPosts = posts.filter((post) => !selectedPosts.includes(post.id));
-        setPosts(updatedPosts);
-        setSelectedPosts([]); // 삭제 후 선택된 게시글 초기화
+    const handleDeleteClick = async () => {
+        try {
+            const response = await axios.delete('/api/posts', {
+                data: { postIds: selectedPosts },
+            });
+            setPosts(posts.filter(post => !selectedPosts.includes(post.id)));
+            setSelectedPosts([]); // 선택된 게시글 초기화
+        } catch (error) {
+            console.error("게시글 삭제 중 오류 발생:", error);
+        }
     };
+    
+    
 
     // boardId === "13"일 때 팔로우 관리 화면으로
     if (boardId === "13") {

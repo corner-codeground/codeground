@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'; 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './Writting.css';
 import DateDisplay from '../component/DateDisplay';
 import EditorToolbar from '../component/EditorToolbar';
@@ -9,18 +9,53 @@ import HashtagInput from '../component/HashtagInput';
 import HashtagList from '../component/HashtagList';
 
 const Writting = ({ initialTitle, initialContent, onSave }) => {
+    const { postId } = useParams();  // URL에서 postId를 받아옴
     const [title, setTitle] = useState(initialTitle || '');
     const [content, setContent] = useState(initialContent || '');
     const editorRef = useRef(null);
-
+    const [category, setCategory] = useState('');  // 카테고리 상태 추가
     const [hashtags, setHashtags] = useState([]);  // 해시태그 상태 관리
+    
     const handleRemoveHashtag = (index) => {    //해시태그 삭제 함수
         setHashtags(hashtags.filter((_, i) => i !== index));
     };
-    const handleSubmit = (e) => {
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("제목: ", title);
-        console.log("내용: ", content);
+
+        const postData = {
+            title,
+            content,
+            hashtags,
+            category,  // 카테고리도 postData에 포함
+        };
+
+        if (!postId) {
+            console.error("Post ID가 없습니다.");
+            return;
+        }
+
+        // 수정된 내용이 포함된 객체를 부모로 전달
+        try {
+            const response = await fetch(`/api/posts/${postId}`, {
+                method: 'PUT', // PUT 요청으로 수정
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(postData),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("게시글 수정 완료:", data);
+                // 수정 완료 후, 게시글 상세 페이지로 리다이렉트
+                navigate(`/post/${postId}`);
+            } else {
+                console.error('게시글 수정 실패');
+            }
+        } catch (error) {
+            console.error("게시글 수정 중 오류 발생:", error);
+        }
     };
 
     // 해시태그 추가 함수
@@ -44,8 +79,8 @@ const Writting = ({ initialTitle, initialContent, onSave }) => {
                 />
             </div>
             <div className="category">
-                <select name="category_select">
-                    <option value="" disabled selected>게시판 선택</option> 
+                <select name="category_select" value={category} onChange={(e) => setCategory(e.target.value)}>
+                    <option value="" disabled>게시판 선택</option>
                     <option value="1">프론트엔드</option>
                     <option value="2">백엔드</option>
                     <option value="3">보안</option>
@@ -67,7 +102,7 @@ const Writting = ({ initialTitle, initialContent, onSave }) => {
                 <Button text="취소" type="negative" onClick={handleCancel} />
                 <div className="right">
                     <HashtagInput onAddHashtags={handleAddHashtag} /> {/* 해시태그 추가 함수 전달 */}
-                    <Button text="저장" type="default" onClick={() => alert('저장버튼 클릭!')} />
+                    <Button text="저장" type="default" onClick={handleSubmit} />
                 </div>
             </div>
             <div className="hashtag-list">
