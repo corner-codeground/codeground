@@ -18,11 +18,19 @@ const BoardPages = () => {
   const [topPosts, setTopPosts] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
+  const token = localStorage.getItem("token"); // 로컬 스토리지에서 토큰 가져오기
+
   useEffect(() => {
     const fetchBoardData = async () => {
+      if (!token) {
+        console.error("토큰이 없습니다. 로그인 페이지로 리다이렉션합니다.");
+        navigate("/login");  // 토큰이 없으면 로그인 페이지로 이동
+        return;
+      }
+
       try {
-        const res = await axios.get(`${BASE_URL}/boards/${boardId}/posts`, {
-          headers: { Authorization: `Bearer your_jwt_token` },
+        const res = await axios.get(`${BASE_URL}/posts`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.success) {
           setPosts(res.data.data);
@@ -33,13 +41,14 @@ const BoardPages = () => {
     };
 
     fetchBoardData();
-  }, [boardId]);
+  }, [boardId, token, navigate]);  // token과 navigate가 변경될 때마다 실행되도록 설정
+
 
   useEffect(() => {
     const fetchTopPosts = async () => {
       try {
-        const res = await axios.get(`${BASE_URL}/posts/popular`, {
-          headers: { Authorization: `Bearer your_jwt_token` },
+        const res = await axios.get(`${BASE_URL}/boards/${boardId}/posts/popular`, {
+          headers: { Authorization: `Bearer ${token}` },
         });
         if (res.data.success) {
           setTopPosts(res.data.data.slice(0, 3)); // 상위 3개 인기글

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./Writting.css";
 import DateDisplay from "../component/DateDisplay";
@@ -18,7 +18,12 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
   const [isLoading, setIsLoading] = useState(false);  // ✅ 추가
   const editorRef = useRef(null);
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const [token, setToken] = useState(null);  // token state 추가
+
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    setToken(storedToken);  // 컴포넌트가 마운트된 후에 token을 가져옴
+  }, []);  // 컴포넌트가 마운트될 때만 실행
 
   const handleAddHashtag = (newHashtags) => {
     setHashtags((prev) => [...prev, ...newHashtags]);
@@ -39,6 +44,11 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
       board_id: parseInt(category, 10),
       is_public: true,
     };
+    if (!token) {
+      console.error("토큰이 없습니다!");
+      setIsLoading(false);
+      return;
+    }
 
     try {
       const headers = {

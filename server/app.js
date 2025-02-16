@@ -26,7 +26,7 @@ const app = express(); // app 생성은 dotenv 이후에 진행
 // CORS 설정 (두 번 선언되어 있던 cors 관련 코드를 하나로 통합)
 app.use(
   cors({
-    origin: "http://localhost:3000", // 끝에 슬래시 제거 (정확한 매칭을 위해)
+    origin: "http://localhost:3001", // 끝에 슬래시 제거 (정확한 매칭을 위해)
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],

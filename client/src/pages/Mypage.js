@@ -5,8 +5,6 @@ import Profile from "./userInfo_follow/Profile";
 import Mypage_BoardTab from "../component/Mypage_BoardTab";
 import Board_Mypages from "./board_pages/Board_Mypages";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
 
 const Mypage = () => {
   const { boardId } = useParams();
