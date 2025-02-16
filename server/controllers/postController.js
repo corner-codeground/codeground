@@ -24,10 +24,12 @@ const deleteImage = (imagePath) => {
 
 // ✅ 1️⃣ 게시글 생성 (게시판별 글쓰기)
 const createPost = async (req, res) => {
+    const t = await db.sequelize.transaction(); // ✅ 트랜잭션 시작
     try {
         if (!req.user) {
             return res.status(403).json({ message: "로그인이 필요합니다." });
         }
+
         const user_id = req.user.id;
         const { title, content, is_public, hashtags, board_id } = req.body;
         const image_url = req.file ? `/uploads/${req.file.filename}` : null;
@@ -36,36 +38,48 @@ const createPost = async (req, res) => {
             return res.status(400).json({ message: "제목, 내용, 게시판 ID는 필수 입력 항목입니다." });
         }
 
-        // ✅ 존재하는 게시판인지 확인
-        const board = await db.Board.findByPk(board_id);
+        // ✅ 1️⃣ 존재하는 게시판인지 확인
+        const board = await db.Board.findByPk(board_id, { transaction: t });
         if (!board) {
+            await t.rollback();
             return res.status(400).json({ message: "존재하지 않는 게시판입니다." });
         }
 
-        // ✅ 게시글 생성
-        const newPost = await db.Post.create({ 
-            title, 
-            content, 
-            is_public, 
-            user_id, 
-            image_url, 
-            board_id 
-        });
+        // ✅ 2️⃣ 게시글 생성 (트랜잭션 적용)
+        const newPost = await db.Post.create(
+            { title, content, is_public, user_id, image_url, board_id },
+            { transaction: t } // ✅ 트랜잭션 적용
+        );
 
-        // ✅ 해시태그 연결
+        console.log("✅ 게시글 생성 완료:", newPost.id);
+
+        // ✅ 3️⃣ 해시태그도 트랜잭션 안에서 처리
         if (hashtags && hashtags.length > 0) {
             const tagInstances = await Promise.all(
-                hashtags.map(tag => db.Hashtag.findOrCreate({ where: { tag } }))
+                hashtags.map(async (tag) => {
+                    return db.Hashtag.findOrCreate({ where: { tag }, transaction: t });
+                })
             );
-            await newPost.addHashtags(tagInstances.map(t => t[0]));
+
+            console.log("✅ 해시태그 생성 완료:", tagInstances);
+
+            // ✅ 게시글과 해시태그 연결 (트랜잭션 포함)
+            await newPost.addHashtags(tagInstances.map(([tag]) => tag), { transaction: t });
         }
 
+        // ✅ 4️⃣ 트랜잭션 커밋 (게시글 + 해시태그 모두 저장 후)
+        await t.commit();
+        
         res.status(201).json({ message: "게시글이 등록되었습니다.", post: newPost });
     } catch (err) {
-        console.error("게시글 생성 오류:", err);
+        await t.rollback(); // ❌ 오류 발생 시 롤백 (이제 정상 동작)
+        console.error("❌ 게시글 생성 오류:", err);
         res.status(500).json({ message: "서버 내부 오류 발생" });
     }
 };
+
+
+
 
 // ✅ 2️⃣ 전체 게시글 조회 (게시판별 필터 추가)
 const getAllPosts = async (req, res) => {

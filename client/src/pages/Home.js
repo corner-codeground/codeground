@@ -16,7 +16,9 @@ const Home = () => {
   useEffect(() => {
     const fetchPopularPosts = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/posts/popular`, {
+        const BASE_URL = process.env.REACT_APP_API_URL;
+
+        const response = await axios.get(`${BASE_URL}/popular`, { // posts/popular에서 변경
           headers: {
             Authorization: `Bearer your_jwt_token`, // 실제 JWT 토큰으로 변경
           },

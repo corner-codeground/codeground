@@ -1,5 +1,5 @@
 const express = require("express");
-const { Comment } = require("../models");
+const { Comment, User } = require("../models");
 // 로그인 미들웨어 추가
 const { isLoggedIn } = require("../middleware/authMiddleware"); 
 
@@ -68,5 +68,28 @@ router
       next(err);
     }
   });
+
+// ✅ 댓글 조회 (GET /comment/list?post_id={post_id})
+router.get("/list", async (req, res, next) => { 
+  try {
+      const { post_id } = req.query;
+
+      if (!post_id) {
+          return res.status(400).json({ message: "post_id가 필요합니다." });
+      }
+
+      const comments = await Comment.findAll({
+          where: { post_id },
+          include: [{ model: User, attributes: ["id", "username", "profileImage"] }],
+          order: [["createdAt", "ASC"]],
+      });
+
+      res.json(comments);
+  } catch (error) {
+      console.error("댓글 조회 오류:", error);
+      res.status(500).json({ message: "서버 오류" });
+  }
+});
+
 
 module.exports = router;
