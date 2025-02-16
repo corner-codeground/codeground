@@ -14,7 +14,9 @@ exports.isLoggedIn = (req, res, next) => {
         req.user = { id: decoded.id }; // decoded에서 id 추출하여 req.user에 저장
         next();
     } catch (error) {
+        
         return res.status(401).json({ message: "유효하지 않은 토큰입니다." });
+        
     }
 };
 
