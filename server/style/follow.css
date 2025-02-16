@@ -1,0 +1,181 @@
+header {
+  height: 60px;
+  display: flex;
+  flex-direction: row;
+  padding: 0 10%;
+  background-color: #6482ad;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header img {
+  width: 30px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+nav {
+  padding: 20px 10% 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.mypage {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.logout {
+  border: none;
+  background-color: white;
+}
+
+hr {
+  margin: 0 10%;
+}
+
+section {
+  padding: 20px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.myphoto {
+  width: 70px;
+  margin-right: 20px;
+}
+
+.myinfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.setting {
+  text-decoration: none;
+  color: #6e6e6e;
+  font-size: 14px;
+}
+
+.userEmail {
+  color: #6e6e6e;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.bio {
+  padding: 0 11%;
+}
+
+.section2 {
+  padding: 30px 10%;
+}
+
+.nav2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 5px;
+  border-bottom: 1px solid #6e6e6e;
+  margin-bottom: 30px;
+}
+
+.navLeft {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  color: #6482ad;
+}
+
+.nav2A {
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  color: #6e6e6e;
+}
+
+.follow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  gap: 50px;
+}
+
+.followText {
+  color: #6482ad;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.following {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.people {
+  display: flex;
+  flex-direction: row;
+  gap: 9vw;
+}
+
+.peoplePhoto {
+  width: 45px;
+  height: 45px;
+}
+
+.Pname {
+  font-size: 1rem;
+}
+
+.Pemail {
+  font-size: 0.8rem;
+}
+
+.followBtn {
+  background-color: #7fa1c3;
+  border: none;
+  color: white;
+  padding: 0.5rem 0.6rem;
+  border-radius: 7px;
+}
+
+.peopleLeft {
+  display: flex;
+  flex-direction: row;
+  gap: 1vw;
+  align-items: center;
+}
+
+.peopleInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
