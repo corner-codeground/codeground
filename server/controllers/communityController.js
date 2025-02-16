@@ -55,18 +55,3 @@ exports.increaseViewCount = async (req, res) => {
     res.status(500).json({ success: false, message: "서버 오류" });
   }
 };
-
-// 특정 카테고리의 게시글 조회
-exports.getPostsByCategory = async (req, res) => {
-  const { category } = req.params; // URL에서 category 가져오기
-  try {
-    const posts = await Community.findAll({
-      where: { category }, // 해당 카테고리의 게시글 필터링
-      order: [["createdAt", "DESC"]], // 최신순 정렬
-    });
-
-    res.status(200).json({ success: true, data: posts });
-  } catch (error) {
-    res.status(500).json({ success: false, message: "서버 오류" });
-  }
-};
