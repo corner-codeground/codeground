@@ -52,7 +52,7 @@ const BoardPages = () => {
     fetchTopPosts();
   }, []);
 
-  const handleWriteClick = () => navigate("/writting");
+  const handleWriteClick = () => navigate("/writting/:postId");
   const handleSearch = () => searchQuery.trim() && alert(`검색어: ${searchQuery}`);
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
 

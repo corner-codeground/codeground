@@ -29,13 +29,16 @@ const PostEditPage = () => {
 
   const handleSave = async (updatedPost) => {
     try {
-      await axios.put(`/api/posts/${postId}`, updatedPost); // 게시글 수정 API 호출
-      console.log("게시글 수정 완료:", updatedPost);
-      navigate(`/post/${postId}`); // 수정 완료 후 해당 게시글 페이지로 이동
+      const response = await axios.put(`${BASE_URL}/api/posts/${postId}`, updatedPost, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+      console.log("게시글 수정 완료:", response.data);
+      navigate(`/post/${postId}`);
     } catch (error) {
-      console.error("게시글 수정 중 오류 발생:", error);
+      console.error("게시글 수정 중 오류 발생:", error.response || error);
     }
   };
+  
 
   return (
     <div>

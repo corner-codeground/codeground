@@ -5,6 +5,9 @@ import Button from "../component/Button";
 import "./Login_Signup.css";
 import { registerUser } from "../api";
 
+// 환경 변수로부터 API URL을 가져옴
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 const Sign_up = () => {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -13,6 +16,7 @@ const Sign_up = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
+  // 회원가입 요청 함수
   const trySignup = async () => {
     if (!nickname || !email || !password || !confirmPass) {
       setErrorMessage("모든 항목을 입력해주세요.");
@@ -22,11 +26,16 @@ const Sign_up = () => {
       setErrorMessage("비밀번호가 일치하지 않습니다.");
       return;
     }
-  
+
     try {
-      const response = await registerUser(nickname, email, password, confirmPass);
-      
-      if (response.message === "회원가입 성공") {
+      // POST 요청을 BASE_URL에 맞춰서 API 호출
+      const response = await axios.post(`${BASE_URL}/auth/join`, {
+        nickname,
+        email,
+        password,
+      });
+
+      if (response.data.message === "회원가입 성공") {
         alert("회원가입이 완료되었습니다.");
         navigate("/login");
       }
@@ -38,7 +47,6 @@ const Sign_up = () => {
       }
     }
   };
-
   const inputStyle = (value) => ({
     backgroundColor: value ? "#F5EDED" : "#F0F0F0",
   });

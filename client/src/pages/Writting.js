@@ -1,115 +1,145 @@
-import React, { useState, useRef, useEffect } from 'react'; 
-import { useNavigate, useParams } from 'react-router-dom';
-import './Writting.css';
-import DateDisplay from '../component/DateDisplay';
-import EditorToolbar from '../component/EditorToolbar';
-import Editor from '../component/Editor';
-import Button from '../component/Button';
-import HashtagInput from '../component/HashtagInput';
-import HashtagList from '../component/HashtagList';
+import React, { useState, useRef } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import "./Writting.css";
+import DateDisplay from "../component/DateDisplay";
+import Editor from "../component/Editor";
+import Button from "../component/Button";
+import HashtagInput from "../component/HashtagInput";
+import HashtagList from "../component/HashtagList";
+import axios from "axios";
 
-const Writting = ({ initialTitle, initialContent, onSave }) => {
-    const { postId } = useParams();  // URL에서 postId를 받아옴
-    const [title, setTitle] = useState(initialTitle || '');
-    const [content, setContent] = useState(initialContent || '');
-    const editorRef = useRef(null);
-    const [category, setCategory] = useState('');  // 카테고리 상태 추가
-    const [hashtags, setHashtags] = useState([]);  // 해시태그 상태 관리
-    
-    const handleRemoveHashtag = (index) => {    //해시태그 삭제 함수
-        setHashtags(hashtags.filter((_, i) => i !== index));
+
+const BASE_URL = process.env.REACT_APP_API_URL;
+const token = localStorage.getItem('token');  // 로컬 스토리지에서 JWT 토큰을 가져옴
+
+const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
+  const { postId } = useParams(); // URL에서 postId를 받아옴 (새 게시글이면 undefined)
+  const [title, setTitle] = useState(initialTitle);
+  const [content, setContent] = useState(initialContent);
+  const [category, setCategory] = useState(""); // 카테고리 상태
+  const [hashtags, setHashtags] = useState([]); // 해시태그 상태
+  const [isSubmitting, setIsSubmitting] = useState(false); // 제출 중 여부
+  const editorRef = useRef(null);
+  const navigate = useNavigate();
+
+  
+
+  const token = localStorage.getItem('token');  // 로컬 스토리지에서 JWT 토큰을 가져옴
+  
+  // 해시태그 삭제
+  const handleRemoveHashtag = (index) => {
+    setHashtags(hashtags.filter((_, i) => i !== index));
+  };
+// 해시태그 추가
+const handleAddHashtag = (newHashtags) => {
+    setHashtags((prev) => [...prev, ...newHashtags]);
+  };
+  // 게시글 저장 (새 글 작성 or 수정)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (isSubmitting) return; // 제출 중일 때 다시 클릭하지 않도록 방지
+
+    const postData = {
+      title,
+      content,
+      hashtags,
+      board_id: parseInt(category, 10), // 숫자로 변환하여 서버에 전송
+      is_public: true, // 필요 시 true/false 설정
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const postData = {
-            title,
-            content,
-            hashtags,
-            category,  // 카테고리도 postData에 포함
-        };
-
-        if (!postId) {
-            console.error("Post ID가 없습니다.");
-            return;
+    setIsSubmitting(true); // 제출 시작
+    try {
+        let response;
+        if (postId) {
+          // Update existing post (PUT request)
+          response = await axios.put(`${BASE_URL}/api/posts/${postId}`, postData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,  // Include JWT token in headers
+            },
+          });
+        } else {
+          // Create new post (POST request)
+          response = await axios.post(`${BASE_URL}/posts`, postData, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,  // Include JWT token in headers
+            },
+          });
         }
-
-        // 수정된 내용이 포함된 객체를 부모로 전달
-        try {
-            const response = await fetch(`/api/posts/${postId}`, {
-                method: 'PUT', // PUT 요청으로 수정
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(postData),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                console.log("게시글 수정 완료:", data);
-                // 수정 완료 후, 게시글 상세 페이지로 리다이렉트
-                navigate(`/post/${postId}`);
-            } else {
-                console.error('게시글 수정 실패');
-            }
-        } catch (error) {
-            console.error("게시글 수정 중 오류 발생:", error);
+  
+        if (response.status === 200) {
+          const data = response.data;
+          console.log("Post saved successfully:", data);
+          navigate(`/post/${data.post.id}`); // Redirect to the post's detail page
+        } else {
+          console.error("Failed to save post:", response.data.message);
         }
+      } catch (error) {
+        console.error("Error saving post:", error);
+      } finally {
+        setIsSubmitting(false); // End submission
+      }
     };
 
-    // 해시태그 추가 함수
-    const handleAddHashtag = (newHashtags) => {
-        setHashtags((prevHashtags) => [...prevHashtags, ...newHashtags]);
-    };
+  // 취소 버튼 클릭 시 이전 페이지로 이동
+  const handleCancel = () => navigate(-1);
 
-    const navigate = useNavigate();  // 취소 or 저장 버튼 누르면 페이지 이동
-    const handleCancel = () => {  // 취소 버튼 클릭 시 이전 페이지로 이동
-        navigate(-1); 
-    };
-
-    return (
-        <div className="container">
-            <div className="title-input">
-                <input
-                    type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="제목을 입력하세요"
-                />
-            </div>
-            <div className="category">
-                <select name="category_select" value={category} onChange={(e) => setCategory(e.target.value)}>
-                    <option value="" disabled>게시판 선택</option>
-                    <option value="1">프론트엔드</option>
-                    <option value="2">백엔드</option>
-                    <option value="3">보안</option>
-                    <option value="4">미디어</option>
-                    <option value="5">인공지능</option>
-                    <option value="6">임베디드&IoT</option>
-                    <option value="7">블록체인&웹3</option>
-                    <option value="8">빅데이터</option>
-                    <option value="9">코드그라운드</option>
-                </select>
-                <div className="date-container">
-                    <DateDisplay />
-                </div>
-            </div>
-            <hr />
-            <Editor content={content} setContent={setContent} editorRef={editorRef} />
-            
-            <div className="cancel-save-btn">
-                <Button text="취소" type="negative" onClick={handleCancel} />
-                <div className="right">
-                    <HashtagInput onAddHashtags={handleAddHashtag} /> {/* 해시태그 추가 함수 전달 */}
-                    <Button text="저장" type="default" onClick={handleSubmit} />
-                </div>
-            </div>
-            <div className="hashtag-list">
-                <HashtagList hashtags={hashtags} onRemoveHashtag={handleRemoveHashtag}/>  {/* 해시태그 목록 전달 */}
-            </div>
+  return (
+    <div className="container">
+      <div className="title-input">
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          placeholder="제목을 입력하세요"
+        />
+      </div>
+      <div className="category">
+        <select
+          name="category_select"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="" disabled>
+            게시판 선택
+          </option>
+          <option value="1">프론트엔드</option>
+          <option value="2">백엔드</option>
+          <option value="3">보안</option>
+          <option value="4">미디어</option>
+          <option value="5">인공지능</option>
+          <option value="6">임베디드&IoT</option>
+          <option value="7">블록체인&웹3</option>
+          <option value="8">빅데이터</option>
+          <option value="9">코드그라운드</option>
+        </select>
+        <div className="date-container">
+          <DateDisplay />
         </div>
-    );
+      </div>
+      <hr />
+      <Editor content={content} setContent={setContent} editorRef={editorRef} />
+
+      <div className="cancel-save-btn">
+        <Button text="취소" type="negative" onClick={handleCancel} />
+        <div className="right">
+          <HashtagInput onAddHashtags={handleAddHashtag} />
+          <Button
+            text="저장"
+            type="default"
+            onClick={handleSubmit}
+            disabled={!title || !content || !category || isSubmitting} // 제목, 내용, 카테고리가 없거나 제출 중일 때 비활성화
+          />
+        </div>
+      </div>
+
+      <div className="hashtag-list">
+        <HashtagList hashtags={hashtags} onRemoveHashtag={handleRemoveHashtag} />
+      </div>
+    </div>
+  );
 };
 
 export default Writting;

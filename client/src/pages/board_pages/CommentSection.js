@@ -1,43 +1,32 @@
-import React, { useState } from "react";
-import './CommentSection.css';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
+const BASE_URL = process.env.REACT_APP_API_URL;
 
 const CommentSection = () => {
-    const [comments, setComments] = useState([
-        {
-            id: 1,
-            text: "첫 번째 댓글입니다!",
-            isMine: true,
-            author: {
-                name: "내 이름",
-                profilePic: "https://via.placeholder.com/40",
-            },
-            createdAt: new Date(),
-            replies: [],
-        },
-        {
-            id: 2,
-            text: "이 기능 잘 동작하는지 확인 중이에요!",
-            isMine: false,
-            author: {
-                name: "다른 사용자",
-                profilePic: "https://via.placeholder.com/40",
-            },
-            createdAt: new Date(),
-            replies: [],
-        },
-    ]);
-
+    const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [editingId, setEditingId] = useState(null);
     const [editText, setEditText] = useState("");
     const [newReply, setNewReply] = useState("");
     const [replyTo, setReplyTo] = useState(null);
 
+     // 댓글 불러오기 (초기 데이터 로드)
+    useEffect(() => {
+        axios.get(`${BASE_URL}/comment`)  // 백엔드에서 댓글을 가져오는 GET 요청
+            .then(response => {
+                setComments(response.data);
+            })
+            .catch(error => {
+                console.error("댓글을 불러오는 데 실패했습니다.", error);
+            });
+    }, []);
+
+
     const handleAddComment = () => {
         if (newComment.trim() === "") return;
 
         const newCommentObj = {
-            id: Date.now(),
             text: newComment,
             isMine: true,
             author: {
@@ -48,12 +37,25 @@ const CommentSection = () => {
             replies: [],
         };
 
-        setComments([...comments, newCommentObj]);
-        setNewComment("");
+        // 서버에 댓글 추가 요청 (POST 요청)
+        axios.post(`${BASE_URL}/comment`, newCommentObj)
+            .then(response => {
+                setComments([...comments, response.data]);  // 새 댓글 추가
+                setNewComment("");  // 입력창 초기화
+            })
+            .catch(error => {
+                console.error("댓글 추가에 실패했습니다.", error);
+            });
     };
 
     const handleDeleteComment = (id) => {
-        setComments(comments.filter((comment) => comment.id !== id));
+        axios.delete(`${BASE_URL}/comment/${id}`)  // 댓글 삭제 요청
+            .then(() => {
+                setComments(comments.filter((comment) => comment.id !== id));  // 삭제된 댓글 제거
+            })
+            .catch(error => {
+                console.error("댓글 삭제에 실패했습니다.", error);
+            });
     };
 
     const handleEditComment = (id, text) => {
@@ -62,20 +64,28 @@ const CommentSection = () => {
     };
 
     const handleSaveEdit = (id) => {
-        setComments(
-            comments.map((comment) =>
-                comment.id === id ? { ...comment, text: editText } : comment
-            )
-        );
-        setEditingId(null);
-        setEditText("");
-    };
+        const updatedComment = { text: editText };
+
+         // 서버에 댓글 수정 요청 (PUT 요청)
+         axios.put(`${BASE_URL}/comment/${id}`, updatedComment)
+         .then(response => {
+             setComments(
+                 comments.map((comment) =>
+                     comment.id === id ? { ...comment, text: editText } : comment
+                 )
+             );
+             setEditingId(null);
+             setEditText("");
+         })
+         .catch(error => {
+             console.error("댓글 수정에 실패했습니다.", error);
+         });
+ };
 
     const handleAddReply = (commentId) => {
         if (newReply.trim() === "") return;
 
         const replyObj = {
-            id: Date.now(),
             text: newReply,
             isMine: true,
             author: {
@@ -85,18 +95,25 @@ const CommentSection = () => {
             createdAt: new Date(),
         };
 
-        setComments(
-            comments.map((comment) =>
-                comment.id === commentId
-                    ? { ...comment, replies: [...comment.replies, replyObj] }
-                    : comment
-            )
-        );
-        setNewReply("");
-        setReplyTo(null);
-    };
+         // 서버에 답글 추가 요청 (POST 요청)
+         axios.post(`${BASE_URL}/comment/${commentId}/reply`, replyObj)
+         .then(response => {
+             setComments(
+                 comments.map((comment) =>
+                     comment.id === commentId
+                         ? { ...comment, replies: [...comment.replies, response.data] }
+                         : comment
+                 )
+             );
+             setNewReply("");  // 입력창 초기화
+             setReplyTo(null);  // 답글 대상 초기화
+         })
+         .catch(error => {
+             console.error("답글 추가에 실패했습니다.", error);
+         });
+ };
 
-    return (
+ return (
         <div className="comment-section">
             <div className="comment-list">
                 {comments.map((comment) => (
@@ -191,11 +208,11 @@ const CommentSection = () => {
                                                 <div className="comment-time">
                                                     {reply.createdAt.toLocaleString()}
                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
                         )}
                     </div>
                 ))}
@@ -216,8 +233,6 @@ const CommentSection = () => {
             </div>
         </div>
     );
-    
-    
 };
 
 export default CommentSection;

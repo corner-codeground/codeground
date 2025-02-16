@@ -35,7 +35,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/sign_up" element={<Sign_up />} />
       <Route path="/mypage/:boardId?" element={<Mypage />} />
-      <Route path="/writting" element={<Writting />} />
+      <Route path="/writting/:postId" element={<Writting />} />
       {/* 게시판 별 페이지 */}
       <Route path="/board_pages/:boardId" element={<BoardPages />} /> {/* 게시판 ID에 따라 다르게 */}
       <Route path="/post/:postId" element={<PostDetail />} /> {/* 포스트 상세 페이지 */}

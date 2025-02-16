@@ -6,6 +6,8 @@ import PostPreview from "./board_pages/PostPreview";
 import "./Home.css";
 import Button from "../component/Button";
 
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 const Home = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
@@ -14,8 +16,6 @@ const Home = () => {
   useEffect(() => {
     const fetchPopularPosts = async () => {
       try {
-        const BASE_URL = process.env.REACT_APP_API_URL;
-
         const response = await axios.get(`${BASE_URL}/posts/popular`, {
           headers: {
             Authorization: `Bearer your_jwt_token`, // 실제 JWT 토큰으로 변경
@@ -37,7 +37,7 @@ const Home = () => {
 
   // 글쓰기 페이지로 이동
   const handleWriteClick = () => {
-    navigate("/writting");
+    navigate("/writting/:postId");
   };
 
   return (

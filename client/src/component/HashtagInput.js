@@ -2,6 +2,8 @@
 import React, {useState} from 'react';
 import './Hashtag.css';
 
+const BASE_URL = process.env.REACT_APP_API_URL;
+
 const HashtagInput = ({ onAddHashtags }) => {
     const [inputValue, setInputValue] = useState('');
 

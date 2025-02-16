@@ -1,102 +1,92 @@
-//계정 관리 페이지
-import React, {useState} from 'react';
-import './Set_userInfo.css';
+import React, { useEffect, useState } from 'react';
+import './Account.css';
+import { useNavigate } from 'react-router-dom';
 import Button from '../../component/Button';
-import {useNavigate} from "react-router-dom";
+import axios from 'axios'; // axios 임포트
 
-const Set_userInfo = () => {
+const BASE_URL = process.env.REACT_APP_API_URL;
 
-    const [mode, setMode] = useState('light'); // 기본모드 상태
-    const [username, setUsername] = useState('김코너'); // 상태로 닉네임 관리
-    const [userId, setUserId] = useState('corner23'); // 상태로 아이디 관리
-    const [bio, setBio] = useState('안녕하세요! 김코너의 개발 블로그입니다~'); // 상태로 자기소개 관리
-
-    const handleModeChange = (e) => {
-        setMode(e.target.value); // 라디오 버튼 값에 따라 모드 변경
-    };
+const Account = () => {
+    const [userInfo, setUserInfo] = useState(null);  // 초기값을 null로 설정
+    const [loading, setLoading] = useState(true);    // 로딩 상태 관리
+    const [error, setError] = useState(null);        // 에러 상태 관리
     const navigate = useNavigate();
 
-    const handleSave = () => {
-        // 수정된 값을 state로 전달하여 account 페이지로 이동
-        navigate('/account', {
-            state: {
-                username,
-                userId,
-                bio,
-                mode,
-            },
-        });
+    useEffect(() => {
+        // GET 요청을 통해 계정 정보 가져오기
+        const fetchUserInfo = async () => {
+            try {
+                const response = await axios.get(`${BASE_URL}/auth/account`);
+                setUserInfo(response.data); // 응답 받은 데이터를 상태에 저장
+            } catch (error) {
+                setError('계정 정보 조회 실패');
+                console.error("계정 정보 조회 실패:", error);
+            } finally {
+                setLoading(false); // 데이터 로딩 완료
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
+
+    if (loading) {
+        return <div>로딩 중...</div>;  // 로딩 중일 때 화면에 표시
+    }
+
+    if (error) {
+        return <div>{error}</div>;  // 에러가 있을 때 화면에 표시
+    }
+
+    const { username, userId, bio, mode, profileImage } = userInfo || {};  // userInfo가 없을 경우 대비
+
+    const handleAccountDelete = () => {
+        // 계정 탈퇴 로직 구현
+        // 예시로 확인창을 띄운 후 탈퇴 진행
+        const confirmDelete = window.confirm("정말로 계정을 탈퇴하시겠습니까?");
+        if (confirmDelete) {
+            // 계정 탈퇴 API 호출 등
+            console.log("계정 탈퇴 진행...");
+        }
     };
-    
+
     return (
-        <div className={`mypage-container ${mode === 'dark' ? 'dark-mode' : ''} ${mode === 'light' ? 'light-mode' : ''}`}>
+        <div className="account-container">
             <div className="page-title">계정 관리</div>
             <hr className="mypage-separator" />
 
-            <div className="form-section">
-            <div className="change-img" style={{ backgroundImage: 'url(/default-profile.png)' }}></div>
-            <form className="user-info-form">
-                <div className="form-group">
-                    <label htmlFor="username">닉네임</label>
-                    <input type="text"
-                        id="username" 
-                        name="username" 
-                        value={username} // 상태값을 입력 필드에 바인딩
-                            onChange={(e) => setUsername(e.target.value)} // 입력값 변경 시 상태 업데이트
-                        />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="userId">아이디</label>
-                    <input type="text" 
-                        id="userId" 
-                        name="userId" 
-                        value={userId} // 상태값을 입력 필드에 바인딩
-                        onChange={(e) => setUserId(e.target.value)} // 입력값 변경 시 상태 업데이트
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="password">자기소개</label>
-                    <input type="text" 
-                        id="bio" 
-                        name="bio" 
-                        value={bio} // 상태값을 입력 필드에 바인딩
-                        onChange={(e) => setBio(e.target.value)} // 입력값 변경 시 상태 업데이트
-                    />
-                </div>
-                {/* 라디오 버튼으로 다크 모드 및 기본 모드 설정 */}
-                <div className="radio-container">
-                    <div className="radio-option"> 
-                        <span className="set-mode">다크모드 설정</span>
-                        <label htmlFor="lightMode">기본 모드</label>
-                            <input
-                                type="radio"
-                                id="lightMode"
-                                name="mode"
-                                value="light"
-                                checked={mode === 'light'}
-                                onChange={handleModeChange}
-                                />
+            <div className="account-header">
+                <img
+                    src={profileImage || "/default-profile.png"}  // 프로필 이미지 설정
+                    alt="프로필 사진"
+                    className="account-profile-img"
+                />
+                <div className="user-info">
+                    <div className="user-name">
+                        <div className="name-label">닉네임</div>
+                        <div className="name-value">{username || '김코너'}</div>
                     </div>
-                    <div className="radio-option">
-                        <label htmlFor="darkMode">다크 모드</label>
-                            <input
-                                type="radio"
-                                id="darkMode"
-                                name="mode"
-                                value="dark"
-                                checked={mode === 'dark'}
-                                onChange={handleModeChange}
-                            />
-                    </div> 
+                    <div className="user-id">
+                        <div className="id-label">아이디</div>
+                        <div className="id-value">{userId || 'corner23'}</div>
+                    </div>
+                    <div className="introduce-myself-set">
+                        <div className="bio-label">자기소개</div>
+                        <div className="bio-value">{bio || '안녕하세요! 김코너의 블로그 입니다~'}</div>
+                    </div>
+                    <div className="mode-select">
+                        <div className="mode-label">다크모드 설정</div>
+                        <div className="mode-value">{mode === 'dark' ? '다크' : '기본'}</div>
+                    </div>
                 </div>
-                <div className="form-buttons">
-                <Button onClick={() => navigate("/account",{ state: { username, userId, bio, mode }})}  type="back" text="취소" />
-                <Button type="save-btn" text="수정 완료" onClick={handleSave}/>
+                <div className="drop-out" onClick={handleAccountDelete}>
+                    계정 탈퇴
                 </div>
-            </form>
+                <Button onClick={() => navigate("/profile-edit")} type="edit-account" text="수정">
+                    프로필 수정
+                </Button>
+            </div>
         </div>
-    </div>
     );
 };
 
-export default Set_userInfo;
+export default Account;

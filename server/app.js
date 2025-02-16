@@ -43,8 +43,6 @@ app.use("/uploads", express.static("uploads"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
-<<<<<<< HEAD
-=======
 // CORS 설정
 app.use(
   cors({
@@ -56,7 +54,6 @@ app.use(
 );
 app.options("*", cors());
 
->>>>>>> 5b037b3830de23b321ed03f3d6b8d104d6c99727
 // 미들웨어 설정
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

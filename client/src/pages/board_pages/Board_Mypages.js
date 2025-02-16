@@ -61,7 +61,7 @@ const Board_Mypages = ({ boardId }) => {
     try {
       await Promise.all(
         selectedPosts.map((postId) =>
-          axios.delete(`/posts/${postId}`, {
+          axios.delete(`${BASE_URL}/posts/${postId}`, {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           })
         )
