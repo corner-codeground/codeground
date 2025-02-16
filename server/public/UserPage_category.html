@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>친구 계정 페이지</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/Mypage.css">
+    <style>
+        /* 카테고리 헤더: 카테고리 이름과 더보기 버튼을 양쪽 끝에 배치 */
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0 10px;
+        }
+
+        .letters {
+            display: flex;
+            flex-direction: flex-start;
+            flex-wrap: wrap; /* 여러 줄로 배치 */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Code Ground</div>
+        <div class="func">
+            <img src="../img/Search.png" alt="검색">
+            <img src="../img/Bell.png" alt="알림">
+            <img src="../img/User.png" alt="마이페이지">
+        </div>
+    </header>
+    <div class="mypage-container">
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-user-info">
+                    <img src="./defaultprofileImage.png" alt="프로필 이미지" class="profile-img">
+                        <div class="user-details">
+                            <div class="user-name">김덕우</div>
+                        </div>
+                    </div>
+                </div>
+            <div class="followInfo-btn-container">
+        <div class="follow-info">
+            <div class="num-info">
+                <div class="following-num">팔로잉 0</div>
+                <div class="follower-num">팔로워 0</div>
+            </div>
+            <button class="follow-btn">팔로우하기</button>
+        </div>
+    </div>
+    <div class="introduce-myself">
+        자기소개 | 김덕우의 블로그.
+    </div>
+</div>
+
+    <!-- 탭 버튼 -->
+    <nav>
+        <a src="#">전체</a>
+        <a src="#" style="font-weight:bold" >카테고리</a>
+    </nav>
+    <hr class="mypage-tab-separator" />
+
+    <!-- 프론트엔드 카테고리 -->
+    <div class="category">
+        <div class="category-header">
+            <div class="tab-name">프론트엔드</div>
+            <button class="more">더보기</button>
+        </div>
+        <div class="letters">
+            <div class="letter">
+            <div class="letterImg"></div>
+            <div class="letterInfo">
+                <div class="basicInfo">
+                <div class="title">리액트 로드맵</div>
+                <div class="writer">프론트엔드 천재</div>
+            </div>
+            <div class="interests">
+                <img src="/img/Chat.png" class="interestImg" alt="댓글">
+                <div class="interestCount">1284</div>
+                <img src="/img/Heart.png" class="interestImg" alt="좋아요">
+                <div class="interestCount">1284</div>
+            </div>
+            </div>
+        </div>
+        <div class="letter">
+            <div class="letterImg"></div>
+            <div class="letterInfo">
+            <div class="basicInfo">
+                <div class="title">리액트 로드맵</div>
+                <div class="writer">프론트엔드 천재</div>
+            </div>
+            <div class="interests">
+                <img src="/img/Chat.png" class="interestImg" alt="댓글">
+                <div class="interestCount">1284</div>
+                <img src="/img/Heart.png" class="interestImg" alt="좋아요">
+                <div class="interestCount">1284</div>
+            </div>
+            </div>
+        </div>
+        <div class="letter">
+            <div class="letterImg"></div>
+            <div class="letterInfo">
+            <div class="basicInfo">
+                <div class="title">리액트 로드맵</div>
+                <div class="writer">프론트엔드 천재</div>
+            </div>
+            <div class="interests">
+                <img src="/img/Chat.png" class="interestImg" alt="댓글">
+                <div class="interestCount">1284</div>
+                <img src="/img/Heart.png" class="interestImg" alt="좋아요">
+                <div class="interestCount">1284</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- 백엔드 카테고리 -->
+    <div class="category">
+        <div class="category-header">
+            <div class="tab-name">백엔드</div>
+            <button class="more">더보기</button>
+        </div>
+        <div class="letters">
+            <div class="letter">
+            <div class="letterImg"></div>
+            <div class="letterInfo">
+                <div class="basicInfo">
+                <div class="title">리액트 로드맵</div>
+                <div class="writer">프론트엔드 천재</div>
+            </div>
+            <div class="interests">
+                <img src="/img/Chat.png" class="interestImg" alt="댓글">
+                <div class="interestCount">1284</div>
+                <img src="/img/Heart.png" class="interestImg" alt="좋아요">
+                <div class="interestCount">1284</div>
+            </div>
+            </div>
+        </div>
+        <div class="letter">
+            <div class="letterImg"></div>
+            <div class="letterInfo">
+            <div class="basicInfo">
+                <div class="title">리액트 로드맵</div>
+                <div class="writer">프론트엔드 천재</div>
+            </div>
+            <div class="interests">
+                <img src="/img/Chat.png" class="interestImg" alt="댓글">
+                <div class="interestCount">1284</div>
+                <img src="/img/Heart.png" class="interestImg" alt="좋아요">
+                <div class="interestCount">1284</div>
+            </div>
+            </div>
+        </div>
+        <div class="letter">
+            <div class="letterImg"></div>
+            <div class="letterInfo">
+            <div class="basicInfo">
+                <div class="title">리액트 로드맵</div>
+                <div class="writer">프론트엔드 천재</div>
+            </div>
+            <div class="interests">
+                <img src="/img/Chat.png" class="interestImg" alt="댓글">
+                <div class="interestCount">1284</div>
+                <img src="/img/Heart.png" class="interestImg" alt="좋아요">
+                <div class="interestCount">1284</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <!-- 보안 카테고리 -->
+    <div class="category">
+        <div class="category-header">
+        <div class="tab-name">보안</div>
+        </div>
+        <div class="letters">
+        <div class="letter">
+            <div class="letterImg"></div>
+            <div class="letterInfo">
+            <div class="basicInfo">
+                <div class="title">웹 보안 기본</div>
+                <div class="writer">보안 전문가</div>
+            </div>
+            <div class="interests">
+                <img src="/img/Chat.png" class="interestImg" alt="댓글">
+                <div class="interestCount">64</div>
+                <img src="/img/Heart.png" class="interestImg" alt="좋아요">
+                <div class="interestCount">128</div>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        document.querySelector(".follow-btn").addEventListener("click", function() {
+        // 버튼 텍스트를 '팔로잉'으로 바꾸거나 '팔로우하기'로 되돌림
+            if (this.innerText === "팔로우하기") {
+                this.innerText = "팔로잉";
+                this.classList.add("following"); // 팔로잉 상태에 클래스를 추가하여 색을 변경
+            } else {
+                this.innerText = "팔로우하기";
+                this.classList.remove("following"); // 팔로우하기 상태로 돌아가면 클래스 제거
+            }
+        });
+    </script>
+</body>
+</html>
