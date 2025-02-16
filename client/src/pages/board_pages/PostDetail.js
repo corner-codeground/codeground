@@ -25,7 +25,7 @@ const PostDetail = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/posts/${postId}`);
+        const response = await axios.get(`${BASE_URL}/posts/${postId}`);
         setPost(response.data);
         setLikes(response.data.likes);
         setComments(response.data.comments);
@@ -36,12 +36,26 @@ const PostDetail = () => {
 
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/user`); // 사용자 정보 불러오기
-        setUser(response.data);
+        const token = localStorage.getItem('token'); // JWT 토큰을 로컬 스토리지에서 가져오기
+        const response = await axios.get(`${BASE_URL}/auth/account`, {
+          headers: {
+            Authorization: `Bearer ${token}` // Authorization 헤더에 토큰 추가
+          }
+        });
+        setUser(response.data.user);
       } catch (error) {
         console.error("사용자 정보를 불러오는 중 오류 발생:", error);
       }
     };
+
+    // const fetchUser = async () => {
+    //   try {
+    //     const response = await axios.get(`${BASE_URL}/auth/account`); // 사용자 정보 불러오기
+    //     setUser(response.data.user); // user 객체를 상태에 저장 - 추가
+    //   } catch (error) {
+    //     console.error("사용자 정보를 불러오는 중 오류 발생:", error);
+    //   }
+    // };
 
     fetchPost();
     fetchUser();
@@ -71,6 +85,11 @@ const PostDetail = () => {
         </button>
       </div>
       <div className="this-post-author">{post.author}</div>
+      {/* 게시글 내용 추가 */}
+      <div className="this-post-content">
+        <p>{post.content}</p> {/* 게시글 내용 렌더링 */}
+      </div>
+      
       <div className="comment">
         <CommentSection user={user} />
       </div>
