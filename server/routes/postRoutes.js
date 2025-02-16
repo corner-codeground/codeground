@@ -42,4 +42,7 @@ router.put("/:id", isLoggedIn, upload.single("image"), postController.updatePost
 // ✅ 게시글 삭제 (로그인 필요, 본인 게시글만 삭제 가능)
 router.delete("/:id", isLoggedIn, postController.deletePost);
 
+//조회수 증가
+router.put("/view/:postId", postController.increaseViewCount);
+
 module.exports = router;

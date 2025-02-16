@@ -43,20 +43,11 @@ const PostDetail = () => {
           }
         });
         setUser(response.data.user);
+
       } catch (error) {
         console.error("사용자 정보를 불러오는 중 오류 발생:", error);
       }
     };
-
-    // const fetchUser = async () => {
-    //   try {
-    //     const response = await axios.get(`${BASE_URL}/auth/account`); // 사용자 정보 불러오기
-    //     setUser(response.data.user); // user 객체를 상태에 저장 - 추가
-    //   } catch (error) {
-    //     console.error("사용자 정보를 불러오는 중 오류 발생:", error);
-    //   }
-    // };
-
     fetchPost();
     fetchUser();
   }, [postId]);
@@ -89,7 +80,7 @@ const PostDetail = () => {
       <div className="this-post-content">
         <p>{post.content}</p> {/* 게시글 내용 렌더링 */}
       </div>
-      
+
       <div className="comment">
         <CommentSection user={user} />
       </div>
