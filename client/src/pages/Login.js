@@ -4,7 +4,7 @@ import axios from "axios";
 import Button from "../component/Button";
 import "./Login_Signup.css";
 
-const BASE_URL = process.env.REACT_APP_API_URL;
+const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,37 +19,38 @@ const Login = () => {
     }
 
     try {
+      console.log("✅ BASE_URL:", BASE_URL);
       console.log("🔗 API 요청 URL:", `${BASE_URL}/auth/login`);
       console.log("📩 로그인 요청 데이터:", { email, password });
-     
+
       if (!BASE_URL) {
         console.error("🚨 BASE_URL이 정의되지 않았습니다! .env 파일을 확인하세요.");
         return;
       }
-     
-      const response = await axios.post(`${BASE_URL}auth/login`, {
-        email,
-        password,
-      });
-      
+
+      const response = await axios.post(
+        `${BASE_URL}/auth/login`,
+        { email, password },
+        { withCredentials: true }
+      );
+
       console.log("✅ 로그인 응답 데이터:", response.data);
 
       const { token, user } = response.data;
       if (!token) {
         throw new Error("🚨 토큰이 응답에 포함되지 않았습니다!");
       }
+
       localStorage.setItem("token", token);
-      console.log("🔑 저장된 토큰:", localStorage.getItem("token"));
+      console.log("✔️ 저장된 토큰:", localStorage.getItem("token"));
 
       console.log("로그인 성공:", user);
       navigate("/"); // 로그인 성공 시 홈으로 이동
     } catch (error) {
-      console.error("🚨 로그인 오류:", error);
+      console.error("🚨 로그인 오류:", error.response?.data?.message || error.message);
       if (error.response) {
-        // 서버가 응답했지만 400~500 오류 코드일 때
         setErrorMessage(error.response.data.message || "로그인에 실패했습니다.");
       } else {
-        // 네트워크 오류 또는 서버 다운
         setErrorMessage("네트워크 오류가 발생했습니다.");
       }
     }
@@ -67,10 +68,22 @@ const Login = () => {
     <div className="login-container">
       <span>Code Ground</span>
       <div className="input">
-        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="이메일" style={inputStyle(email)} />
+        <input
+          type="text"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="이메일"
+          style={inputStyle(email)}
+        />
       </div>
       <div className="input">
-        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="비밀번호" style={inputStyle(password)} />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="비밀번호"
+          style={inputStyle(password)}
+        />
       </div>
 
       {errorMessage && <p className="error-message">{errorMessage}</p>}

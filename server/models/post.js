@@ -45,7 +45,7 @@ class Post extends Sequelize.Model {
         timestamps: true,
         underscored: true,
         modelName: "Post",
-        tableName: "posts",
+        tableName: "post",
         paranoid: true, // soft delete 지원 (deleted_at 사용)
         charset: "utf8",
         collate: "utf8_general_ci",
