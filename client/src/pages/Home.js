@@ -31,11 +31,12 @@ const Home = () => {
     // ✅ 2. 인기 게시글 조회 (GET /posts/popular)
     const fetchPopularPosts = async () => {
       try {
-        const token = localStorage.getItem("token"); // ✅ 로그인한 사용자의 토큰 불러오기
+        const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
+        const token = localStorage.getItem("token"); // 🔥 저장된 토큰 가져오기
 
         const response = await axios.get(`${BASE_URL}/posts/popular`, {
           headers: {
-            Authorization: `Bearer ${token}`, // ✅ 실제 JWT 토큰 적용
+            Authorization: `Bearer ${token}`, // 실제 JWT 토큰으로 변경
           },
         });
 
@@ -68,11 +69,7 @@ const Home = () => {
       <div className="explain-board">
         전체 인기글 <br />
         <div className="post-preview-container">
-          {posts.length > 0 ? (
-            posts.map((post) => <PostPreview key={post.id} post={post} />)
-          ) : (
-            <p>인기 게시글이 없습니다.</p>
-          )}
+          {posts.length > 0 ? posts.map((post) => <PostPreview key={post.id} post={post} />) : <p>인기 게시글이 없습니다.</p>}
         </div>
       </div>
 

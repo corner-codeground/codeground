@@ -10,7 +10,7 @@ import HashtagList from "../component/HashtagList";
 const BASE_URL = process.env.REACT_APP_API_URL;
 
 const Writting = ({ initialTitle = "", initialContent = "" }) => {
-  const { boardId } = useParams();  // ✅ boardId 가져오기
+  const { boardId } = useParams(); // ✅ boardId 가져오기
   const [title, setTitle] = useState(initialTitle);
   const [content, setContent] = useState(initialContent);
   const [hashtags, setHashtags] = useState([]);
@@ -36,26 +36,14 @@ const Writting = ({ initialTitle = "", initialContent = "" }) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const boardId = parseInt(category, 10);
-
-    if (isNaN(boardId)) {
-      console.error("🚨 게시판 ID가 올바르지 않습니다!");
-      return;
-    }  
-    
-
-    if (!token) {
-      console.error("🚨 로그인 토큰이 없습니다. 요청을 보낼 수 없습니다.");
-      return;}
-
     const postData = {
       title,
       content,
       hashtags,
-      board_id: parseInt(boardId, 10),  // ✅ boardId 사용
+      board_id: parseInt(boardId, 10), // ✅ boardId 사용
       is_public: true,
     };
-    console.log("✅ 요청 데이터:", postData);
+
     try {
       const response = await fetch(`${BASE_URL}/posts`, {
         method: "POST",
@@ -73,11 +61,11 @@ const Writting = ({ initialTitle = "", initialContent = "" }) => {
       const data = await response.json();
       console.log("📌 게시글 저장 완료:", data);
 
-      const newPostId = data.post?.id || data.id;  // ✅ post ID 가져오기
+      const newPostId = data.post?.id || data.id; // ✅ post ID 가져오기
       setIsLoading(false);
 
       alert("✅ 글 작성이 완료되었습니다.");
-      navigate(`/boards/${boardId}/${newPostId}`);  // ✅ 게시글 상세 페이지로 이동
+      navigate(`/boards/${boardId}/${newPostId}`); // ✅ 게시글 상세 페이지로 이동
     } catch (error) {
       console.error("❌ 게시글 저장 중 오류 발생:", error);
       setIsLoading(false);
@@ -89,20 +77,13 @@ const Writting = ({ initialTitle = "", initialContent = "" }) => {
   return (
     <div className="container">
       <div className="title-input">
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="제목을 입력하세요"
-        />
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="제목을 입력하세요" />
       </div>
       <div className="category">
-        <select
-          name="category_select"
-          value={boardId || ""}
-          onChange={(e) => navigate(`/writting/${e.target.value}`)}
-        >
-          <option value="" disabled>게시판 선택</option>
+        <select name="category_select" value={boardId || ""} onChange={(e) => navigate(`/writting/${e.target.value}`)}>
+          <option value="" disabled>
+            게시판 선택
+          </option>
           <option value="1">프론트엔드</option>
           <option value="2">백엔드</option>
           <option value="3">보안</option>
@@ -123,12 +104,7 @@ const Writting = ({ initialTitle = "", initialContent = "" }) => {
         <Button text="취소" type="negative" onClick={handleCancel} />
         <div className="right">
           <HashtagInput onAddHashtags={handleAddHashtag} />
-          <Button
-            text={isLoading ? "저장 중..." : "저장"}
-            type="default"
-            onClick={handleSubmit}
-            disabled={isLoading}
-          />
+          <Button text={isLoading ? "저장 중..." : "저장"} type="default" onClick={handleSubmit} disabled={isLoading} />
         </div>
       </div>
       <div className="hashtag-list">

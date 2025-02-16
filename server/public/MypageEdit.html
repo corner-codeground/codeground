@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/Mypage.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Code Ground</div>
+        <div class="func">
+            <img src="../img/Search.png" alt="검색">
+            <img src="../img/Bell.png" alt="알림">
+            <img src="../img/User.png" alt="마이페이지">
+        </div>
+    </header>
+    <div class="mypage-container">
+        <div class="page-title">
+            마이페이지
+            <div class="goto-logout" onclick="handleLogout()">로그아웃</div>
+        </div>
+        <hr class="mypage-separator" />
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-user-info">
+                    <img src="./defaultprofileImage.png" alt="프로필 이미지" class="profile-img">
+                    <div class="user-details">
+                        <div class="user-name">김코너</div>
+                        <button onclick="window.location.href='Account.html';" class="set-account-btn">
+                            ⚙️계정 관리
+                        </button>
+                        
+                    </div>
+                </div>
+            </div>
+    
+            <div class="followInfo-btn-container">
+                <div class="follow-info">
+                    <div class="following-num">팔로잉 0</div>
+                    <div class="follower-num">팔로워 0</div>
+                </div>
+                
+            </div>
+    
+            <div class="introduce-myself">
+                자기소개 | 김코너의 블로그.
+            </div>
+        </div>
+
+        <!-- 탭 버튼 -->
+        <nav>
+            <a src="#">내가 쓴 글</a>
+            <a src="#">스크랩</a>
+            <a src="#" style="font-weight:bold">글 관리</a>
+            <a src="#">팔로우 관리</a>
+        </nav>
+        <hr class="mypage-tab-separator" />
+        <!-- 탭 내용 -->
+        <div class="edit-container">
+            <div class="tab-name">글 관리</div>
+            <button class="edit-button"> 편집 </button>
+        </div>
+        <div id="myposts" class="tab-panel">
+            <div class="letters">
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="letter">
+                    <div class="letterImg"></div>
+                    <div class="letterInfo">
+                        <div class="basicInfo">
+                            <div class="title">리액트 로드맵</div>
+                            <div class="writer">프론트엔드 천재</div>
+                        </div>
+                        <div class="interests">
+                            <img src="/img/Chat.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                            <img src="/img/Heart.png" class="interestImg" />
+                            <div class="interestCount">1284</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+<script>
+document.querySelector(".edit-button").addEventListener("click", function() {
+    this.innerText = this.innerText === "편집" ? "삭제" : "편집";
+});
+
+    </script>
+
+</body>
+</html>

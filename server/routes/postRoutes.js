@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const postController = require("../controllers/postController");
+const trendingPostController = require("../controllers/trendingPostController");
 const { isLoggedIn } = require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware");
 

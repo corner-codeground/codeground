@@ -20,6 +20,7 @@ const postRouter = require("./routes/postRoutes");
 const runCodeRouter = require("./routes/route_runCode");
 const boardRouter = require("./routes/route_board");
 const communityRouter = require("./routes/communityRoutes");
+const trendingPostRouter = require("./routes/trendingPostRoutes");
 
 const app = express(); // app 생성은 dotenv 이후에 진행
 
@@ -42,6 +43,28 @@ app.use("/uploads", express.static("uploads"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+// CORS 설정 추가
+const allowedOrigins = [
+  "http://localhost:3000", // React 개발 서버
+  "http://127.0.0.1:5500", // Live Server 실행 주소
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("CORS 정책 위반"));
+      }
+    },
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+app.options("*", cors()); // Preflight Request 처리 (OPTIONS 요청 허용)
+
 // 미들웨어 설정
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -63,9 +86,13 @@ app.use(passport.session());
 // JWT 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
+
+  console.log("✅ [DEBUG] Received token:", token);
+
   if (!token) {
     return res.status(401).json({ message: "인증이 필요합니다." });
   }
+
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ message: "토큰이 유효하지 않습니다." });
@@ -81,10 +108,11 @@ app.use("/comment", commentRouter);
 app.use("/likes", likeRouter);
 app.use("/scraps", scrapRouter);
 app.use("/follow", followRouter);
-app.use("/posts", postRouter);
+app.use("/posts", authenticateJWT, postRouter);
 app.use("/runCodes", runCodeRouter);
 app.use("/boards", boardRouter);
 app.use("/community", communityRouter);
+app.use("/trending", trendingPostRouter);
 
 // 홈 화면
 app.get("/", (req, res) => {

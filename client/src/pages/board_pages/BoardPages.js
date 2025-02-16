@@ -25,7 +25,7 @@ const BoardPages = () => {
     const fetchBoardPosts = async () => {
       try {
         const res = await axios.get(`${BASE_URL}/boards/${boardId}/posts`);
-        
+
         console.log("📌 게시글 응답 데이터:", res.data); // 디버깅용 출력
 
         // ✅ API 응답이 배열인지 확인하여 처리
@@ -88,22 +88,13 @@ const BoardPages = () => {
           </>
         )}
 
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="게시판 내에서 검색하기"
-        />
+        <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="게시판 내에서 검색하기" />
         <button onClick={() => alert(`검색어: ${searchQuery}`)} className="inBoard-searching-btn">
           <FaSearch color={"#7FA1C3"} />
         </button>
 
         <div className="post-preview-container">
-          {posts.length > 0 ? (
-            posts.map((post) => <PostPreview key={post.id} post={post} />)
-          ) : (
-            <p>이 게시판에는 아직 게시글이 없습니다.</p>
-          )}
+          {posts.length > 0 ? posts.map((post) => <PostPreview key={post.id} post={post} />) : <p>이 게시판에는 아직 게시글이 없습니다.</p>}
         </div>
       </div>
       <Button text="+" type="floating-btn" onClick={handleWriteClick} />

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SetAccount</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <link rel="stylesheet" href="../styles/Account.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Code Ground</div>
+        <div class="func">
+            <img src="../img/Search.png" alt="검색">
+            <img src="../img/Bell.png" alt="알림">
+            <img src="../img/User.png" alt="마이페이지">
+        </div>
+    </header>
+    <div class="account-container">
+        <div class="page-title">계정 관리</div>
+        <hr class="mypage-separator" />
+    
+        <!-- 읽기 전용 프로필 영역 -->
+        <div id="readOnlyProfile">
+            <div class="account-header">
+                <img src="./defaultprofileImage.png" alt="프로필 사진" class="account-profile-img">
+                <div class="user-info">
+                    <div class="user-name">
+                        <div class="name-label">닉네임</div>
+                            <div class="name-value" id="displayName">김코너</div>
+                        </div>
+                    <div class="user-id">
+                        <div class="id-label">아이디</div>
+                            <div class="id-value" id="displayId">corner23</div>
+                        </div>
+                    <div class="introduce-myself-set">
+                        <div class="bio-label">자기소개</div>
+                <div class="bio-value" id="displayBio">안녕하세요! 김코너의 블로그 입니다~</div>
+            </div>
+                <div class="mode-select">
+                    <div class="mode-label">다크모드 설정</div>
+                        <div class="mode-value" id="displayMode">기본</div>
+                </div>
+            </div>
+            <div class="drop-out">계정 탈퇴</div>
+            <button class="edit-account-button" onclick="toggleEditMode()"
+                style="background-color: white; border: 1px solid black;
+                font-size: 14px; padding: 2px 10px; 
+                border-radius: 5px; cursor: pointer;">프로필 수정</button>
+            </div>
+        </div>
+    
+        <!-- 편집 가능 프로필 폼 (기본적으로 숨김) -->
+        <div id="editProfile" class="hidden">
+            <form id="profileForm">
+                <div class="account-header">
+                <img src="./defaultprofileImage.png" alt="프로필 사진" class="account-profile-img">
+                <div class="user-info">
+                <div class="user-name">
+                    <div class="name-label">닉네임</div>
+                    <input type="text" name="name" id="inputName" class="name-value" value="김코너">
+                </div>
+                <div class="user-id">
+                    <div class="id-label">아이디</div>
+                    <!-- 아이디는 수정 불가 -->
+                    <input type="text" name="id" id="inputId" class="id-value" value="corner23" readonly>
+                </div>
+                <div class="introduce-myself-set">
+                    <div class="bio-label">자기소개</div>
+                    <input type="text" name="bio" id="inputBio" class="bio-value" value="안녕하세요! 김코너의 블로그 입니다~">
+                </div>
+                <div class="mode-select">
+                    <div class="mode-label">다크모드 설정</div>
+                    <div class="mode-options">
+                    <label>
+                        <input type="radio" name="darkMode" value="light" checked> 기본
+                    </label>
+                    <label>
+                        <input type="radio" name="darkMode" value="dark"> 다크
+                    </label>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="edit-buttons">
+                <button type="button" onclick="toggleEditMode()"
+                style="background-color: white; border: 1px solid black;
+                font-size: 14px; padding: 2px 10px; 
+                border-radius: 5px; cursor: pointer;">취소</button>
+                <button type="submit"
+                style="background-color: #7FA1C3; border: none;
+                font-size: 14px; padding: 2px 10px; color: white;
+                border-radius: 5px; cursor: pointer; margin-left: 20px">수정 완료</button>
+            </div>
+            </form>
+        </div>
+        </div>
+    
+    <script>
+            // 읽기 전용과 편집 모드를 전환하는 함수
+        function toggleEditMode() {
+            const readOnlyDiv = document.getElementById("readOnlyProfile");
+            const editDiv = document.getElementById("editProfile");
+
+            // 둘 중 하나가 보이면 토글
+            if (readOnlyDiv.style.display === "none") {
+                // 편집 모드 -> 읽기 전용 모드로 전환
+                readOnlyDiv.style.display = "block";
+                editDiv.style.display = "none";
+            } else {
+                // 읽기 전용 -> 편집 모드로 전환
+                readOnlyDiv.style.display = "none";
+                editDiv.style.display = "block";
+            }
+        }
+        
+            // 폼 제출 시 수정한 내용을 반영하고 읽기 전용 모드로 전환하는 함수
+            document.getElementById("profileForm").addEventListener("submit", function(e) {
+              e.preventDefault(); // 폼 기본 제출 동작 방지
+        
+              // 입력값 가져오기
+            const newName = document.getElementById("inputName").value;
+            const newBio = document.getElementById("inputBio").value;
+              // 라디오 버튼의 선택값 가져오기
+            const selectedMode = document.querySelector('input[name="darkMode"]:checked').value;
+        
+              // 읽기 전용 영역 업데이트
+            document.getElementById("displayName").innerText = newName;
+            document.getElementById("displayBio").innerText = newBio;
+            document.getElementById("displayMode").innerText = selectedMode === "dark" ? "다크" : "기본";
+        
+              // 다크모드 상태 반영 (옵션: 필요에 따라 다크모드 스타일 변경)
+            if(selectedMode === "dark") {
+                document.body.classList.add("dark-mode");
+            } else {
+                document.body.classList.remove("dark-mode");
+            }
+        
+              // 수정 후 읽기 전용 모드로 전환
+            toggleEditMode();
+                alert("프로필이 저장되었습니다.");
+            });
+        </script>
+        </body>
+        </html>
