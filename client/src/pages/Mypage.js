@@ -6,6 +6,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
+
 const Mypage = () => {
   const { boardId } = useParams();
   const currentBoardId = boardId || "10";
@@ -14,13 +15,25 @@ const Mypage = () => {
   const [profile, setProfile] = useState(null);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [loading, setLoading] = useState(true);  // 로딩 상태 추가
+  const [error, setError] = useState(null);  // 오류 상태 추가
 
-  // 프로필 조회
-  const fetchProfile = async () => {
+
+ // 토큰이 유효한지 확인
+const getAccessToken = () => localStorage.getItem("access_token");
+
+ // 프로필 조회 -> 추가
+const fetchProfile = async () => {
+  const token = getAccessToken();
+  if (!token) {
+    setError("로그인이 필요합니다.");
+    navigate("/login");
+    return;
+  }
     try {
       const response = await axios.get("/auth/profile", {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          Authorization: `Bearer ${token}`, //
         },
       });
       setProfile(response.data);

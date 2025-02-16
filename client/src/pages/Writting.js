@@ -60,17 +60,19 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
           body: JSON.stringify(postData),
         });
       }
+      const responseText = await response.text(); // 추가
 
       if (response.ok) {
-        const data = await response.json();
+        // const data = await response.json();
+        const data = JSON.parse(responseText); // JSON으로 변환
+
         console.log("게시글 저장 완료:", data);
         const postId = data.id || data.post?.id;  // ✅ data.id가 없으면 data.post.id를 사용
         console.log("이동할 경로:", `/posts/${data.post.id}`);  // ✅ 로그 추가
         setIsLoading(false);  // ✅ 저장 완료 후 로딩 해제
         navigate(`/post/${data.post.id}`);
       } else {
-        console.error("게시글 저장 실패", await response.json());
-        setIsLoading(false);  // ✅ 실패 시에도 로딩 해제
+        console.error("게시글 저장 실패", responseText/*await response.json()*/);
       }
     } catch (error) {
       console.error("게시글 저장 중 오류 발생:", error);
