@@ -17,15 +17,7 @@ const Home = () => {
         const BASE_URL = process.env.REACT_APP_API_URL || "http://localhost:3001";
         const token = localStorage.getItem("token"); // 🔥 저장된 토큰 가져오기
 
-        if (!token) {
-          console.error("🚨 로그인 토큰이 없습니다.");
-          return;
-        }
-    
-        console.log("🔗 요청 보낼 URL:", `${BASE_URL}/popular`);
-        console.log("🔑 JWT 토큰:", token);
-
-        const response = await axios.get(`${BASE_URL}/popular`, {
+        const response = await axios.get(`${BASE_URL}/popular`, { // posts/popular에서 변경
           headers: {
             Authorization: `Bearer ${token}`, // 실제 JWT 토큰으로 변경
           },
