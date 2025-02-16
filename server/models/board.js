@@ -1,43 +1,52 @@
-const { Sequelize, DataTypes } = require("sequelize");
+const Sequelize = require("sequelize");
 
 class Board extends Sequelize.Model {
   static initiate(sequelize) {
-    Board.init(
+    return super.init(
       {
         id: {
-          type: DataTypes.INTEGER,
+          type: Sequelize.INTEGER,
           autoIncrement: true,
           primaryKey: true,
         },
         name: {
-          type: DataTypes.STRING(100),
+          type: Sequelize.STRING(50),
           allowNull: false,
+          unique: true,
         },
       },
       {
         sequelize,
-        tableName: "boards",
-        timestamps: false,
+        timestamps: true,
+        underscored: true,
         modelName: "Board",
+        tableName: "boards",
+        charset: "utf8",
+        collate: "utf8_general_ci",
       }
     );
   }
 
+  static associate(db) {
+    db.Board.hasMany(db.Post, { foreignKey: "board_id", sourceKey: "id", onDelete: "CASCADE" });
+    db.Post.belongsTo(db.Board, { foreignKey: "board_id", targetKey: "id", onDelete: "CASCADE" }); // ✅ 추가
+  }
+
   static async seedDefaultBoards() {
     const defaultBoards = [
-      { name: "프론트엔드" },
-      { name: "백엔드" },
-      { name: "보안" },
-      { name: "미디어" },
-      { name: "인공지능" },
-      { name: "임베디드 & IoT" },
-      { name: "블록체인 & 웹3" },
-      { name: "빅데이터" },
-      { name: "코드그라운드" },
+      "Frontend",
+      "Backend",
+      "Security",
+      "Media & Game",
+      "AI & Data Science",
+      "Embedded & IoT",
+      "Blockchain & Web3",
+      "Big Data",
+      "Career & Dev Culture",
     ];
 
-    for (const board of defaultBoards) {
-      await Board.findOrCreate({ where: { name: board.name } });
+    for (const name of defaultBoards) {
+      await Board.findOrCreate({ where: { name } });
     }
   }
 }

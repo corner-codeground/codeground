@@ -11,7 +11,6 @@ const { sequelize, Board } = require("./models");
 // dotenv 설정은 가능한 최상단에서 실행
 require("dotenv").config();
 
-
 const authRouter = require("./routes/auth");
 const commentRouter = require("./routes/route_comment");
 const likeRouter = require("./routes/route_like");
@@ -42,17 +41,6 @@ app.use("/uploads", express.static("uploads"));
 // 템플릿 엔진 설정 (EJS)
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
-
-// CORS 설정
-app.use(
-  cors({
-    origin: ["http://localhost:3000", "http://localhost:3000/"], // 모든 도메인 허용 (테스트 시 사용, 배포 시 변경 필요)
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-  })
-);
-app.options("*", cors());
 
 // 미들웨어 설정
 app.use(express.json());
