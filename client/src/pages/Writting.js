@@ -64,6 +64,8 @@ const Writting = ({ initialTitle = "", initialContent = "", onSave }) => {
       if (response.ok) {
         const data = await response.json();
         console.log("게시글 저장 완료:", data);
+        const postId = data.id || data.post?.id;  // ✅ data.id가 없으면 data.post.id를 사용
+        console.log("이동할 경로:", `/posts/${data.post.id}`);  // ✅ 로그 추가
         setIsLoading(false);  // ✅ 저장 완료 후 로딩 해제
         navigate(`/post/${data.post.id}`);
       } else {

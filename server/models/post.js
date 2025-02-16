@@ -35,17 +35,13 @@ class Post extends Sequelize.Model {
           allowNull: false,
           defaultValue: true,
         },
-        view_count: {
-          type: Sequelize.INTEGER, // ✅ 조회수 컬럼 추가
-          allowNull: false,
-          defaultValue: 0, // 기본값 0
-        },
-      }, {
+      },
+      {
         sequelize,
         timestamps: true,
         underscored: true,
         modelName: "Post",
-        tableName: "posts",
+        tableName: "post",
         paranoid: true, // soft delete 지원 (deleted_at 사용)
         charset: "utf8",
         collate: "utf8_general_ci",
