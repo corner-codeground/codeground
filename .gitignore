@@ -163,8 +163,8 @@ dist
 # views 폴더
 views/
 
-# public 폴더
-public/
+# # public 폴더
+# public/
 
 # migrations 폴더
 migrations/

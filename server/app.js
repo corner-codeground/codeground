@@ -63,9 +63,13 @@ app.use(passport.session());
 // JWT 인증 미들웨어
 const authenticateJWT = (req, res, next) => {
   const token = req.headers["authorization"]?.split(" ")[1];
+
+  console.log("✅ [DEBUG] Received token:", token);
+
   if (!token) {
     return res.status(401).json({ message: "인증이 필요합니다." });
   }
+
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       return res.status(403).json({ message: "토큰이 유효하지 않습니다." });
@@ -81,7 +85,7 @@ app.use("/comment", commentRouter);
 app.use("/likes", likeRouter);
 app.use("/scraps", scrapRouter);
 app.use("/follow", followRouter);
-app.use("/posts", postRouter);
+app.use("/posts", authenticateJWT, postRouter);
 app.use("/runCodes", runCodeRouter);
 app.use("/boards", boardRouter);
 app.use("/community", communityRouter);
